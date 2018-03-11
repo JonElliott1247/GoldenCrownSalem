@@ -1,9 +1,15 @@
 USE GoldenCrownSalem;
 
-
---Category
+--Defensive cleanup
+DELETE FROM Menu.FamilyDinnerMenuItem;
+DELETE FROM Menu.MenuItem;
+DELETE FROM Menu.FamilyDinner;
+DELETE FROM Menu.FamilyDinnerMenuItemCategory;
+DELETE FROM Menu.SpicyOption;
 DELETE FROM Menu.Category;
 
+
+--Category
 INSERT INTO Menu.Category(Label) VALUES ('Appetizers');
 INSERT INTO Menu.Category(Label) VALUES ('Soups');
 INSERT INTO Menu.Category(Label) VALUES ('Combination Plates');
@@ -24,37 +30,22 @@ INSERT INTO Menu.Category(Label) VALUES ('Salads');
 INSERT INTO Menu.Category(Label) VALUES ('Children''s Menu');
 INSERT INTO Menu.Category(Label) VALUES ('Beverages');
 INSERT INTO Menu.Category(Label) VALUES ('Desserts');
---SELECT Label, SubLabel FROM Menu.Category;
+	--SELECT Label, SubLabel FROM Menu.Category;
 
 
 --SpicyOption
-DELETE FROM.Menu.SpicyOption;
-
 INSERT INTO Menu.SpicyOption(Label) VALUES ('not spicy');
 INSERT INTO Menu.SpicyOption(Label) VALUES ('spicy');
 INSERT INTO Menu.SpicyOption(Label) VALUES ('extra spicy');
---SELECT Label FROM Menu.SpicyOption;
+	--SELECT Label FROM Menu.SpicyOption;
 
 --FamilyDinner
-DELETE FROM Menu.FamilyDinner;
-
 INSERT INTO Menu.FamilyDinner(Label, MinNumOrder, MinNumOrderForSpecial) VALUES ('A', 2, 4);
 INSERT INTO Menu.FamilyDinner(Label, MinNumOrder, MinNumOrderForSpecial) VALUES ('B', 2, 4);
 INSERT INTO Menu.FamilyDinner(Label, MinNumOrder, MinNumOrderForSpecial) VALUES ('C', 2, 4);
 INSERT INTO Menu.FamilyDinner(Label, MinNumOrder, MinNumOrderForSpecial) VALUES ('D', 2, 4);
-
+	--SELECT Label, MinNumOrder, MinNumOrderForSpecial FROM Menu.FamilyDinner
 --MenuItem
-DELETE FROM Menu.MenuItem;
-
-INSERT INTO Menu.FamilyDinner(Label, SubLabel, Price, CategoryId, CanBeSpicy, IsSpicyByDefault, DefualtSpicyOptionId, IsAvailable, FamilyDinnerId)
-	VALUES ('Golden Crown Appetizer', '(parchment chicken, B.B.Q pork, fried wonton, fried shrimp, shrimp egg roll)', 9.25, SELECT , 
-
---	MenuItemId			INT IDENTITY(1,1) PRIMARY KEY,
---	Label					VARCHAR(100) NOT NULL,
---	Price					MONEY NOT NULL,
---	CategoryId			INT FOREIGN KEY REFERENCES Menu.Category(CategoryId),
---	CanBeSpicy			BIT,
---	IsSpicyByDefault		BIT NOT NULL,
---	DefaultSpicyOptionId	INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId),
---	IsAvailable			BIT,
---  FamilyDinnerId		INT FOREIGN KEY REFERENCES Menu.FamilyDinner(FamilyDinnerId)
+INSERT INTO Menu.MenuItem(Label, SubLabel, Price, CategoryId, CanBeSpicy, IsSpicyByDefault, DefaultSpicyOptionId, IsAvailable, FamilyDinnerId)
+	VALUES ('Golden Crown Appetizer', '(parchment chicken, B.B.Q pork, fried wonton, fried shrimp, shrimp egg roll)', 9.25, 
+		(SELECT CategoryId FROM Menu.Category WHERE Label = 'Appetizers'), 1, 0, NULL, 1, NULL)

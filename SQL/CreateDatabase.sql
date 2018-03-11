@@ -1,5 +1,6 @@
 USE GoldenCrownSalem;
 
+--Defensive cleanup
 DROP TABLE IF EXISTS Menu.FamilyDinnerMenuItem;
 DROP TABLE IF EXISTS Menu.MenuItem;
 DROP TABLE IF EXISTS Menu.FamilyDinner;
@@ -10,6 +11,7 @@ DROP TABLE IF EXISTS Menu.Category;
 DROP SCHEMA IF EXISTS Menu;
 GO
 
+--Main script
 CREATE SCHEMA Menu;
 GO
 
