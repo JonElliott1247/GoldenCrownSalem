@@ -16,20 +16,20 @@ GO
 CREATE TABLE Menu.Category
 (
 	CategoryId	INT IDENTITY(1,1) PRIMARY KEY,
-	Label			VARCHAR(100) NOT NULL,
+	Label			VARCHAR(100) UNIQUE NOT NULL,
 	SubLabel		VARCHAR(100)
 );
 
 CREATE TABLE Menu.SpicyOption
 (
 	SpicyOptionId	INT	IDENTITY(1,1) PRIMARY KEY,
-	Label			VARCHAR(100) NOT NULL
+	Label			VARCHAR(100) UNIQUE NOT NULL
 );
 
 CREATE TABLE Menu.FamilyDinner
 (
 	FamilyDinnerId			INT IDENTITY(1,1) PRIMARY KEY,
-	Label					VARCHAR(100) NOT NULL,
+	Label					VARCHAR(100) UNIQUE NOT NULL,
 	MinNumOrder				INT NOT NULL,
 	MinNumOrderForSpecial	INT NOT NULL
 );
@@ -37,7 +37,7 @@ CREATE TABLE Menu.FamilyDinner
 CREATE TABLE Menu.MenuItem
 (
 	MenuItemId				INT IDENTITY(1,1) PRIMARY KEY,
-	Label					VARCHAR(100) NOT NULL,
+	Label					VARCHAR(100) UNIQUE NOT NULL,
 	SubLabel				VARCHAR(100),
 	Price					MONEY NOT NULL,
 	CategoryId				INT FOREIGN KEY REFERENCES Menu.Category(CategoryId),
