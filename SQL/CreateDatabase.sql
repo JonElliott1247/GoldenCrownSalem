@@ -53,7 +53,7 @@ CREATE TABLE Menu.MenuItem
 CREATE TABLE Menu.FamilyDinnerMenuItemCategory
 (
 	FamilyDinnerMenuItemCategoryId	INT IDENTITY(1,1) PRIMARY KEY,
-	Label							VARCHAR(100) NOT NULL
+	Label							CHAR(1) NOT NULL
 );
 
 CREATE TABLE Menu.FamilyDinnerMenuItem

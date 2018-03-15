@@ -70,25 +70,42 @@ DECLARE @AppetizerId			AS INT = (SELECT CategoryId FROM Menu.Category WHERE Labe
 
 
 
---*********************************************************************************************************************
+--*********************************************************************************************************************************
 --SpicyOption
---*********************************************************************************************************************
+--*********************************************************************************************************************************
 DECLARE @NotSpicy AS VARCHAR(100) = 'not spicy', @Spicy AS VARCHAR(100) = 'spicy', @ExtraSpicy AS VARCHAR(100) = 'extra spicy';
 INSERT INTO Menu.SpicyOption(Label) VALUES (@NotSpicy), (@Spicy), (@ExtraSpicy);
 DECLARE @NotSpicyId		AS INT = (SELECT SpicyOptionId FROM Menu.SpicyOption WHERE Label = @NotSpicy),
 		@SpicyId		AS INT = (SELECT SpicyOptionId FROM Menu.SpicyOption WHERE Label = @Spicy),
 		@ExtraSpicyId	AS INT = (SELECT SpicyOptionId FROM Menu.SpicyOption WHERE Label = @ExtraSpicy)
-	--SELECT Label FROM Menu.SpicyOption;
+--SELECT Label FROM Menu.SpicyOption;
+--*********************************************************************************************************************************
+--SpicyOption
+--*********************************************************************************************************************************
 
+
+
+--*********************************************************************************************************************************
 --FamilyDinner
-INSERT INTO Menu.FamilyDinner(Label, MinNumOrder, MinNumOrderForSpecial) VALUES ('A', 2, 4);
-INSERT INTO Menu.FamilyDinner(Label, MinNumOrder, MinNumOrderForSpecial) VALUES ('B', 2, 4);
-INSERT INTO Menu.FamilyDinner(Label, MinNumOrder, MinNumOrderForSpecial) VALUES ('C', 2, 4);
-INSERT INTO Menu.FamilyDinner(Label, MinNumOrder, MinNumOrderForSpecial) VALUES ('D', 2, 4);
-	--SELECT Label, MinNumOrder, MinNumOrderForSpecial FROM Menu.FamilyDinner
---MenuItem
+--*********************************************************************************************************************************
+DECLARE @DinnerA AS CHAR(1) = 'A', @DinnerB AS CHAR(1) = 'B', @DinnerC AS CHAR(1) = 'C', @DinnerD AS CHAR(1) = 'D';
+INSERT INTO Menu.FamilyDinner(Label, MinNumOrder, MinNumOrderForSpecial) 
+			VALUES (@DinnerA, 2, 4), (@DinnerB, 2, 4), (@DinnerC, 2, 4), (@DinnerD, 2, 4);
+DECLARE @DinnerAId AS INT = (SELECT FamilyDinnerId FROM Menu.FamilyDinner WHERE Label = @DinnerA), 
+		@DinnerBId AS INT = (SELECT FamilyDinnerId FROM Menu.FamilyDinner WHERE Label = @DinnerB),
+		@DinnerCId AS INT = (SELECT FamilyDinnerId FROM Menu.FamilyDinner WHERE Label = @DinnerC),
+		@DinnerDId AS INT = (SELECT FamilyDinnerId FROM Menu.FamilyDinner WHERE Label = @DinnerD);
+--SELECT Label, MinNumOrder, MinNumOrderForSpecial FROM Menu.FamilyDinner
+--*********************************************************************************************************************************
+--FamilyDinner
+--*********************************************************************************************************************************
 
-INSERT INTO Menu.MenuItem(Label, SubLabel, Price, CategoryId, CanBeSpicy, IsSpicyByDefault, DefaultSpicyOptionId, IsAvailable, FamilyDinnerId)
+
+--*********************************************************************************************************************************
+--MenuItem
+--*********************************************************************************************************************************
+INSERT INTO Menu.MenuItem(	Label, SubLabel, Price, CategoryId, CanBeSpicy, IsSpicyByDefault, 
+							DefaultSpicyOptionId, IsAvailable, FamilyDinnerId)
 	VALUES 
 	('Golden Crown Appetizer', 'parchment chicken, BBQ pork, fried wonton, fried shrimp, shrimp egg roll', 9.25, @AppetizerId, 1, 0, NULL, 1, NULL),
 	('BBQ Pork', NULL, 7.25, @AppetizerId, 1, 0, NULL, 1, NULL),
