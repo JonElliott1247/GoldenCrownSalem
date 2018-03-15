@@ -10,17 +10,21 @@ DELETE FROM Menu.Category;
 
 
 --Category
+DECLARE @Appetizer AS VARCHAR(100)			= 'Appetizers', 
+		@Soup AS VARCHAR(100)				= 'Soups',
+		@CombinationPlate AS VARCHAR(100)	= 'Combination Plates',
+		@FamilyDinner AS VARCHAR(100)		= 'Family Dinner',
+		@Chicken AS VARCHAR(100)			= 'Chicken',
+		@Pork AS VARCHAR(100)				= 'Pork',
+		@SizzlingPlate AS VARCHAR(100)		= 'Sizzling Plates',
+		@Vegetarian AS VARCHAR(100)			= 'Vegetarian',
+		@ChowMein AS VARCHAR(100)			= 'Chow Mein',
+		@LoMein AS VARCHAR(100)				= 'Lo Mein';
 
-INSERT INTO Menu.Category(Label) VALUES ('Appetizers');
-INSERT INTO Menu.Category(Label) VALUES ('Soups');
-INSERT INTO Menu.Category(Label) VALUES ('Combination Plates');
-INSERT INTO Menu.Category(Label) VALUES ('Family Dinner');
-INSERT INTO Menu.Category(Label) VALUES ('Chicken');
-INSERT INTO Menu.Category(Label) VALUES ('Pork');
-INSERT INTO Menu.Category(Label) VALUES ('Sizzling Plates');
-INSERT INTO Menu.Category(Label) VALUES ('Vegetarian');
-INSERT INTO Menu.Category(Label,SubLabel) VALUES ('Chow Mein','crispy noodles');
-INSERT INTO Menu.Category(Label,SubLabel) VALUES ('Lo Mein', 'soft noodles');
+INSERT INTO Menu.Category(Label) VALUES 
+		(@Appetizer), (@Soup), (@CombinationPlate),(@FamilyDinner),(@Chicken), (@Pork), (@SizzlingPlate), (@Vegetarian);
+INSERT INTO Menu.Category(Label, SubLabel) VALUES
+		(@ChowMein,'crispy noodles'), (@LoMein, 'soft noodles');
 
 INSERT INTO Menu.Category(Label) VALUES ('Chop Suey');
 INSERT INTO Menu.Category(Label) VALUES ('Rice');
@@ -31,6 +35,8 @@ INSERT INTO Menu.Category(Label) VALUES ('Salads');
 INSERT INTO Menu.Category(Label) VALUES ('Children''s Menu');
 INSERT INTO Menu.Category(Label) VALUES ('Beverages');
 INSERT INTO Menu.Category(Label) VALUES ('Desserts');
+
+--Ids for dependent tables
 DECLARE @AppetizerId AS INT = (SELECT CategoryId FROM Menu.Category WHERE Label = 'Appetizers');
 	--SELECT Label, SubLabel FROM Menu.Category;
 
