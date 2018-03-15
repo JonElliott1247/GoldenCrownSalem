@@ -48,11 +48,13 @@ INSERT INTO Menu.FamilyDinner(Label, MinNumOrder, MinNumOrderForSpecial) VALUES 
 --MenuItem
 INSERT INTO Menu.MenuItem(Label, SubLabel, Price, CategoryId, CanBeSpicy, IsSpicyByDefault, DefaultSpicyOptionId, IsAvailable, FamilyDinnerId)
 	VALUES 
-	('Golden Crown Appetizer', '(parchment chicken, B.B.Q pork, fried wonton, fried shrimp, shrimp egg roll)', 9.25, 
+	('Golden Crown Appetizer', '(parchment chicken, BBQ pork, fried wonton, fried shrimp, shrimp egg roll)', 9.25, 
 		(SELECT CategoryId FROM Menu.Category WHERE Label = 'Appetizers'), 1, 0, NULL, 1, NULL),
 	('BBQ Pork', NULL, 7.25,
 		(SELECT CategoryId FROM Menu.Category WHERE Label = 'Appetizers'), 1, 0, NULL, 1, NULL),
-	('Sesame Flyboy', '(8)', 7.25,
+	('Sesame Flyboy', '8 total', 7.25,
+		(SELECT CategoryId FROM Menu.Category WHERE Label = 'Appetizers'), 1, 0, NULL, 1, NULL),
+	('Small Appetizer', 'B.B.Q pork, sesame flyboy, fried wonton', 7.50,
 		(SELECT CategoryId FROM Menu.Category WHERE Label = 'Appetizers'), 1, 0, NULL, 1, NULL);
 	
-
+	SELECT Label, SubLabel, Price, CategoryId, CanBeSpicy, IsSpicyByDefault, DefaultSpicyOptionId, IsAvailable, FamilyDinnerId FROM Menu.MenuItem;

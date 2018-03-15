@@ -1,0 +1,38 @@
+Menu	Category
+CategoryId	Name
+
+Menu	SpicyOption
+SpicyOptionId	Name	
+
+Menu	MenuItem
+ItemId	Name	Price	Category	CanBeSpicy	IsSpicyByDefault	IsAvailable	 FamilyDinner
+
+Menu	FamilyDinner
+FamilyDinnerId	Name	MinNumOrder	MinNumOrderForSpecial
+
+Menu	FamilyDinnerMenuItem
+FamilyDinnerMenuItemId	FamilyDinner	MenuItem	IsSpecial
+
+
+
+
+
+
+
+
+Tables:
+1)Category
+	attributes:
+	1) Appetizers
+	2) Soups
+	3) Combination Plates
+	4) Family Dinner
+	5) Chicken
+	6) Pork
+	7) Beef
+	8) Seafood
+	9) Curries From The Indies
+	10) Sizzling Plate
+	11) Vegetarian
+	12) Chow Mein 
+
