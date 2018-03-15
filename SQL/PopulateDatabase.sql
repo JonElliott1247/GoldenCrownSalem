@@ -10,6 +10,7 @@ DELETE FROM Menu.Category;
 
 
 --Category
+
 INSERT INTO Menu.Category(Label) VALUES ('Appetizers');
 INSERT INTO Menu.Category(Label) VALUES ('Soups');
 INSERT INTO Menu.Category(Label) VALUES ('Combination Plates');
@@ -30,6 +31,7 @@ INSERT INTO Menu.Category(Label) VALUES ('Salads');
 INSERT INTO Menu.Category(Label) VALUES ('Children''s Menu');
 INSERT INTO Menu.Category(Label) VALUES ('Beverages');
 INSERT INTO Menu.Category(Label) VALUES ('Desserts');
+DECLARE @AppetizerId AS INT = (SELECT CategoryId FROM Menu.Category WHERE Label = 'Appetizers');
 	--SELECT Label, SubLabel FROM Menu.Category;
 
 
@@ -46,12 +48,12 @@ INSERT INTO Menu.FamilyDinner(Label, MinNumOrder, MinNumOrderForSpecial) VALUES 
 INSERT INTO Menu.FamilyDinner(Label, MinNumOrder, MinNumOrderForSpecial) VALUES ('D', 2, 4);
 	--SELECT Label, MinNumOrder, MinNumOrderForSpecial FROM Menu.FamilyDinner
 --MenuItem
-DECLARE @appetizer AS INT = (SELECT CategoryId FROM Menu.Category WHERE Label = 'Appetizers');
+
 INSERT INTO Menu.MenuItem(Label, SubLabel, Price, CategoryId, CanBeSpicy, IsSpicyByDefault, DefaultSpicyOptionId, IsAvailable, FamilyDinnerId)
 	VALUES 
-	('Golden Crown Appetizer', '(parchment chicken, BBQ pork, fried wonton, fried shrimp, shrimp egg roll)', 9.25, @appetizer, 1, 0, NULL, 1, NULL),
-	('BBQ Pork', NULL, 7.25, @appetizer, 1, 0, NULL, 1, NULL),
-	('Sesame Flyboy', '8 total', 7.25, @appetizer, 1, 0, NULL, 1, NULL),
-	('Small Appetizer', 'B.B.Q pork, sesame flyboy, fried wonton', 7.50, @appetizer, 1, 0, NULL, 1, NULL);
+	('Golden Crown Appetizer', '(parchment chicken, BBQ pork, fried wonton, fried shrimp, shrimp egg roll)', 9.25, @AppetizerId, 1, 0, NULL, 1, NULL),
+	('BBQ Pork', NULL, 7.25, @AppetizerId, 1, 0, NULL, 1, NULL),
+	('Sesame Flyboy', '8 total', 7.25, @AppetizerId, 1, 0, NULL, 1, NULL),
+	('Small Appetizer', 'B.B.Q pork, sesame flyboy, fried wonton', 7.50, @AppetizerId, 1, 0, NULL, 1, NULL);
 	
 	SELECT Label, SubLabel, Price, CategoryId, CanBeSpicy, IsSpicyByDefault, DefaultSpicyOptionId, IsAvailable, FamilyDinnerId FROM Menu.MenuItem;
