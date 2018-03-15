@@ -67,10 +67,17 @@ DECLARE @AppetizerId			AS INT = (SELECT CategoryId FROM Menu.Category WHERE Labe
 --Category
 --*********************************************************************************************************************
 
+
+
+
+--*********************************************************************************************************************
 --SpicyOption
-INSERT INTO Menu.SpicyOption(Label) VALUES ('not spicy');
-INSERT INTO Menu.SpicyOption(Label) VALUES ('spicy');
-INSERT INTO Menu.SpicyOption(Label) VALUES ('extra spicy');
+--*********************************************************************************************************************
+DECLARE @NotSpicy AS VARCHAR(100) = 'not spicy', @Spicy AS VARCHAR(100) = 'spicy', @ExtraSpicy AS VARCHAR(100) = 'extra spicy';
+INSERT INTO Menu.SpicyOption(Label) VALUES (@NotSpicy), (@Spicy), (@ExtraSpicy);
+DECLARE @NotSpicyId		AS INT = (SELECT SpicyOptionId FROM Menu.SpicyOption WHERE Label = @NotSpicy),
+		@SpicyId		AS INT = (SELECT SpicyOptionId FROM Menu.SpicyOption WHERE Label = @Spicy),
+		@ExtraSpicyId	AS INT = (SELECT SpicyOptionId FROM Menu.SpicyOption WHERE Label = @ExtraSpicy)
 	--SELECT Label FROM Menu.SpicyOption;
 
 --FamilyDinner
