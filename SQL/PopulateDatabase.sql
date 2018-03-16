@@ -79,7 +79,11 @@ DECLARE @NotSpicyId		AS INT = (SELECT SpicyOptionId FROM Menu.SpicyOption WHERE 
 --*********************************************************************************************************************************
 --<FamilyDinner>
 --*********************************************************************************************************************************
-DECLARE @DinnerA AS CHAR(1) = 'A', @DinnerB AS CHAR(1) = 'B', @DinnerC AS CHAR(1) = 'C', @DinnerD AS CHAR(1) = 'D';
+DECLARE @DinnerA AS CHAR(1) = 'A', 
+		@DinnerB AS CHAR(1) = 'B', 
+		@DinnerC AS CHAR(1) = 'C', 
+		@DinnerD AS CHAR(1) = 'D';
+
 INSERT INTO Menu.FamilyDinner(Label, MinNumOrder, MinNumOrderForSpecial) 
 			VALUES (@DinnerA, 2, 4), (@DinnerB, 2, 4), (@DinnerC, 2, 4), (@DinnerD, 2, 4);
 DECLARE @DinnerAId AS INT = (SELECT FamilyDinnerId FROM Menu.FamilyDinner WHERE Label = @DinnerA), 
