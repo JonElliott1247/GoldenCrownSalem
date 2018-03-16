@@ -16,7 +16,7 @@ DELETE FROM Menu.Category;
 
 
 --*********************************************************************************************************************
---Category
+--<Category>
 --*********************************************************************************************************************
 
 DECLARE @Appetizer			AS VARCHAR(100)	= 'Appetizers', 
@@ -28,9 +28,7 @@ DECLARE @Appetizer			AS VARCHAR(100)	= 'Appetizers',
 		@SizzlingPlate		AS VARCHAR(100)	= 'Sizzling Plates',
 		@Vegetarian			AS VARCHAR(100)	= 'Vegetarian',
 		@ChowMein			AS VARCHAR(100)	= 'Chow Mein',
-		@ChowMeinSub		AS VARCHAR(100) = 'crispy noodles',
 		@LoMein				AS VARCHAR(100)	= 'Lo Mein',
-		@LoMeinSub			AS VARCHAR(100) = 'soft noodles',
 		@ChopSuey			AS VARCHAR(100) = 'Chop Suey',
 		@Rice				AS VARCHAR(100) = 'Rice',
 		@NoodleSoup			AS VARCHAR(100) = 'Noodle Soups',
@@ -48,13 +46,12 @@ INSERT INTO Menu.Category(Label) VALUES
 		(@Beverage),	(@Dessert);
 
 INSERT INTO Menu.Category(Label, SubLabel) VALUES
-		(@ChowMein,@ChowMeinSub), (@LoMein, @LoMeinSub);
+		(@ChowMein, 'crispy noodles'), (@LoMein, 'soft noodles');
 
 --SELECT Label, SubLabel FROM Menu.Category;
 --*********************************************************************************************************************
---Category
+--</Category>
 --*********************************************************************************************************************
-
 
 
 
@@ -66,9 +63,6 @@ DECLARE @NotSpicy	AS VARCHAR(100)	= 'not spicy',
 		@ExtraSpicy AS VARCHAR(100) = 'extra spicy';
 
 INSERT INTO Menu.SpicyOption(Label) VALUES (@NotSpicy), (@Spicy), (@ExtraSpicy);
-DECLARE @NotSpicyId		AS INT = (SELECT SpicyOptionId FROM Menu.SpicyOption WHERE Label = @NotSpicy),
-		@SpicyId		AS INT = (SELECT SpicyOptionId FROM Menu.SpicyOption WHERE Label = @Spicy),
-		@ExtraSpicyId	AS INT = (SELECT SpicyOptionId FROM Menu.SpicyOption WHERE Label = @ExtraSpicy)
 --SELECT Label FROM Menu.SpicyOption;
 --*********************************************************************************************************************************
 --</SpicyOption>
@@ -86,10 +80,6 @@ DECLARE @DinnerA AS CHAR(1) = 'A',
 
 INSERT INTO Menu.FamilyDinner(Label, MinNumOrder, MinNumOrderForSpecial) 
 			VALUES (@DinnerA, 2, 4), (@DinnerB, 2, 4), (@DinnerC, 2, 4), (@DinnerD, 2, 4);
-DECLARE @DinnerAId AS INT = (SELECT FamilyDinnerId FROM Menu.FamilyDinner WHERE Label = @DinnerA), 
-		@DinnerBId AS INT = (SELECT FamilyDinnerId FROM Menu.FamilyDinner WHERE Label = @DinnerB),
-		@DinnerCId AS INT = (SELECT FamilyDinnerId FROM Menu.FamilyDinner WHERE Label = @DinnerC),
-		@DinnerDId AS INT = (SELECT FamilyDinnerId FROM Menu.FamilyDinner WHERE Label = @DinnerD);
 --SELECT Label, MinNumOrder, MinNumOrderForSpecial FROM Menu.FamilyDinner
 --*********************************************************************************************************************************
 --</FamilyDinner>
@@ -97,14 +87,15 @@ DECLARE @DinnerAId AS INT = (SELECT FamilyDinnerId FROM Menu.FamilyDinner WHERE 
 
 
 --*********************************************************************************************************************************
---MenuItem
+--<MenuItem>
 --*********************************************************************************************************************************
-INSERT INTO Menu.MenuItem(	Label, SubLabel, Price, CategoryId, CanBeSpicy, IsSpicyByDefault, 
-							DefaultSpicyOptionId, IsAvailable, FamilyDinnerId)
+INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId, FamilyDinnerId)
 	VALUES 
-	('Golden Crown Appetizer', 'parchment chicken, BBQ pork, fried wonton, fried shrimp, shrimp egg roll', 9.25, Menu.CategoryId(@Appetizer), 1, 0, NULL, 1, NULL),
-	('BBQ Pork', NULL, 7.25, Menu.CategoryId(@Appetizer), 1, 0, NULL, 1, NULL),
-	('Sesame Flyboy', '8 total', 7.25, Menu.CategoryId(@Appetizer), 1, 0, NULL, 1, NULL),
-	('Small Appetizer', 'B.B.Q pork, sesame flyboy, fried wonton', 7.50, Menu.CategoryId(@Appetizer), 1, 0, NULL, 1, NULL);
+	('Golden Crown Appetizer', 'parchment chicken, BBQ pork, fried wonton, fried shrimp, shrimp egg roll', 9.25, 1, 
+		Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
+	('BBQ Pork', NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
+	('Sesame Flyboy', '8 total', 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
+	('Small Appetizer', 'B.B.Q pork, sesame flyboy, fried wonton', 7.50, 1, 
+		Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL);
 	
-	SELECT Label, SubLabel, Price, CategoryId, CanBeSpicy, IsSpicyByDefault, DefaultSpicyOptionId, IsAvailable, FamilyDinnerId FROM Menu.MenuItem;
+	SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId, FamilyDinnerId FROM Menu.MenuItem;

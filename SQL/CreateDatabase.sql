@@ -51,11 +51,9 @@ CREATE TABLE Menu.MenuItem
 	Label					VARCHAR(100) UNIQUE NOT NULL,
 	SubLabel				VARCHAR(100),
 	Price					MONEY NOT NULL,
-	CategoryId				INT FOREIGN KEY REFERENCES Menu.Category(CategoryId),
-	CanBeSpicy				BIT,
-	IsSpicyByDefault		BIT NOT NULL,
-	DefaultSpicyOptionId	INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId),
 	IsAvailable				BIT,
+	CategoryId				INT FOREIGN KEY REFERENCES Menu.Category(CategoryId),
+	DefaultSpicyOptionId	INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId),
 	FamilyDinnerId			INT FOREIGN KEY REFERENCES Menu.FamilyDinner(FamilyDinnerId)
 );
 
