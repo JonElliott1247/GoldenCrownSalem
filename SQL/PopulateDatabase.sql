@@ -8,9 +8,21 @@ DELETE FROM Menu.FamilyDinnerMenuItemCategory;
 DELETE FROM Menu.SpicyOption;
 DELETE FROM Menu.Category;
 
+IF OBJECT_ID (N'Menu.CategoryId', N'FN') IS NOT NULL  
+    DROP FUNCTION Menu.CategoryId;
+
 --*********************************************************************************************************************
 --Category
 --*********************************************************************************************************************
+GO
+CREATE FUNCTION Menu.CategoryId(@CategoryLabel VARCHAR(100))  
+RETURNS INT   
+AS   
+BEGIN
+	RETURN (SELECT CategoryId FROM Menu.Category WHERE Label = @CategoryLabel);
+END; 
+GO
+
 DECLARE @Appetizer			AS VARCHAR(100)	= 'Appetizers', 
 		@Soup				AS VARCHAR(100)	= 'Soups',
 		@CombinationPlate	AS VARCHAR(100)	= 'Combination Plates',
@@ -43,6 +55,7 @@ INSERT INTO Menu.Category(Label, SubLabel) VALUES
 		(@ChowMein,@ChowMeinSub), (@LoMein, @LoMeinSub);
 
 --Ids for dependent tables
+
 DECLARE @AppetizerId			AS INT = (SELECT CategoryId FROM Menu.Category WHERE Label = @Appetizer), 
 		@SoupId					AS INT = (SELECT CategoryId FROM Menu.Category WHERE Label = @Soup),
 		@CombinationPlateId		AS INT = (SELECT CategoryId FROM Menu.Category WHERE Label = @CombinationPlate),

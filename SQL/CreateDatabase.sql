@@ -8,6 +8,9 @@ DROP TABLE IF EXISTS Menu.FamilyDinnerMenuItemCategory;
 DROP TABLE IF EXISTS Menu.SpicyOption;
 DROP TABLE IF EXISTS Menu.Category;
 
+IF OBJECT_ID (N'Menu.CategoryId', N'FN') IS NOT NULL  
+    DROP FUNCTION Menu.CategoryId;
+
 DROP SCHEMA IF EXISTS Menu;
 GO
 
