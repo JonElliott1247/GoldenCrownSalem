@@ -11,6 +11,12 @@ DROP TABLE IF EXISTS Menu.Category;
 IF OBJECT_ID (N'Menu.CategoryId', N'FN') IS NOT NULL  
     DROP FUNCTION Menu.CategoryId;
 
+IF OBJECT_ID (N'Menu.SpicyOptionId', N'FN') IS NOT NULL  
+    DROP FUNCTION Menu.SpicyOptionId;
+
+IF OBJECT_ID (N'Menu.FamilyDinnerId', N'FN') IS NOT NULL  
+    DROP FUNCTION Menu.FamilyDinnerId;
+
 DROP SCHEMA IF EXISTS Menu;
 GO
 
@@ -66,3 +72,37 @@ CREATE TABLE Menu.FamilyDinnerMenuItem
 	MenuItemId						INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId) NOT NULL,
 	FamilyDinnerMenuItemCategoryId	INT FOREIGN KEY REFERENCES Menu.FamilyDinnerMenuItemCategory(FamilyDinnerMenuItemCategoryId) NOT NULL
 );
+
+--*********************************************************************************************************************
+--<Helper user defined functions>
+--*********************************************************************************************************************
+GO
+CREATE FUNCTION Menu.CategoryId(@CategoryLabel VARCHAR(100))  
+RETURNS INT   
+AS   
+BEGIN
+	RETURN (SELECT CategoryId FROM Menu.Category WHERE Label = @CategoryLabel);
+END; 
+GO
+
+GO
+CREATE FUNCTION Menu.SpicyOptionId(@SpicyOptionLabel VARCHAR(100))  
+RETURNS INT   
+AS   
+BEGIN
+	RETURN (SELECT SpicyOptionId FROM Menu.SpicyOption WHERE Label = @SpicyOptionLabel);
+END; 
+GO
+
+GO
+CREATE FUNCTION Menu.FamilyDinnerId(@SpicyOptionLabel VARCHAR(100))  
+RETURNS INT   
+AS   
+BEGIN
+	RETURN (SELECT SpicyOptionId FROM Menu.SpicyOption WHERE Label = @SpicyOptionLabel);
+END; 
+GO
+
+--*********************************************************************************************************************
+--</Helper user defined functions>
+--*********************************************************************************************************************
