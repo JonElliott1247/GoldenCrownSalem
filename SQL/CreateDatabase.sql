@@ -2,6 +2,7 @@ USE GoldenCrownSalem;
 
 --Defensive cleanup
 DROP TABLE IF EXISTS Menu.CombinationPlate;
+DROP TABLE IF EXISTS Menu.MenuItem_FamilyDinnerItem;
 DROP TABLE IF EXISTS Menu.FamilyDinnerItem;
 DROP TABLE IF EXISTS Menu.FamilyDinner;
 DROP TABLE IF EXISTS Menu.MenuItem;
@@ -17,8 +18,8 @@ IF OBJECT_ID (N'Menu.SpicyOptionId', N'FN') IS NOT NULL
 IF OBJECT_ID (N'Menu.FamilyDinnerId', N'FN') IS NOT NULL  
     DROP FUNCTION Menu.FamilyDinnerId;
 
-IF OBJECT_ID (N'Menu.OneSpecialPerFamilyDinnerFunc', N'FN') IS NOT NULL  
-    DROP FUNCTION Menu.OneSpecialPerFamilyDinnerFunc;
+IF OBJECT_ID (N'Menu.NumSpecialPerFamilyDinnerFunc', N'FN') IS NOT NULL  
+    DROP FUNCTION Menu.NumSpecialPerFamilyDinnerFunc;
 
 DROP SCHEMA IF EXISTS Menu;
 GO
@@ -57,25 +58,30 @@ CREATE TABLE Menu.MenuItem
 CREATE TABLE Menu.FamilyDinnerItem
 (
 	FamilyDinnerItemId			INT IDENTITY(1,1) PRIMARY KEY,
+	Label						VARCHAR(100)
+);
+
+CREATE TABLE Menu.MenuItem_FamilyDinnerItem
+(
+	MenuItemFamilyDinnerItem	INT IDENTITY(1,1) PRIMARY KEY,
 	MenuItemId					INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId),
-	Label						VARCHAR(100),
+	FamilyDinnerItemId			INT FOREIGN KEY REFERENCES Menu.FamilyDinnerItem(FamilyDinnerItemId),
 	IsSpecial					BIT NOT NULL
 );
 
-
 GO
-CREATE FUNCTION Menu.OneSpecialPerFamilyDinnerFunc(@MenuItemId INT)
+CREATE FUNCTION Menu.NumSpecialPerFamilyDinnerFunc(@MenuItemId INT)
 RETURNS INT   
 AS   
 BEGIN
-	RETURN (SELECT COUNT(*) FROM Menu.FamilyDInnerItem WHERE IsSpecial = 1 AND MenuItemId = @MenuItemId);
+	RETURN (SELECT COUNT(*) FROM Menu.MenuItem_FamilyDinnerItem WHERE IsSpecial = 1 AND MenuItemId = @MenuItemId) 
 END; 
 GO
 
 
-ALTER TABLE Menu.FamilyDinnerItem
-ADD CONSTRAINT OneSpecialPerFamilyDinner CHECK(		(IsSpecial = 0)
-												OR	(Menu.OneSpecialPerFamilyDinnerFunc(MenuItemId) = 0))
+ALTER TABLE Menu.MenuItem_FamilyDinnerItem
+ADD CONSTRAINT OneSpecialPerFamilyDinner CHECK( (IsSpecial = 0) OR	(Menu.NumSpecialPerFamilyDinnerFunc(MenuItemId) = 0));
+
 /*
 CREATE TABLE Menu.CombinationPlate
 (
