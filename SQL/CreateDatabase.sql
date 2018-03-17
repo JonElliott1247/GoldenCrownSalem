@@ -48,13 +48,16 @@ CREATE TABLE Menu.FamilyDinner
 CREATE TABLE Menu.MenuItem
 (
 	MenuItemId				INT IDENTITY(1,1) PRIMARY KEY,
-	Label					VARCHAR(100) UNIQUE NOT NULL,
+	Label					VARCHAR(100) NOT NULL,
 	SubLabel				VARCHAR(100),
 	Price					MONEY NOT NULL,
 	IsAvailable				BIT,
 	CategoryId				INT FOREIGN KEY REFERENCES Menu.Category(CategoryId),
 	DefaultSpicyOptionId	INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId),
-	FamilyDinnerId			INT FOREIGN KEY REFERENCES Menu.FamilyDinner(FamilyDinnerId)
+	FamilyDinnerId			INT FOREIGN KEY REFERENCES Menu.FamilyDinner(FamilyDinnerId),
+
+	CONSTRAINT UniqueLabel	UNIQUE(Label, SubLabel)
+	
 );
 
 CREATE TABLE Menu.FamilyDinnerMenuItemCategory

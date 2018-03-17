@@ -28,7 +28,9 @@ DECLARE @Appetizer			AS VARCHAR(100)	= 'Appetizers',
 		@SizzlingPlate		AS VARCHAR(100)	= 'Sizzling Plates',
 		@Vegetarian			AS VARCHAR(100)	= 'Vegetarian',
 		@ChowMein			AS VARCHAR(100)	= 'Chow Mein',
+		@ChowMeinSub		AS VARCHAR(100)	= 'crispy noodles',
 		@LoMein				AS VARCHAR(100)	= 'Lo Mein',
+		@LoMeinSub			AS VARCHAR(100) = 'soft noodles',
 		@ChopSuey			AS VARCHAR(100) = 'Chop Suey',
 		@Rice				AS VARCHAR(100) = 'Rice',
 		@NoodleSoup			AS VARCHAR(100) = 'Noodle Soups',
@@ -46,7 +48,7 @@ INSERT INTO Menu.Category(Label) VALUES
 		(@Beverage),	(@Dessert);
 
 INSERT INTO Menu.Category(Label, SubLabel) VALUES
-		(@ChowMein, 'crispy noodles'), (@LoMein, 'soft noodles');
+		(@ChowMein, @ChowMeinSub), (@LoMein, @ChowMeinSub);
 
 --SELECT Label, SubLabel FROM Menu.Category;
 --*********************************************************************************************************************
