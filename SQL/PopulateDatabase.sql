@@ -6,7 +6,6 @@ USE GoldenCrownSalem;
 DELETE FROM Menu.FamilyDinnerMenuItem;
 DELETE FROM Menu.MenuItem;
 DELETE FROM Menu.FamilyDinner;
-DELETE FROM Menu.FamilyDinnerMenuItemCategory;
 DELETE FROM Menu.SpicyOption;
 DELETE FROM Menu.Category;
 
@@ -80,7 +79,7 @@ DECLARE @DinnerA AS CHAR(1) = 'A',
 		@DinnerC AS CHAR(1) = 'C', 
 		@DinnerD AS CHAR(1) = 'D';
 
-INSERT INTO Menu.FamilyDinner(Label, MinNumOrder, MinNumOrderForSpecial) 
+INSERT INTO Menu.FamilyDinner(Description, MinNumOrder, MinNumOrderForSpecial) 
 			VALUES (@DinnerA, 2, 4), (@DinnerB, 2, 4), (@DinnerC, 2, 4), (@DinnerD, 2, 4);
 --SELECT Label, MinNumOrder, MinNumOrderForSpecial FROM Menu.FamilyDinner
 --*********************************************************************************************************************************

@@ -4,7 +4,6 @@ USE GoldenCrownSalem;
 DROP TABLE IF EXISTS Menu.FamilyDinnerMenuItem;
 DROP TABLE IF EXISTS Menu.MenuItem;
 DROP TABLE IF EXISTS Menu.FamilyDinner;
-DROP TABLE IF EXISTS Menu.FamilyDinnerMenuItemCategory;
 DROP TABLE IF EXISTS Menu.SpicyOption;
 DROP TABLE IF EXISTS Menu.Category;
 
@@ -40,7 +39,7 @@ CREATE TABLE Menu.SpicyOption
 CREATE TABLE Menu.FamilyDinner
 (
 	FamilyDinnerId			INT IDENTITY(1,1) PRIMARY KEY,
-	Label					VARCHAR(100) UNIQUE NOT NULL,
+	Description				VARCHAR(100) UNIQUE NOT NULL,
 	MinNumOrder				INT NOT NULL,
 	MinNumOrderForSpecial	INT NOT NULL
 );
@@ -60,18 +59,12 @@ CREATE TABLE Menu.MenuItem
 	
 );
 
-CREATE TABLE Menu.FamilyDinnerMenuItemCategory
-(
-	FamilyDinnerMenuItemCategoryId	INT IDENTITY(1,1) PRIMARY KEY,
-	Label							CHAR(1) NOT NULL
-);
 
 CREATE TABLE Menu.FamilyDinnerMenuItem
 (
 	FamilyDinnerMenuItemId			INT IDENTITY(1,1) PRIMARY KEY,
 	FamilyDinnerId					INT FOREIGN KEY REFERENCES Menu.FamilyDinner(FamilyDinnerId) NOT NULL,
 	MenuItemId						INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId) NOT NULL,
-	FamilyDinnerMenuItemCategoryId	INT FOREIGN KEY REFERENCES Menu.FamilyDinnerMenuItemCategory(FamilyDinnerMenuItemCategoryId) NOT NULL
 );
 
 --*********************************************************************************************************************
