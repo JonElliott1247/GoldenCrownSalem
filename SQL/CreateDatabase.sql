@@ -1,7 +1,8 @@
 USE GoldenCrownSalem;
 
 --Defensive cleanup
-DROP TABLE IF EXISTS Menu.FamilyDinnerMenuItem;
+DROP TABLE IF EXISTS Menu.CombinationPlate;
+DROP TABLE IF EXISTS Menu.FamilyDinnerItem;
 DROP TABLE IF EXISTS Menu.FamilyDinner;
 DROP TABLE IF EXISTS Menu.MenuItem;
 DROP TABLE IF EXISTS Menu.SpicyOption;
@@ -53,35 +54,35 @@ CREATE TABLE Menu.MenuItem
 	
 );
 
-CREATE TABLE Menu.FamilyDinner
+CREATE TABLE Menu.FamilyDinnerItem
 (
-	FamilyDinnerId			INT IDENTITY(1,1) PRIMARY KEY,
-	MenuItemId				INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId),
-	MinNumOrder				INT NOT NULL,
-	MinNumOrderForSpecial	INT NOT NULL
+	FamilyDinnerItemId			INT IDENTITY(1,1) PRIMARY KEY,
+	MenuItemId					INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId),
+	Label						VARCHAR(100),
+	IsSpecial					BIT NOT NULL
 );
 
-CREATE TABLE Menu.FamilyDinnerMenuItem
-(
-	FamilyDinnerMenuItemId			INT IDENTITY(1,1) PRIMARY KEY,
-	FamilyDinnerId					INT FOREIGN KEY REFERENCES Menu.FamilyDinner(FamilyDinnerId) NOT NULL,
-	MenuItemId						INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId) NOT NULL,
-	Label							VARCHAR(100),
-	IsSpecial						BIT NOT NULL
-);
 
 GO
-CREATE FUNCTION Menu.OneSpecialPerFamilyDinnerFunc(@FamilyDinnerId VARCHAR(100))
+CREATE FUNCTION Menu.OneSpecialPerFamilyDinnerFunc(@MenuItemId INT)
 RETURNS INT   
 AS   
 BEGIN
-	RETURN (SELECT COUNT(*) FROM Menu.FamilyDInnerMenuItem WHERE IsSpecial = 1 AND FamilyDinnerId = @FamilyDinnerId);
+	RETURN (SELECT COUNT(*) FROM Menu.FamilyDInnerItem WHERE IsSpecial = 1 AND MenuItemId = @MenuItemId);
 END; 
 GO
 
-ALTER TABLE Menu.FamilyDinnerMenuItem
-ADD CONSTRAINT OneSpecialPerFamilyDinner CHECK(	(IsSpecial = 0)
-											OR	(Menu.OneSpecialPerFamilyDinnerFunc(FamilyDinnerId) = 0))
+
+ALTER TABLE Menu.FamilyDinnerItem
+ADD CONSTRAINT OneSpecialPerFamilyDinner CHECK(		(IsSpecial = 0)
+												OR	(Menu.OneSpecialPerFamilyDinnerFunc(MenuItemId) = 0))
+/*
+CREATE TABLE Menu.CombinationPlate
+(
+	CombinationPlateId	INT IDENTITY(1,1) PRIMARY KEY
+
+);
+*/
 
 --*********************************************************************************************************************
 --<PopulateDatabase.sql script helper user defined functions>
