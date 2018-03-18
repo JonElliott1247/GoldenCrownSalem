@@ -76,7 +76,7 @@ INSERT INTO Menu.SpicyOption(Label) VALUES (@NotSpicy), (@Spicy), (@ExtraSpicy);
 --<MenuItem>
 --*********************************************************************************************************************************
 INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
-	VALUES 
+	VALUES
 	('Golden Crown Appetizer', 'parchment chicken, BBQ pork, fried wonton, fried shrimp, shrimp egg roll', 9.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
 	('BBQ Pork', NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
 	('Sesame Flyboy', '8 total', 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
@@ -91,12 +91,32 @@ INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, Defau
 	('Crab Puffs', NULL, 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
 	('Fried Won Ton', NULL, 5.50, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
 
-	('Egg Flower', 'bowl', 4.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-	('Egg Flower', 'cup', 1.95, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-	('Won Ton', 'large', 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-	('Won Ton', 'small', 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-	('Hot and Sour', NULL, 6.95, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@Spicy)),
-	('Wor Won Ton', 'large', 8.50, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-	('Wor Won Ton', 'small', 7.50, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy));
+	('Egg Flower', 'bowl', 4.25, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
+	('Egg Flower', 'cup', 1.95, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
+	('Won Ton', 'large', 7.25, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
+	('Won Ton', 'small', 6.25, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
+	('Hot and Sour', NULL, 6.95, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@Spicy)),
+	('Wor Won Ton', 'large', 8.50, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
+	('Wor Won Ton', 'small', 7.50, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy));
+
+DECLARE @Number1	AS VARCHAR(100)	= 'Number 1', 
+		@Number2	AS VARCHAR(100)	= 'Number 2', 
+		@Number3	AS VARCHAR(100) = 'Number 3',
+		@Number4	AS VARCHAR(100) = 'Number 4',
+		@Number5	AS VARCHAR(100) = 'Number 5',
+		@Number6	AS VARCHAR(100) = 'Number 6';
+
+
+INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
+
+	VALUES
+	(@Number1, NULL, 8.25, 1, Menu.CategoryId(@CombinationPlate), NULL),
+	(@Number2, NULL, 8.50, 1, Menu.CategoryId(@CombinationPlate), NULL),
+	(@Number3, NULL, 8.75, 1, Menu.CategoryId(@CombinationPlate), NULL),
+	(@Number4, NULL, 9.50, 1, Menu.CategoryId(@CombinationPlate), NULL),
+	(@Number5, NULL, 10.25, 1, Menu.CategoryId(@CombinationPlate), NULL),
+	(@Number6, NULL, 10.50, 1, Menu.CategoryId(@CombinationPlate), NULL);
+
+	
 
 --SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId, FamilyDinnerId FROM Menu.MenuItem;

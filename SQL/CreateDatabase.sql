@@ -66,6 +66,7 @@ CREATE TABLE Menu.MenuItem_FamilyDinnerItem
 	MenuItemFamilyDinnerItemId	INT IDENTITY(1,1) PRIMARY KEY,
 	MenuItemId					INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId),
 	FamilyDinnerItemId			INT FOREIGN KEY REFERENCES Menu.FamilyDinnerItem(FamilyDinnerItemId),
+	DefaultSpicyOptionId		INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId),
 	IsSpecial					BIT NOT NULL
 );
 
@@ -89,6 +90,7 @@ CREATE TABLE Menu.CombinationPlateItem
 	Label					VARCHAR(100),
 	SubLabel				VARCHAR(100),
 	AlternateId				INT FOREIGN KEY REFERENCES Menu.CombinationPlateItem(CombinationPlateItemId),
+	DefaultSpicyOptionId	INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId),
 	IsSide					BIT NOT NULL,
 
 	CONSTRAINT CombinationPlateItem_UniqueLabel	UNIQUE(Label, SubLabel)
