@@ -5,7 +5,6 @@ DROP TABLE IF EXISTS Menu.MenuItem_CombinationPlateItem;
 DROP TABLE IF EXISTS Menu.CombinationPlateItem;
 DROP TABLE IF EXISTS Menu.MenuItem_FamilyDinnerItem;
 DROP TABLE IF EXISTS Menu.FamilyDinnerItem;
-DROP TABLE IF EXISTS Menu.FamilyDinner;
 DROP TABLE IF EXISTS Menu.MenuItem;
 DROP TABLE IF EXISTS Menu.SpicyOption;
 DROP TABLE IF EXISTS Menu.Category;
@@ -52,7 +51,7 @@ CREATE TABLE Menu.MenuItem
 	CategoryId				INT FOREIGN KEY REFERENCES Menu.Category(CategoryId),
 	DefaultSpicyOptionId	INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId),
 
-	CONSTRAINT UniqueLabel	UNIQUE(Label, SubLabel)
+	CONSTRAINT MenuItem_UniqueLabel UNIQUE(Label, SubLabel)
 );
 
 CREATE TABLE Menu.FamilyDinnerItem
@@ -86,8 +85,12 @@ ADD CONSTRAINT OneSpecialPerFamilyDinner CHECK( (IsSpecial = 0) OR	(Menu.NumSpec
 CREATE TABLE Menu.CombinationPlateItem
 (
 	CombinationPlateItemId	INT IDENTITY(1,1) PRIMARY KEY,
-	Label					VARCHAR(100) UNIQUE,
-	AlternateId				INT FOREIGN KEY REFERENCES Menu.CombinationPlateItem(CombinationPlateItemId)
+	Label					VARCHAR(100),
+	SubLabel				VARCHAR(100),
+	AlternateId				INT FOREIGN KEY REFERENCES Menu.CombinationPlateItem(CombinationPlateItemId),
+	IsSide					BIT NOT NULL,
+
+	CONSTRAINT CombinationPlateItem_UniqueLabel	UNIQUE(Label, SubLabel)
 );
 
 CREATE TABLE Menu.MenuItem_CombinationPlateItem
@@ -95,7 +98,6 @@ CREATE TABLE Menu.MenuItem_CombinationPlateItem
 	MenuItemFamilyDinnerItem	INT IDENTITY(1,1) PRIMARY KEY,
 	MenuItemId					INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId),
 	CombinationPlateId			INT FOREIGN KEY REFERENCES Menu.CombinationPlateItem(CombinationPlateItemId),
-	IsSpecial					BIT NOT NULL
 );
 
 
