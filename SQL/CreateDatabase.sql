@@ -1,7 +1,8 @@
 USE GoldenCrownSalem;
 
 --Defensive cleanup
-DROP TABLE IF EXISTS Menu.CombinationPlate;
+DROP TABLE IF EXISTS Menu.MenuItem_CombinationPlateItem;
+DROP TABLE IF EXISTS Menu.CombinationPlateItem;
 DROP TABLE IF EXISTS Menu.MenuItem_FamilyDinnerItem;
 DROP TABLE IF EXISTS Menu.FamilyDinnerItem;
 DROP TABLE IF EXISTS Menu.FamilyDinner;
@@ -52,18 +53,17 @@ CREATE TABLE Menu.MenuItem
 	DefaultSpicyOptionId	INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId),
 
 	CONSTRAINT UniqueLabel	UNIQUE(Label, SubLabel)
-	
 );
 
 CREATE TABLE Menu.FamilyDinnerItem
 (
 	FamilyDinnerItemId			INT IDENTITY(1,1) PRIMARY KEY,
-	Label						VARCHAR(100)
+	Label						VARCHAR(100) UNIQUE
 );
 
 CREATE TABLE Menu.MenuItem_FamilyDinnerItem
 (
-	MenuItemFamilyDinnerItem	INT IDENTITY(1,1) PRIMARY KEY,
+	MenuItemFamilyDinnerItemId	INT IDENTITY(1,1) PRIMARY KEY,
 	MenuItemId					INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId),
 	FamilyDinnerItemId			INT FOREIGN KEY REFERENCES Menu.FamilyDinnerItem(FamilyDinnerItemId),
 	IsSpecial					BIT NOT NULL
@@ -82,13 +82,22 @@ GO
 ALTER TABLE Menu.MenuItem_FamilyDinnerItem
 ADD CONSTRAINT OneSpecialPerFamilyDinner CHECK( (IsSpecial = 0) OR	(Menu.NumSpecialPerFamilyDinnerFunc(MenuItemId) = 0));
 
-/*
-CREATE TABLE Menu.CombinationPlate
-(
-	CombinationPlateId	INT IDENTITY(1,1) PRIMARY KEY
 
+CREATE TABLE Menu.CombinationPlateItem
+(
+	CombinationPlateItemId	INT IDENTITY(1,1) PRIMARY KEY,
+	Label					VARCHAR(100) UNIQUE,
+	AlternateId				INT FOREIGN KEY REFERENCES Menu.CombinationPlateItem(CombinationPlateItemId)
 );
-*/
+
+CREATE TABLE Menu.MenuItem_CombinationPlateItem
+(
+	MenuItemFamilyDinnerItem	INT IDENTITY(1,1) PRIMARY KEY,
+	MenuItemId					INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId),
+	CombinationPlateId			INT FOREIGN KEY REFERENCES Menu.CombinationPlateItem(CombinationPlateItemId),
+	IsSpecial					BIT NOT NULL
+);
+
 
 --*********************************************************************************************************************
 --<PopulateDatabase.sql script helper user defined functions>
