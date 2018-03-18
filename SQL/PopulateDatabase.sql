@@ -3,9 +3,11 @@ USE GoldenCrownSalem;
 --*********************************************************************************************************************
 --<Defensive cleanup>
 --*********************************************************************************************************************
-DELETE FROM Menu.FamilyDinnerMenuItem;
+DELETE FROM Menu.MenuItem_CombinationPlateItem;
+DELETE FROM Menu.CombinationPlateItem;
+DELETE FROM Menu.MenuItem_FamilyDinnerItem;
+DELETE FROM Menu.FamilyDinnerItem;
 DELETE FROM Menu.MenuItem;
-DELETE FROM Menu.FamilyDinner;
 DELETE FROM Menu.SpicyOption;
 DELETE FROM Menu.Category;
 
@@ -70,50 +72,31 @@ INSERT INTO Menu.SpicyOption(Label) VALUES (@NotSpicy), (@Spicy), (@ExtraSpicy);
 --*********************************************************************************************************************************
 
 
-
---*********************************************************************************************************************************
---<FamilyDinner>
---*********************************************************************************************************************************
-DECLARE @DinnerA AS CHAR(1) = 'A', 
-		@DinnerB AS CHAR(1) = 'B', 
-		@DinnerC AS CHAR(1) = 'C', 
-		@DinnerD AS CHAR(1) = 'D';
-
-INSERT INTO Menu.FamilyDinner(Description, MinNumOrder, MinNumOrderForSpecial) 
-			VALUES (@DinnerA, 2, 4), (@DinnerB, 2, 4), (@DinnerC, 2, 4), (@DinnerD, 2, 4);
---SELECT Label, MinNumOrder, MinNumOrderForSpecial FROM Menu.FamilyDinner
---*********************************************************************************************************************************
---</FamilyDinner>
---*********************************************************************************************************************************
-
-
 --*********************************************************************************************************************************
 --<MenuItem>
 --*********************************************************************************************************************************
-INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId, FamilyDinnerId)
+INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
 	VALUES 
-	('Golden Crown Appetizer', 'parchment chicken, BBQ pork, fried wonton, fried shrimp, shrimp egg roll', 9.25, 1, 
-		Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('BBQ Pork', NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('Sesame Flyboy', '8 total', 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('Small Appetizer', 'B.B.Q pork, sesame flyboy, fried wonton', 7.50, 1, 
-		Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('Fried Shrimp', '14 total', 9.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('Fried Shrimp', '10 total', 8.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('Shrimp Egg Roll', NULL, 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('Pot Sticklers', NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('Vegetable Spring Roll', '4 total', 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('Parchment Chicken', NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('Fried Mushrooms', NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('Crab Puffs', NULL, 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('Fried Won Ton', NULL, 5.50, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
+	('Golden Crown Appetizer', 'parchment chicken, BBQ pork, fried wonton, fried shrimp, shrimp egg roll', 9.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('BBQ Pork', NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('Sesame Flyboy', '8 total', 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('Small Appetizer', 'B.B.Q pork, sesame flyboy, fried wonton', 7.50, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('Fried Shrimp', '14 total', 9.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('Fried Shrimp', '10 total', 8.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('Shrimp Egg Roll', NULL, 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('Pot Sticklers', NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('Vegetable Spring Roll', '4 total', 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('Parchment Chicken', NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('Fried Mushrooms', NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('Crab Puffs', NULL, 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('Fried Won Ton', NULL, 5.50, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
 
-	('Egg Flower', 'bowl', 4.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('Egg Flower', 'cup', 1.95, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('Won Ton', 'large', 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('Won Ton', 'small', 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('Hot and Sour', NULL, 6.95, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@Spicy), NULL),
-	('Wor Won Ton', 'large', 8.50, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL),
-	('Wor Won Ton', 'small', 7.50, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy), NULL);
+	('Egg Flower', 'bowl', 4.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('Egg Flower', 'cup', 1.95, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('Won Ton', 'large', 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('Won Ton', 'small', 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('Hot and Sour', NULL, 6.95, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@Spicy)),
+	('Wor Won Ton', 'large', 8.50, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+	('Wor Won Ton', 'small', 7.50, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy));
 
-	SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId, FamilyDinnerId FROM Menu.MenuItem;
+--SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId, FamilyDinnerId FROM Menu.MenuItem;
