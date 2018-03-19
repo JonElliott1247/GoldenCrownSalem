@@ -15,9 +15,6 @@ IF OBJECT_ID (N'Menu.CategoryId', N'FN') IS NOT NULL
 IF OBJECT_ID (N'Menu.SpicyOptionId', N'FN') IS NOT NULL  
     DROP FUNCTION Menu.SpicyOptionId;
 
-IF OBJECT_ID (N'Menu.FamilyDinnerId', N'FN') IS NOT NULL  
-    DROP FUNCTION Menu.FamilyDinnerId;
-
 IF OBJECT_ID (N'Menu.NumSpecialPerFamilyDinnerFunc', N'FN') IS NOT NULL  
     DROP FUNCTION Menu.NumSpecialPerFamilyDinnerFunc;
 
@@ -118,15 +115,6 @@ GO
 
 GO
 CREATE FUNCTION Menu.SpicyOptionId(@SpicyOptionLabel VARCHAR(100))  
-RETURNS INT   
-AS   
-BEGIN
-	RETURN (SELECT SpicyOptionId FROM Menu.SpicyOption WHERE Label = @SpicyOptionLabel);
-END; 
-GO
-
-GO
-CREATE FUNCTION Menu.FamilyDinnerId(@SpicyOptionLabel VARCHAR(100))  
 RETURNS INT   
 AS   
 BEGIN

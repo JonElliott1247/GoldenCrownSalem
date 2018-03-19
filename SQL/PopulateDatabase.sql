@@ -111,7 +111,7 @@ DECLARE @Number1	AS VARCHAR(100)	= 'Number 1',
 		@DinnerA	AS VARCHAR(100) = 'Dinner A',
 		@DinnerB	AS VARCHAR(100) = 'Dinner B',
 		@DinnerC	AS VARCHAR(100) = 'Dinner C',
-		@DinnerD	AS VARCHAR(100) = 'Dinner D',
+		@DinnerD	AS VARCHAR(100) = 'Dinner D';
 
 
 INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
@@ -126,9 +126,12 @@ INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, Defau
 	(@Number6, NULL, 10.50, 1, Menu.CategoryId(@CombinationPlate), NULL),
 
 	--Family Dinners
-	(@DinnerA, NULL, 10.75, 1, Menu.FamilyDinnerId(@DinnerA), NULL),
-	(@DinnerB, NULL, 12.75, 1, Menu.FamilyDinnerId(@DinnerB), NULL),
-	(@DinnerC, NULL, 12.75, 1, Menu.FamilyDinnerId(@DinnerC), NULL),
-	(@DinnerD, NULL, 13.75, 1, Menu.FamilyDinnerId(@DinnerD), NULL);
+	(@DinnerA, NULL, 10.75, 1, Menu.CategoryId(@DinnerA), NULL),
+	(@DinnerB, NULL, 12.75, 1, Menu.CategoryId(@DinnerB), NULL),
+	(@DinnerC, NULL, 12.75, 1, Menu.CategoryId(@DinnerC), NULL),
+	(@DinnerD, NULL, 13.75, 1, Menu.CategoryId(@DinnerD), NULL),
+
+	--Chicken
+	('Diced Almond Chicken', 7.75, 1, Menu.CategoryId(
 
 --SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId, FamilyDinnerId FROM Menu.MenuItem;
