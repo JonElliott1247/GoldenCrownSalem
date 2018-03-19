@@ -77,6 +77,7 @@ INSERT INTO Menu.SpicyOption(Label) VALUES (@NotSpicy), (@Spicy), (@ExtraSpicy);
 --*********************************************************************************************************************************
 INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
 	VALUES
+	--Appetizers
 	('Golden Crown Appetizer', 'parchment chicken, BBQ pork, fried wonton, fried shrimp, shrimp egg roll', 9.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
 	('BBQ Pork', NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
 	('Sesame Flyboy', '8 total', 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
@@ -91,6 +92,7 @@ INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, Defau
 	('Crab Puffs', NULL, 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
 	('Fried Won Ton', NULL, 5.50, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
 
+	--Soups
 	('Egg Flower', 'bowl', 4.25, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
 	('Egg Flower', 'cup', 1.95, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
 	('Won Ton', 'large', 7.25, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
@@ -104,19 +106,29 @@ DECLARE @Number1	AS VARCHAR(100)	= 'Number 1',
 		@Number3	AS VARCHAR(100) = 'Number 3',
 		@Number4	AS VARCHAR(100) = 'Number 4',
 		@Number5	AS VARCHAR(100) = 'Number 5',
-		@Number6	AS VARCHAR(100) = 'Number 6';
+		@Number6	AS VARCHAR(100) = 'Number 6',
+
+		@DinnerA	AS VARCHAR(100) = 'Dinner A',
+		@DinnerB	AS VARCHAR(100) = 'Dinner B',
+		@DinnerC	AS VARCHAR(100) = 'Dinner C',
+		@DinnerD	AS VARCHAR(100) = 'Dinner D',
 
 
 INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
-
+	
 	VALUES
+	--Combination Plates
 	(@Number1, NULL, 8.25, 1, Menu.CategoryId(@CombinationPlate), NULL),
 	(@Number2, NULL, 8.50, 1, Menu.CategoryId(@CombinationPlate), NULL),
 	(@Number3, NULL, 8.75, 1, Menu.CategoryId(@CombinationPlate), NULL),
 	(@Number4, NULL, 9.50, 1, Menu.CategoryId(@CombinationPlate), NULL),
 	(@Number5, NULL, 10.25, 1, Menu.CategoryId(@CombinationPlate), NULL),
-	(@Number6, NULL, 10.50, 1, Menu.CategoryId(@CombinationPlate), NULL);
+	(@Number6, NULL, 10.50, 1, Menu.CategoryId(@CombinationPlate), NULL),
 
-	
+	--Family Dinners
+	(@DinnerA, NULL, 10.75, 1, Menu.FamilyDinnerId(@DinnerA), NULL),
+	(@DinnerB, NULL, 12.75, 1, Menu.FamilyDinnerId(@DinnerB), NULL),
+	(@DinnerC, NULL, 12.75, 1, Menu.FamilyDinnerId(@DinnerC), NULL),
+	(@DinnerD, NULL, 13.75, 1, Menu.FamilyDinnerId(@DinnerD), NULL);
 
 --SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId, FamilyDinnerId FROM Menu.MenuItem;
