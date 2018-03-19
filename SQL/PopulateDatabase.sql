@@ -132,6 +132,23 @@ INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, Defau
 	(@DinnerD, NULL, 13.75, 1, Menu.CategoryId(@DinnerD), NULL),
 
 	--Chicken
-	('Diced Almond Chicken', 7.75, 1, Menu.CategoryId(
+	('Diced Almond Chicken', NULL, 7.75, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+	('Sesame Chicken', NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+	('Lemon Chicken', NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+	('Moo Goo Gai Pan', NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+	('Sweet & Sour Chicken', NULL, 8.95, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+	('Almond Fried Chicken', NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+	('Cashew Nut Chicken', NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+	('Szechwan Chicken', NULL, 8.95, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy)),
+	('Chicken with Black and Fresh Mushrooms', NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+	('Green Beans in Garlic Sauce with Chicken', NULL, 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+	('Pineapple Chicken Chow Yuk.', 'Chicken sautéed w/vegetables in a pineapple sauce', 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+	('Chicken Chow Yuk', 'Chicken sautéed w/vegetables in a Chinese sauce', 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+	('Chicken Cantonese', 'Chicken sautéed w/vegetables in a black bean and garlic sauce', 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+	('Kung Pao Chicken', 'Diced chicken sautéed w/bell peppers, onions, and celery, topped with peanuts', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy)),
+	('Hot and Spiced Chicken', 'Chicken sautéed with vegetables in our Chef’s spicy sauce', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy)),
+	('General Tso’s Chicken', 'Sesame battered chicken with bell peppers tossed in our Chef’s spicy sauce', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy));
+	
+
 
 --SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId, FamilyDinnerId FROM Menu.MenuItem;
