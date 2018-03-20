@@ -1,6 +1,8 @@
 USE GoldenCrownSalem;
 
---Defensive cleanup
+BEGIN TRANSACTION [Cleanup]
+BEGIN TRY
+
 DROP TABLE IF EXISTS Menu.MenuItem_CombinationPlateItem;
 DROP TABLE IF EXISTS Menu.CombinationPlateItem;
 DROP TABLE IF EXISTS Menu.MenuItem_FamilyDinnerItem;
@@ -19,6 +21,12 @@ IF OBJECT_ID (N'Menu.NumSpecialPerFamilyDinnerFunc', N'FN') IS NOT NULL
     DROP FUNCTION Menu.NumSpecialPerFamilyDinnerFunc;
 
 DROP SCHEMA IF EXISTS Menu;
+
+END TRY
+BEGIN CATCH
+  ROLLBACK TRANSACTION [Cleanup]
+END CATCH  
+
 GO
 
 --Main script
@@ -125,3 +133,4 @@ GO
 --*********************************************************************************************************************
 --</PopulateDatabase.sql script helper user defined functions>
 --*********************************************************************************************************************
+
