@@ -159,7 +159,17 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('Chicken Cantonese', 'Chicken sautéed w/vegetables in a black bean and garlic sauce', 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
 		('Kung Pao Chicken', 'Diced chicken sautéed w/bell peppers, onions, and celery, topped with peanuts', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy)),
 		('Hot and Spiced Chicken', 'Chicken sautéed with vegetables in our Chef’s spicy sauce', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy)),
-		('General Tso’s Chicken', 'Sesame battered chicken with bell peppers tossed in our Chef’s spicy sauce', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy));
+		('General Tso’s Chicken', 'Sesame battered chicken with bell peppers tossed in our Chef’s spicy sauce', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy)),
+
+		--Pork
+		('Sweet & Sour Pork', NULL, 8.95, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
+		('Sweet & Sour Spareribs', NULL, 8.95, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
+		(' B.B.Q Chow Yuk', NULL, 9.25, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
+		('Green Beans in Garlic Sauce with B.B.Q Pork', NULL, 9.50, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
+		('B.B.Q Pork Chow Dun', 'Pork, bean sprouts, snow peas, water chestnuts, and carrots folded into beaten eggs', 9.25, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
+		('Mu-Shu Pork', 'Pork sautéed w/cabbage, scallions, bamboo shoots, and eggs. Served with Mandarin pan cakes', 9.25, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
+		('Mao Pao Tofu', 'Minced pork sautéed w/peas, carrots, water chestnuts, and tofu in a black bean sauce', 9.50, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@Spicy));
+
 
 COMMIT TRANSACTION [AddMenuItemRecords]
 --SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId, FamilyDinnerId FROM Menu.MenuItem;
