@@ -1,7 +1,6 @@
 USE GoldenCrownSalem;
 
 BEGIN TRANSACTION [Cleanup]
-BEGIN TRY
 
 DROP TABLE IF EXISTS Menu.MenuItem_CombinationPlateItem;
 DROP TABLE IF EXISTS Menu.CombinationPlateItem;
@@ -22,11 +21,7 @@ IF OBJECT_ID (N'Menu.NumSpecialPerFamilyDinnerFunc', N'FN') IS NOT NULL
 
 DROP SCHEMA IF EXISTS Menu;
 
-END TRY
-BEGIN CATCH
-  ROLLBACK TRANSACTION [Cleanup]
-END CATCH  
-
+COMMIT TRANSACTION [Cleanup]
 GO
 
 --Main script

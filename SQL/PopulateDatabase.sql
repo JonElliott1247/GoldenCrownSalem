@@ -149,6 +149,6 @@ INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, Defau
 	('Hot and Spiced Chicken', 'Chicken sautéed with vegetables in our Chef’s spicy sauce', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy)),
 	('General Tso’s Chicken', 'Sesame battered chicken with bell peppers tossed in our Chef’s spicy sauce', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy));
 	
-
+	--
 
 --SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId, FamilyDinnerId FROM Menu.MenuItem;
