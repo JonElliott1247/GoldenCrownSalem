@@ -31,6 +31,7 @@ BEGIN TRANSACTION [AddCategoryRecords]
 			@Chicken			AS VARCHAR(100)	= 'Chicken',
 			@Pork				AS VARCHAR(100)	= 'Pork',
 			@Beef				AS VARCHAR(100) = 'Beef',
+			@Seafood			AS VARCHAR(100) = 'Seafood',
 			@SizzlingPlate		AS VARCHAR(100)	= 'Sizzling Plates',
 			@Vegetarian			AS VARCHAR(100)	= 'Vegetarian',
 			@ChowMein			AS VARCHAR(100)	= 'Chow Mein',
@@ -181,8 +182,18 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('Steak Cantonese',  'New York steak sautéed w/mushrooms, snow peas, and onions in a Cantonese sauce', 10.95, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
 		('Beef Under the Rainbow',  'Beef sautéed w/vegetables and bean sprouts, topped w/crispy vermicelli noodles', 9.75, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
 		('Ginger Beef',  'Beef sautéed w/ginger, scallions, and onions on a bed of bean sprouts', 9.75, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
-		('Szechwan Beef',  'Sesame battered beef w/shredded carrots, pea pods and onions tossed in our spicy sauce', 9.50, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@Spicy));
+		('Szechwan Beef',  'Sesame battered beef w/shredded carrots, pea pods and onions tossed in our spicy sauce', 9.50, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@Spicy)),
 
+		--Seafood
+		('Shrimp Broccoli', NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
+		('Shrimp Chow Dun', NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
+		('Shrimp with Lobster Sauce', NULL, 10.50, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
+		('Squid with Ginger and Onions', NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
+		('Golden Crown Special Chow Yuk', NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
+		('Sweet & Sour Fish', NULL, 10.25, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
+		('Shrimp Chow Yuk', NULL, 10.25, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
+		('Kung Pao Shrimp', NULL, 10.25, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@Spicy)),
+		('Kung Pao Squid', NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@Spicy));
 
 COMMIT TRANSACTION [AddMenuItemRecords]
 --SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId, FamilyDinnerId FROM Menu.MenuItem;
