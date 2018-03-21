@@ -223,6 +223,16 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('Vegetable Supreme', NULL, 8.75, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@NotSpicy)),
 		('Tofu with Oyster SauceKung Pao Vegetables', NULL, 8.95, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@Spicy));
 
+	INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
+		VALUES
+		--Chow Mein
+		('B.B.Q Pork Chow Mein', NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Beef Chow Mein', NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Shrimp Chow Mein', NULL, 8.75, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Diced Almond Chicken Chow Mein', NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Chicken Chow Mein', NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Vegetable Chow Mein', NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Beef Tomato Chow Mein', NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy));
 
 
 
