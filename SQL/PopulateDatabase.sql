@@ -248,7 +248,20 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('Shrimp Chop Suey', NULL, 8.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy)),
 		('B.B.Q Pork Chop Suey', NULL, 7.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy)),
 		('Chicken Chop Suey', NULL, 7.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy)),
-		('Beef Chop Suey', NULL, 7.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy));
+		('Beef Chop Suey', NULL, 7.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy)),
+
+		--Rice
+		('Vegetable Fried Rice', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+		('B.B.Q Pork Fried Rice', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+		('Shrimp Fried Rice', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+		('Steam Rice', 'cup', 1.00, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+
+		('Fried Rice', 'cup', 1.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+		('B.B.Q Pork Fried Rice with Bean Sprout', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+		('Chicken, Ham, or Beef Fried Rice', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+		('Chicken or Beef Rice Casserole', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+		('Golden Crown Special Fried Rice', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy));
+
 
 
 
