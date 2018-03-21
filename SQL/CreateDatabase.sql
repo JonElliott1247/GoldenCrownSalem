@@ -2,24 +2,24 @@ USE GoldenCrownSalem;
 
 BEGIN TRANSACTION [Cleanup]
 
-DROP TABLE IF EXISTS Menu.MenuItem_CombinationPlateItem;
-DROP TABLE IF EXISTS Menu.CombinationPlateItem;
-DROP TABLE IF EXISTS Menu.MenuItem_FamilyDinnerItem;
-DROP TABLE IF EXISTS Menu.FamilyDinnerItem;
-DROP TABLE IF EXISTS Menu.MenuItem;
-DROP TABLE IF EXISTS Menu.SpicyOption;
-DROP TABLE IF EXISTS Menu.Category;
+	DROP TABLE IF EXISTS Menu.MenuItem_CombinationPlateItem;
+	DROP TABLE IF EXISTS Menu.CombinationPlateItem;
+	DROP TABLE IF EXISTS Menu.MenuItem_FamilyDinnerItem;
+	DROP TABLE IF EXISTS Menu.FamilyDinnerItem;
+	DROP TABLE IF EXISTS Menu.MenuItem;
+	DROP TABLE IF EXISTS Menu.SpicyOption;
+	DROP TABLE IF EXISTS Menu.Category;
 
-IF OBJECT_ID (N'Menu.CategoryId', N'FN') IS NOT NULL  
-    DROP FUNCTION Menu.CategoryId;
+	IF OBJECT_ID (N'Menu.CategoryId', N'FN') IS NOT NULL  
+		DROP FUNCTION Menu.CategoryId;
 
-IF OBJECT_ID (N'Menu.SpicyOptionId', N'FN') IS NOT NULL  
-    DROP FUNCTION Menu.SpicyOptionId;
+	IF OBJECT_ID (N'Menu.SpicyOptionId', N'FN') IS NOT NULL  
+		DROP FUNCTION Menu.SpicyOptionId;
 
-IF OBJECT_ID (N'Menu.NumSpecialPerFamilyDinnerFunc', N'FN') IS NOT NULL  
-    DROP FUNCTION Menu.NumSpecialPerFamilyDinnerFunc;
+	IF OBJECT_ID (N'Menu.NumSpecialPerFamilyDinnerFunc', N'FN') IS NOT NULL  
+		DROP FUNCTION Menu.NumSpecialPerFamilyDinnerFunc;
 
-DROP SCHEMA IF EXISTS Menu;
+	DROP SCHEMA IF EXISTS Menu;
 
 COMMIT TRANSACTION [Cleanup]
 GO

@@ -30,6 +30,7 @@ BEGIN TRANSACTION [AddCategoryRecords]
 			@FamilyDinner		AS VARCHAR(100)	= 'Family Dinner',
 			@Chicken			AS VARCHAR(100)	= 'Chicken',
 			@Pork				AS VARCHAR(100)	= 'Pork',
+			@Beef				AS VARCHAR(100) = 'Beef',
 			@SizzlingPlate		AS VARCHAR(100)	= 'Sizzling Plates',
 			@Vegetarian			AS VARCHAR(100)	= 'Vegetarian',
 			@ChowMein			AS VARCHAR(100)	= 'Chow Mein',
@@ -168,7 +169,19 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('Green Beans in Garlic Sauce with B.B.Q Pork', NULL, 9.50, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
 		('B.B.Q Pork Chow Dun', 'Pork, bean sprouts, snow peas, water chestnuts, and carrots folded into beaten eggs', 9.25, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
 		('Mu-Shu Pork', 'Pork sautéed w/cabbage, scallions, bamboo shoots, and eggs. Served with Mandarin pan cakes', 9.25, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
-		('Mao Pao Tofu', 'Minced pork sautéed w/peas, carrots, water chestnuts, and tofu in a black bean sauce', 9.50, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@Spicy));
+		('Mao Pao Tofu', 'Minced pork sautéed w/peas, carrots, water chestnuts, and tofu in a black bean sauce', 9.50, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@Spicy)),
+
+		--Beef
+		('Beef with Oyster Sauce',  NULL, 9.75, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
+		('Beef and Broccoli',  NULL, 9.25, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
+		('Kung Pao Beef',  NULL, 9.50, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@Spicy)),
+
+		('Beef Tomato Chow Yuk',  'Beef sautéed with vegetables in a tomato sauce', 9.25, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
+		('Green Pepper Steak',  'Beef steak sautéed w/green bell peppers and onions in a black bean sauce', 9.25, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
+		('Steak Cantonese',  'New York steak sautéed w/mushrooms, snow peas, and onions in a Cantonese sauce', 10.95, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
+		('Beef Under the Rainbow',  'Beef sautéed w/vegetables and bean sprouts, topped w/crispy vermicelli noodles', 9.75, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
+		('Ginger Beef',  'Beef sautéed w/ginger, scallions, and onions on a bed of bean sprouts', 9.75, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
+		('Szechwan Beef',  'Sesame battered beef w/shredded carrots, pea pods and onions tossed in our spicy sauce', 9.50, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@Spicy));
 
 
 COMMIT TRANSACTION [AddMenuItemRecords]
