@@ -32,6 +32,7 @@ BEGIN TRANSACTION [AddCategoryRecords]
 			@Pork				AS VARCHAR(100)	= 'Pork',
 			@Beef				AS VARCHAR(100) = 'Beef',
 			@Seafood			AS VARCHAR(100) = 'Seafood',
+			@Curries			AS VARCHAR(100) = 'Curries from the Indies',
 			@SizzlingPlate		AS VARCHAR(100)	= 'Sizzling Plates',
 			@Vegetarian			AS VARCHAR(100)	= 'Vegetarian',
 			@ChowMein			AS VARCHAR(100)	= 'Chow Mein',
@@ -193,7 +194,20 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('Sweet & Sour Fish', NULL, 10.25, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
 		('Shrimp Chow Yuk', NULL, 10.25, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
 		('Kung Pao Shrimp', NULL, 10.25, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@Spicy)),
-		('Kung Pao Squid', NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@Spicy));
+		('Kung Pao Squid', NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@Spicy)),
+
+		--Curries
+		('Chicken', NULL, 9.25, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
+		('Shrimp', NULL, 10.25, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
+		('Squid', NULL, 9.75, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
+		('Beef', NULL, 9.25, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
+		('Seafood', NULL, 10.75, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
+		('Vegetable', NULL, 8.75, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy));
+
+
+
+
+
 
 COMMIT TRANSACTION [AddMenuItemRecords]
 --SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId, FamilyDinnerId FROM Menu.MenuItem;
