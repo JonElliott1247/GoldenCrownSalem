@@ -51,7 +51,7 @@ BEGIN TRANSACTION [AddCategoryRecords]
 
 	INSERT INTO Menu.Category(Label) VALUES 
 			(@Appetizer),	(@Soup),			(@CombinationPlate),	(@FamilyDinner),	(@Chicken),
-			(@Pork),		(@SizzlingPlate),	(@Vegetarian),			(@ChopSuey),		(@Rice),
+			(@Pork), (@Beef), (@Seafood), (@Curries),	(@SizzlingPlate),	(@Vegetarian),			(@ChopSuey),		(@Rice),
 			(@NoodleSoup),	(@American),		(@HamburgerSandwich),	(@Salad),			(@ChildrenMenu),
 			(@Beverage),	(@Dessert);
 
@@ -141,10 +141,10 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		(@Number6, NULL, 10.50, 1, Menu.CategoryId(@CombinationPlate), NULL),
 
 		--Family Dinners
-		(@DinnerA, NULL, 10.75, 1, Menu.CategoryId(@DinnerA), NULL),
-		(@DinnerB, NULL, 12.75, 1, Menu.CategoryId(@DinnerB), NULL),
-		(@DinnerC, NULL, 12.75, 1, Menu.CategoryId(@DinnerC), NULL),
-		(@DinnerD, NULL, 13.75, 1, Menu.CategoryId(@DinnerD), NULL),
+		(@DinnerA, NULL, 10.75, 1, Menu.CategoryId(@FamilyDinner), NULL),
+		(@DinnerB, NULL, 12.75, 1, Menu.CategoryId(@FamilyDinner), NULL),
+		(@DinnerC, NULL, 12.75, 1, Menu.CategoryId(@FamilyDinner), NULL),
+		(@DinnerD, NULL, 13.75, 1, Menu.CategoryId(@FamilyDinner), NULL),
 
 		--Chicken
 		('Diced Almond Chicken', NULL, 7.75, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
@@ -162,8 +162,10 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('Chicken Cantonese', 'Chicken sautéed w/vegetables in a black bean and garlic sauce', 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
 		('Kung Pao Chicken', 'Diced chicken sautéed w/bell peppers, onions, and celery, topped with peanuts', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy)),
 		('Hot and Spiced Chicken', 'Chicken sautéed with vegetables in our Chef’s spicy sauce', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy)),
-		('General Tso’s Chicken', 'Sesame battered chicken with bell peppers tossed in our Chef’s spicy sauce', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy)),
+		('General Tso’s Chicken', 'Sesame battered chicken with bell peppers tossed in our Chef’s spicy sauce', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy));
 
+	INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
+		VALUES
 		--Pork
 		('Sweet & Sour Pork', NULL, 8.95, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
 		('Sweet & Sour Spareribs', NULL, 8.95, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
@@ -194,8 +196,10 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('Sweet & Sour Fish', NULL, 10.25, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
 		('Shrimp Chow Yuk', NULL, 10.25, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
 		('Kung Pao Shrimp', NULL, 10.25, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@Spicy)),
-		('Kung Pao Squid', NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@Spicy)),
+		('Kung Pao Squid', NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@Spicy));
 
+	INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
+		VALUES
 		--Curries
 		('Chicken', NULL, 9.25, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
 		('Shrimp', NULL, 10.25, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),

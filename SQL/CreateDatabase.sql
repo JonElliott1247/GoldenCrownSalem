@@ -48,25 +48,27 @@ CREATE TABLE Menu.MenuItem
 	Label					VARCHAR(100) NOT NULL,
 	SubLabel				VARCHAR(100),
 	Price					MONEY NOT NULL,
-	IsAvailable				BIT,
-	CategoryId				INT FOREIGN KEY REFERENCES Menu.Category(CategoryId),
+	IsAvailable				BIT NOT NULL,
+	CategoryId				INT FOREIGN KEY REFERENCES Menu.Category(CategoryId) NOT NULL,
 	DefaultSpicyOptionId	INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId),
 
-	CONSTRAINT MenuItem_UniqueLabel UNIQUE(Label, SubLabel)
 );
+--Guarentee a unique label or unique (label, sublabel) while allowing sublabel to be null
+CREATE UNIQUE INDEX UniqueLabelIndex ON Menu.MenuItem(Label) WHERE SubLabel IS NULL;
+CREATE UNIQUE INDEX UniqueLabelSubLabelIndex ON Menu.MenuItem(Label, SubLabel);
 
 CREATE TABLE Menu.FamilyDinnerItem
 (
 	FamilyDinnerItemId			INT IDENTITY(1,1) PRIMARY KEY,
-	Label						VARCHAR(100) UNIQUE
+	Label						VARCHAR(100) UNIQUE NOT NULL
 );
 
 CREATE TABLE Menu.MenuItem_FamilyDinnerItem
 (
 	MenuItemFamilyDinnerItemId	INT IDENTITY(1,1) PRIMARY KEY,
-	MenuItemId					INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId),
-	FamilyDinnerItemId			INT FOREIGN KEY REFERENCES Menu.FamilyDinnerItem(FamilyDinnerItemId),
-	DefaultSpicyOptionId		INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId),
+	MenuItemId					INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId) NOT NULL,
+	FamilyDinnerItemId			INT FOREIGN KEY REFERENCES Menu.FamilyDinnerItem(FamilyDinnerItemId) NOT NULL,
+	DefaultSpicyOptionId		INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId) NOT NULL,
 	IsSpecial					BIT NOT NULL
 );
 
@@ -93,7 +95,7 @@ CREATE TABLE Menu.CombinationPlateItem
 	DefaultSpicyOptionId	INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId),
 	IsSide					BIT NOT NULL,
 
-	CONSTRAINT CombinationPlateItem_UniqueLabel	UNIQUE(Label, SubLabel)
+	CONSTRAINT CombinationPlateItem_UniqueLabel	UNIQUE(Label, SubLabel),
 );
 
 CREATE TABLE Menu.MenuItem_CombinationPlateItem
