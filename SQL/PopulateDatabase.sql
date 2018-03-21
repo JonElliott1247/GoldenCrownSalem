@@ -202,10 +202,13 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('Squid', NULL, 9.75, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
 		('Beef', NULL, 9.25, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
 		('Seafood', NULL, 10.75, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
-		('Vegetable', NULL, 8.75, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy));
+		('Vegetable', NULL, 8.75, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
 
-
-
+		--Sizzling Plates
+		('Sizzling Beef', 'Beef sautéed w/onions, carrots, peas, and mushrooms in our special sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy)),
+		('Sizzling Chicken', 'Chicken sautéed w/pea pods, mushrooms, and onions in our traditional sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy)),
+		('Sizzling Shrimp', 'Shrimp sauteed w/onions, mushrooms, scallions, peas, and carrots in our special sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy)),
+		('Sizzling Seafood', 'Shrimp, scallops, squid, imitation crab sauteed w/wegetables in our traditional Chinese sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy));
 
 
 
