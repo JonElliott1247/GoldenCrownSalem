@@ -242,7 +242,16 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('Golden Crown Special Mein', NULL, 8.75, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
 		('Maylan Chow Mein', NULL, 8.75, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@Spicy)),
 		('Pan Fried Noodle', 'large', 4.25, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
-		('Pan Fried Noodle', 'small', 2.95, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy));
+		('Pan Fried Noodle', 'small', 2.95, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
+
+		--Chop Suey
+		('Shrimp Chop Suey', NULL, 8.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy)),
+		('B.B.Q Pork Chop Suey', NULL, 7.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy)),
+		('Chicken Chop Suey', NULL, 7.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy)),
+		('Beef Chop Suey', NULL, 7.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy));
+
+
+
 
 COMMIT TRANSACTION [AddMenuItemRecords]
 SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId FROM Menu.MenuItem;
