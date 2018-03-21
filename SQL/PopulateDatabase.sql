@@ -208,12 +208,22 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('Sizzling Beef', 'Beef sautéed w/onions, carrots, peas, and mushrooms in our special sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy)),
 		('Sizzling Chicken', 'Chicken sautéed w/pea pods, mushrooms, and onions in our traditional sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy)),
 		('Sizzling Shrimp', 'Shrimp sauteed w/onions, mushrooms, scallions, peas, and carrots in our special sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy)),
-		('Sizzling Seafood', 'Shrimp, scallops, squid, imitation crab sauteed w/wegetables in our traditional Chinese sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy));
+		('Sizzling Seafood', 'Shrimp, scallops, squid, imitation crab sauteed w/wegetables in our traditional Chinese sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy)),
+
+		--Vegetarian
+		('Egg Foo Young', NULL, 7.50, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@NotSpicy)),
+		('Chinese Vegetable Deluxe', NULL, 8.75, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@NotSpicy)),
+		('Sweet & Sour Tofu', 'Battered tofu served with sweet & sour sauce, bell peppers, carrots and onions', 8.95, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@NotSpicy)),
+		('Tofu with Oyster Sauce', 'Tofu stir fry with black mushrooms, fresh mushrooms and onions in a black bean sauce', 8.95, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@NotSpicy)),
+		('Kung Pao Tofu', 'Tofu stir fry with bell peppers and a variety of vegetables', 8.95, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@Spicy)),
+		('Vegetable Supreme', NULL, 8.75, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@NotSpicy)),
+		('Tofu with Oyster SauceKung Pao Vegetables', NULL, 8.95, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@Spicy));
+
 
 
 
 COMMIT TRANSACTION [AddMenuItemRecords]
---SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId, FamilyDinnerId FROM Menu.MenuItem;
+SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId FROM Menu.MenuItem;
 --*********************************************************************************************************************************
 --</MenuItem>
 --*********************************************************************************************************************************
