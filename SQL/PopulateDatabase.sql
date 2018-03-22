@@ -268,11 +268,25 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('Chicken Noodle', NULL, 7.25, 1, Menu.CategoryId(@NoodleSoup), Menu.SpicyOptionId(@NotSpicy)),
 		('Shrimp Noodle with Vegetables', NULL, 8.75, 1, Menu.CategoryId(@NoodleSoup), Menu.SpicyOptionId(@NotSpicy)),
 		('B.B.Q Pork, Chicken, or Beef Noodle with Vegetables', NULL, 7.95, 1, Menu.CategoryId(@NoodleSoup), Menu.SpicyOptionId(@NotSpicy)),
-		('B.B.Q Pork, Chicken, or Beef Noodle with Curry & Vegetable', NULL, 7.95, 1, Menu.CategoryId(@NoodleSoup), Menu.SpicyOptionId(@Spicy));
+		('B.B.Q Pork, Chicken, or Beef Noodle with Curry & Vegetable', NULL, 7.95, 1, Menu.CategoryId(@NoodleSoup), Menu.SpicyOptionId(@Spicy)),
 
+		--American
+		('Chicken Fried Steak', NULL, 8.25, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
+		('New York Steak', NULL, 11.50, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
+		('Kalua Pork', NULL, 7.95, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
+		('Teriyaki Chicken', NULL, 8.25, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
+		('Seafood Platter', NULL, 9.50, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
+		('Wiki Wiki Beef', NULL, 7.95, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
 
-
-
+		--Burger and Sandwiches
+		('Hamburger', NULL, 5.25, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
+		('Teriyaki Burger', NULL, 5.50, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
+		('Three Decker', NULL, 7.25, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
+		('French Fries', NULL, 2.95, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
+		('Cheeseburger', NULL, 5.50, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
+		('Teriyaki Chicken Burger', NULL, 5.50, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
+		('Crispy Chicken', NULL, 9.50, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
+		('Onion Rings', NULL, 9.50, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy));
 
 COMMIT TRANSACTION [AddMenuItemRecords]
 SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId FROM Menu.MenuItem;
