@@ -260,7 +260,15 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('B.B.Q Pork Fried Rice with Bean Sprout', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
 		('Chicken, Ham, or Beef Fried Rice', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
 		('Chicken or Beef Rice Casserole', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
-		('Golden Crown Special Fried Rice', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy));
+		('Golden Crown Special Fried Rice', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+
+		--Noodle Soups
+		('B.B.Q Pork Noodle', NULL, 7.25, 1, Menu.CategoryId(@NoodleSoup), Menu.SpicyOptionId(@NotSpicy)),
+		('Teriyaki Chicken Noodle', NULL, 7.95, 1, Menu.CategoryId(@NoodleSoup), Menu.SpicyOptionId(@NotSpicy)),
+		('Chicken Noodle', NULL, 7.25, 1, Menu.CategoryId(@NoodleSoup), Menu.SpicyOptionId(@NotSpicy)),
+		('Shrimp Noodle with Vegetables', NULL, 8.75, 1, Menu.CategoryId(@NoodleSoup), Menu.SpicyOptionId(@NotSpicy)),
+		('B.B.Q Pork, Chicken, or Beef Noodle with Vegetables', NULL, 7.95, 1, Menu.CategoryId(@NoodleSoup), Menu.SpicyOptionId(@NotSpicy)),
+		('B.B.Q Pork, Chicken, or Beef Noodle with Curry & Vegetable', NULL, 7.95, 1, Menu.CategoryId(@NoodleSoup), Menu.SpicyOptionId(@Spicy));
 
 
 
