@@ -301,12 +301,18 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 	INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
 		VALUES
 		--Children's Menu
-		('Chicken Drumsticks', 'served with vegetables and french fries', 6.95, 1, Menu.CategoryId(@ChildrenMenu), Menu.SpicyOptionId(@NotSpicy)),
-		('Ground Beef Steak', 'served with vegetables and french fries', 6.95, 1, Menu.CategoryId(@ChildrenMenu), Menu.SpicyOptionId(@NotSpicy)),
-		('Sweet & Sour Chicken and Port Fried Rice', 'served with egg flower soup', 6.95, 1, Menu.CategoryId(@ChildrenMenu), Menu.SpicyOptionId(@NotSpicy)),
-		('Fried Shrimp and Port Fried Rice', 'served with egg flower soup', 7.50, 1, Menu.CategoryId(@ChildrenMenu), Menu.SpicyOptionId(@NotSpicy));
+		('Chicken Drumsticks', 'served with vegetables and french fries', 6.95, 1, Menu.CategoryId(@ChildrenMenu), NULL),
+		('Ground Beef Steak', 'served with vegetables and french fries', 6.95, 1, Menu.CategoryId(@ChildrenMenu), NULL),
+		('Sweet & Sour Chicken and Port Fried Rice', 'served with egg flower soup', 6.95, 1, Menu.CategoryId(@ChildrenMenu), NULL),
+		('Fried Shrimp and Port Fried Rice', 'served with egg flower soup', 7.50, 1, Menu.CategoryId(@ChildrenMenu), NULL),
 
-		
+		--Beverages
+		('Soft Drink', 'Pepsi Products', 2.00, 1, Menu.CategoryId(@Beverage), NULL),
+		('Juice', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
+		('Milk', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
+		('Ice Tea', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
+		('Coffee', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
+		('Hot Tea', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL);
 
 
 
