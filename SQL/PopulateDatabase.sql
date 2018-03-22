@@ -260,8 +260,10 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('B.B.Q Pork Fried Rice with Bean Sprout', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
 		('Chicken, Ham, or Beef Fried Rice', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
 		('Chicken or Beef Rice Casserole', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
-		('Golden Crown Special Fried Rice', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+		('Golden Crown Special Fried Rice', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy));
 
+	INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
+		VALUES
 		--Noodle Soups
 		('B.B.Q Pork Noodle', NULL, 7.25, 1, Menu.CategoryId(@NoodleSoup), Menu.SpicyOptionId(@NotSpicy)),
 		('Teriyaki Chicken Noodle', NULL, 7.95, 1, Menu.CategoryId(@NoodleSoup), Menu.SpicyOptionId(@NotSpicy)),
@@ -295,6 +297,15 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('Chef’s Salad', NULL, 7.50, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy)),
 		('Chicken Salad', 'Cantonese dressing', 7.25, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy)),
 		('Crab Salad', 'imitation', 6.75, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy));
+
+	INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
+		VALUES
+		--Children's Menu
+		('Chicken Drumsticks', 'served with vegetables and french fries', 6.95, 1, Menu.CategoryId(@ChildrenMenu), Menu.SpicyOptionId(@NotSpicy)),
+		('Ground Beef Steak', 'served with vegetables and french fries', 6.95, 1, Menu.CategoryId(@ChildrenMenu), Menu.SpicyOptionId(@NotSpicy)),
+		('Sweet & Sour Chicken and Port Fried Rice', 'served with egg flower soup', 6.95, 1, Menu.CategoryId(@ChildrenMenu), Menu.SpicyOptionId(@NotSpicy)),
+		('Fried Shrimp and Port Fried Rice', 'served with egg flower soup', 7.50, 1, Menu.CategoryId(@ChildrenMenu), Menu.SpicyOptionId(@NotSpicy));
+
 		
 
 
