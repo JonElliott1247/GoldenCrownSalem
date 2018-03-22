@@ -286,7 +286,18 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('Cheeseburger', NULL, 5.50, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
 		('Teriyaki Chicken Burger', NULL, 5.50, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
 		('Crispy Chicken', NULL, 9.50, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
-		('Onion Rings', NULL, 9.50, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy));
+		('Onion Rings', NULL, 9.50, 1, Menu.CategoryId(@American), Menu.SpicyOptionId(@NotSpicy)),
+
+		--Salads
+		('Mixed Green Salad', NULL, 2.95, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy)),
+		('Shrimp Salad', NULL, 8.75, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy)),
+		('Seafood Salad', 'imitation crab and  bay shrimp' , 7.50, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy)),
+		('Chef’s Salad', NULL, 7.50, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy)),
+		('Chicken Salad', 'Cantonese dressing', 7.25, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy)),
+		('Crab Salad', 'imitation', 6.75, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy));
+		
+
+
 
 COMMIT TRANSACTION [AddMenuItemRecords]
 SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId FROM Menu.MenuItem;
