@@ -312,7 +312,12 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('Milk', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
 		('Ice Tea', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
 		('Coffee', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
-		('Hot Tea', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL);
+		('Hot Tea', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
+
+		--Ice Cream
+		('Deep Fried Ice Cream', NULL, 3.25, 1, Menu.CategoryId(@Dessert), NULL),
+		('Deep Fried Ice Cream', 'peppermint', 3.25, 1, Menu.CategoryId(@Dessert), NULL),
+		('Deep Fried Ice Cream', 'vanilla', 3.25, 1, Menu.CategoryId(@Dessert), NULL);
 
 
 
