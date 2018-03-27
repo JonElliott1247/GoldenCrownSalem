@@ -32,7 +32,8 @@ CREATE TABLE Menu.Category
 (
 	CategoryId		INT IDENTITY(1,1) PRIMARY KEY,
 	Label			VARCHAR(100) UNIQUE NOT NULL,
-	SubLabel		VARCHAR(100)
+	SubLabel		VARCHAR(100),
+	Path			VARCHAR(100) UNIQUE NOT NULL 
 );
 
 CREATE TABLE Menu.SpicyOption

@@ -14,35 +14,21 @@ namespace GoldenCrownSalemApi.Controllers
     public class MenuController : Controller
     {
         // GET api/menu/chow-mein
-        [HttpGet("{label}")]
-        public List<string[]> Get(string label)
+        [HttpGet("{path}")]
+        public List<string[]> Get(string path)
         {
             var list = new List<string[]>();
             using (var context = new GoldenCrownSalemContext())
             {
-                var menuItems = context.MenuItem.Where(item => item.Category.Label.Trim() == LabelDeserializer(label));
+                var menuItems = context.MenuItem.Where(item => item.Category.Path.Trim() == path.Trim());
                 foreach(var item in menuItems)
                 {
-                    list.Add(new string[] { item.Label, item.SubLabel });
+                    list.Add(new string[] {item.Label, item.SubLabel });
                 }
 
             }
             return list;
         }
-
-        private string LabelDeserializer(string label)
-        {
-            var labelParts = label.Split('-');
-            var key = new StringBuilder();
-        
-            foreach(var part in labelParts)
-            {
-                key.Append(part.Substring(0, 1).ToUpper());
-                key.Append($"{part.Substring(1, part.Length - 1)} ");
-            }
-            return key.ToString().Trim();
-        }
-
 
     }
 }
