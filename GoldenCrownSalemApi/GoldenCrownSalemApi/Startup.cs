@@ -28,6 +28,7 @@ namespace GoldenCrownSalemApi
             var config = new AutoMapper.MapperConfiguration(configuration =>
                                                                             {
                                                                                 configuration.CreateMap<MenuItem, MenuItemViewModel>();
+                                                                                configuration.CreateMap<Category, CategoryViewModel>();
                                                                             });
             var mapper = config.CreateMapper();
             services.AddAutoMapper(typeof(Startup));
