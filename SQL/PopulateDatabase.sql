@@ -336,20 +336,39 @@ SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId FRO
 --*********************************************************************************************************************************
 BEGIN TRANSACTION [AddFamilyDinnerItemRecords]
 
-/*
-	DECLARE @Number1	AS VARCHAR(100)	= 'Number 1', 
-			@Number2	AS VARCHAR(100)	= 'Number 2', 
-			@Number3	AS VARCHAR(100) = 'Number 3',
-			@Number4	AS VARCHAR(100) = 'Number 4',
-			@Number5	AS VARCHAR(100) = 'Number 5',
-			@Number6	AS VARCHAR(100) = 'Number 6';
+
+	DECLARE @EggRoll					AS VARCHAR(100)	= 'Egg Roll', 
+			@BbqPork					AS VARCHAR(100)	= 'B.B.Q Pork', 
+			@ChickenChowMein			AS VARCHAR(100) = 'Chicken Chow Mein',
+			@SweetSourPork				AS VARCHAR(100) = 'Sweet and Sour Pork',
+			@SpecialFriedRice			AS VARCHAR(100) = 'Special Fried Rice',
+			@BbqPorkChowYuk				AS VARCHAR(100) = 'B.B.Q Pork Chow Yuk',
+			@FriedWonTon				AS VARCHAR(100) = 'Fried Won Ton',
+			@CashewNutChiken			AS VARCHAR(100) = 'Cashew Nut Chicken',
+			@SweetSourPrawns			AS VARCHAR(100) = 'Sweet and Sour Prawns',
+			@BeefBroccoli				AS VARCHAR(100) = 'Beef and Broccoli',
+			@AlmondFriedChicken			AS VARCHAR(100) = 'Almond Fried Chicken',
+			@SesameFlyboy				AS VARCHAR(100) = 'Sesame Flyboy',
+			@KungPaoBeef				AS VARCHAR(100) = 'Kung Pao Beef',
+			@PineappleSweetSourChicken	AS VARCHAR(100) = 'Pineapple Sweet and Sour Chicken',
+			@FriedShrimp				AS VARCHAR(100) = 'Fried Shrimp',
+			@SpecialChowYuk				AS VARCHAR(100) = 'Special Chow Yuk',
+			@SteakCantonese				AS VARCHAR(100) = 'Steak Cantonese',
+			@MandarinChicken			AS VARCHAR(100) = 'Mandarin Chicken',
+			@NeptuneSeafoodNest			AS VARCHAR(100) = 'Neptune Seafood Nest';
+
+
 
 	INSERT INTO Menu.FamilyDinnerItem(Label)
 	VALUES
-	(Menu.FamilyDinnerItemId(
-*/
+	(@EggRoll), (@BbqPork), (@ChickenChowMein), (@SweetSourPork),
+	(@SpecialFriedRice), (@BbqPorkChowYuk), (@FriedWonTon), (@CashewNutChiken),
+	(@SweetSourPrawns), (@BeefBroccoli), (@AlmondFriedChicken), (@SesameFlyboy),
+	(@KungPaoBeef), (@PineappleSweetSourChicken), (@FriedShrimp), (@SpecialChowYuk),
+	(@SteakCantonese), (@MandarinChicken), (@NeptuneSeafoodNest);
+
 COMMIT TRANSACTION [AddFamilyDinnerItemRecords]
---SELECT FamilyDinnerItemId, Label FROM Menu.FamilyDinnerItem;
+SELECT FamilyDinnerItemId, Label FROM Menu.FamilyDinnerItem;
 --*********************************************************************************************************************************
 --</FamilyDinnerItem>
 --*********************************************************************************************************************************
