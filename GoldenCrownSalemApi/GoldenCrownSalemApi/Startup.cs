@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using GoldenCrownSalemApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +25,12 @@ namespace GoldenCrownSalemApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var config = new AutoMapper.MapperConfiguration(configuration =>
+                                                                            {
+                                                                                configuration.CreateMap<MenuItem, MenuItemViewModel>();
+                                                                            });
+            var mapper = config.CreateMapper();
+            services.AddAutoMapper(typeof(Startup));
             services.AddMvc();
         }
 
