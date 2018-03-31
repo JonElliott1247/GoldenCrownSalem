@@ -37,9 +37,12 @@ RETURNS BIT
 AS   
 BEGIN
 	DECLARE @LabelCount INT = (SELECT COUNT(CategoryId) FROM Menu.Category WHERE Label = @CategoryLabel);
+
+	--1 means if there is a duplicate entry on Label then those entries have SubLabel values that are not null
 	DECLARE @ReturnValue BIT = 1;
-	IF (SELECT COUNT(CategoryId) FROM Menu.Category WHERE Label = @CategoryLabel AND SubLabel IS NOT NULL) != @LabelCount
-		SET @ReturnValue = 0;
+	IF @LabelCount != 1
+		IF (SELECT COUNT(CategoryId) FROM Menu.Category WHERE Label = @CategoryLabel AND SubLabel IS NOT NULL) != @LabelCount
+			SET @ReturnValue = 0;
 
 	RETURN @ReturnValue;
 END; 
@@ -56,7 +59,8 @@ CREATE TABLE Menu.Category
 	CategoryId		INT IDENTITY(1,1) PRIMARY KEY,
 	Label			VARCHAR(100) UNIQUE NOT NULL,
 	SubLabel		VARCHAR(100),
-	Path			VARCHAR(100) UNIQUE NOT NULL 
+	Path			VARCHAR(100) UNIQUE NOT NULL,
+
 );
 
 CREATE TABLE Menu.SpicyOption
@@ -76,6 +80,8 @@ CREATE TABLE Menu.MenuItem
 	CategoryId				INT FOREIGN KEY REFERENCES Menu.Category(CategoryId) NOT NULL,
 	DefaultSpicyOptionId	INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId),
 
+	--Supplements the two indexes below
+	CHECK (Menu.MenuItemLabelAndSubLabelCheckConstraint(Label) = 1)
 );
 --Guarantee a unique label or unique (label, sublabel) while allowing sublabel to be null
 CREATE UNIQUE INDEX UniqueLabelIndex ON Menu.MenuItem(Label) WHERE SubLabel IS NULL;

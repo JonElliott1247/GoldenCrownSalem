@@ -202,9 +202,12 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 	INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
 		VALUES
 		--Curries
-		('Chicken', NULL, 9.25, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
+		('Chicken', NULL, 9.25, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy));
+		INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
+		VALUES
 		('Shrimp', NULL, 10.25, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
 		('Squid', NULL, 9.75, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
+
 		('Beef', NULL, 9.25, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
 		('Seafood', NULL, 10.75, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
 		('Vegetable', NULL, 8.75, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
