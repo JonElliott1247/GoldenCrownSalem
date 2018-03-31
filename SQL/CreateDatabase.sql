@@ -2,6 +2,7 @@ USE GoldenCrownSalem;
 
 BEGIN TRANSACTION [Cleanup]
 
+	DROP TABLE IF EXISTS Menu.Path;
 	DROP TABLE IF EXISTS Menu.MenuItem_CombinationPlateItem;
 	DROP TABLE IF EXISTS Menu.CombinationPlateItem;
 	DROP TABLE IF EXISTS Menu.MenuItem_FamilyDinnerItem;
@@ -9,6 +10,9 @@ BEGIN TRANSACTION [Cleanup]
 	DROP TABLE IF EXISTS Menu.MenuItem;
 	DROP TABLE IF EXISTS Menu.SpicyOption;
 	DROP TABLE IF EXISTS Menu.Category;
+
+	IF OBJECT_ID (N'Menu.MenuItemLabelAndSubLabelCheckConstraint', N'FN') IS NOT NULL  
+		DROP FUNCTION Menu.MenuItemLabelAndSubLabelCheckConstraint;
 
 	IF OBJECT_ID (N'Menu.CategoryId', N'FN') IS NOT NULL  
 		DROP FUNCTION Menu.CategoryId;
@@ -27,6 +31,12 @@ GO
 --Main script
 CREATE SCHEMA Menu;
 GO
+
+CREATE TABLE Menu.Path
+(
+	PathId		INT IDENTITY(1,1) PRIMARY KEY,
+	Path		VARCHAR(100) UNIQUE NOT NULL
+);
 
 CREATE TABLE Menu.Category
 (
@@ -110,6 +120,20 @@ CREATE TABLE Menu.MenuItem_CombinationPlateItem
 --*********************************************************************************************************************
 --<PopulateDatabase.sql script helper user defined functions>
 --*********************************************************************************************************************
+GO
+CREATE FUNCTION Menu.MenuItemLabelAndSubLabelCheckConstraint(@CategoryLabel VARCHAR(100))  
+RETURNS BIT   
+AS   
+BEGIN
+	DECLARE @LabelCount INT = (SELECT COUNT(CategoryId) FROM Menu.Category WHERE Label = @CategoryLabel);
+	DECLARE @ReturnValue BIT = 1;
+	IF (SELECT COUNT(CategoryId) FROM Menu.Category WHERE Label = @CategoryLabel AND SubLabel IS NOT NULL) != @LabelCount
+		SET @ReturnValue = 0;
+
+	RETURN @ReturnValue;
+END; 
+GO
+
 GO
 CREATE FUNCTION Menu.CategoryId(@CategoryLabel VARCHAR(100))  
 RETURNS INT   
