@@ -54,7 +54,7 @@ CREATE TABLE Menu.MenuItem
 	DefaultSpicyOptionId	INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId),
 
 );
---Guarentee a unique label or unique (label, sublabel) while allowing sublabel to be null
+--Guarantee a unique label or unique (label, sublabel) while allowing sublabel to be null
 CREATE UNIQUE INDEX UniqueLabelIndex ON Menu.MenuItem(Label) WHERE SubLabel IS NULL;
 CREATE UNIQUE INDEX UniqueLabelSubLabelIndex ON Menu.MenuItem(Label, SubLabel);
 
