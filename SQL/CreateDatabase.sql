@@ -23,6 +23,9 @@ BEGIN TRANSACTION [Cleanup]
 	IF OBJECT_ID (N'Menu.NumSpecialPerFamilyDinnerFunc', N'FN') IS NOT NULL  
 		DROP FUNCTION Menu.NumSpecialPerFamilyDinnerFunc;
 
+	IF OBJECT_ID (N'Menu.FamilyDinnerItemId', N'FN') IS NOT NULL
+		DROP FUNCTION Menu.FamilyDInnerItemId;
+
 	DROP SCHEMA IF EXISTS Menu;
 
 COMMIT TRANSACTION [Cleanup]
@@ -150,13 +153,21 @@ BEGIN
 END; 
 GO
 
-GO
+
 CREATE FUNCTION Menu.SpicyOptionId(@SpicyOptionLabel VARCHAR(100))  
 RETURNS INT   
 AS   
 BEGIN
 	RETURN (SELECT SpicyOptionId FROM Menu.SpicyOption WHERE Label = @SpicyOptionLabel);
 END; 
+GO
+
+CREATE FUNCTION Menu.FamilyDinnerItemId(@FamilyDinnerItemLabel VARCHAR(100))
+RETURNS INT
+AS
+BEGIN
+	RETURN (SELECT FamilyDinnerItemId FROM Menu.FamilyDinnerItem WHERE Label = @FamilyDinnerItemLabel)
+END;
 GO
 
 --*********************************************************************************************************************

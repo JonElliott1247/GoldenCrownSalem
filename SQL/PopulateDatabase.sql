@@ -330,3 +330,26 @@ SELECT Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId FRO
 --*********************************************************************************************************************************
 --</MenuItem>
 --*********************************************************************************************************************************
+
+--*********************************************************************************************************************************
+--<FamilyDinnerItem>
+--*********************************************************************************************************************************
+BEGIN TRANSACTION [AddFamilyDinnerItemRecords]
+
+/*
+	DECLARE @Number1	AS VARCHAR(100)	= 'Number 1', 
+			@Number2	AS VARCHAR(100)	= 'Number 2', 
+			@Number3	AS VARCHAR(100) = 'Number 3',
+			@Number4	AS VARCHAR(100) = 'Number 4',
+			@Number5	AS VARCHAR(100) = 'Number 5',
+			@Number6	AS VARCHAR(100) = 'Number 6';
+
+	INSERT INTO Menu.FamilyDinnerItem(Label)
+	VALUES
+	(Menu.FamilyDinnerItemId(
+*/
+COMMIT TRANSACTION [AddFamilyDinnerItemRecords]
+--SELECT FamilyDinnerItemId, Label FROM Menu.FamilyDinnerItem;
+--*********************************************************************************************************************************
+--</FamilyDinnerItem>
+--*********************************************************************************************************************************
