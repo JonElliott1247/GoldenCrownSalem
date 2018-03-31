@@ -32,6 +32,19 @@ GO
 CREATE SCHEMA Menu;
 GO
 
+CREATE FUNCTION Menu.MenuItemLabelAndSubLabelCheckConstraint(@CategoryLabel VARCHAR(100))  
+RETURNS BIT   
+AS   
+BEGIN
+	DECLARE @LabelCount INT = (SELECT COUNT(CategoryId) FROM Menu.Category WHERE Label = @CategoryLabel);
+	DECLARE @ReturnValue BIT = 1;
+	IF (SELECT COUNT(CategoryId) FROM Menu.Category WHERE Label = @CategoryLabel AND SubLabel IS NOT NULL) != @LabelCount
+		SET @ReturnValue = 0;
+
+	RETURN @ReturnValue;
+END; 
+GO
+
 CREATE TABLE Menu.Path
 (
 	PathId		INT IDENTITY(1,1) PRIMARY KEY,
@@ -120,19 +133,7 @@ CREATE TABLE Menu.MenuItem_CombinationPlateItem
 --*********************************************************************************************************************
 --<PopulateDatabase.sql script helper user defined functions>
 --*********************************************************************************************************************
-GO
-CREATE FUNCTION Menu.MenuItemLabelAndSubLabelCheckConstraint(@CategoryLabel VARCHAR(100))  
-RETURNS BIT   
-AS   
-BEGIN
-	DECLARE @LabelCount INT = (SELECT COUNT(CategoryId) FROM Menu.Category WHERE Label = @CategoryLabel);
-	DECLARE @ReturnValue BIT = 1;
-	IF (SELECT COUNT(CategoryId) FROM Menu.Category WHERE Label = @CategoryLabel AND SubLabel IS NOT NULL) != @LabelCount
-		SET @ReturnValue = 0;
 
-	RETURN @ReturnValue;
-END; 
-GO
 
 GO
 CREATE FUNCTION Menu.CategoryId(@CategoryLabel VARCHAR(100))  
