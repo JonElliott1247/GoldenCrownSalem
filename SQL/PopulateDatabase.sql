@@ -344,7 +344,7 @@ BEGIN TRANSACTION [AddFamilyDinnerItemRecords]
 			@SpecialFriedRice			AS VARCHAR(100) = 'Special Fried Rice',
 			@BbqPorkChowYuk				AS VARCHAR(100) = 'B.B.Q Pork Chow Yuk',
 			@FriedWonTon				AS VARCHAR(100) = 'Fried Won Ton',
-			@CashewNutChiken			AS VARCHAR(100) = 'Cashew Nut Chicken',
+			@CashewNutChicken			AS VARCHAR(100) = 'Cashew Nut Chicken',
 			@SweetSourPrawns			AS VARCHAR(100) = 'Sweet and Sour Prawns',
 			@BeefBroccoli				AS VARCHAR(100) = 'Beef and Broccoli',
 			@AlmondFriedChicken			AS VARCHAR(100) = 'Almond Fried Chicken',
@@ -362,7 +362,7 @@ BEGIN TRANSACTION [AddFamilyDinnerItemRecords]
 	INSERT INTO Menu.FamilyDinnerItem(Label)
 	VALUES
 	(@EggRoll), (@BbqPork), (@ChickenChowMein), (@SweetSourPork),
-	(@SpecialFriedRice), (@BbqPorkChowYuk), (@FriedWonTon), (@CashewNutChiken),
+	(@SpecialFriedRice), (@BbqPorkChowYuk), (@FriedWonTon), (@CashewNutChicken),
 	(@SweetSourPrawns), (@BeefBroccoli), (@AlmondFriedChicken), (@SesameFlyboy),
 	(@KungPaoBeef), (@PineappleSweetSourChicken), (@FriedShrimp), (@SpecialChowYuk),
 	(@SteakCantonese), (@MandarinChicken), (@NeptuneSeafoodNest);
@@ -386,7 +386,27 @@ BEGIN TRANSACTION [MiFdiRecords]
 	(Menu.MenuItemId(@DinnerA), Menu.FamilyDinnerItemId(@ChickenChowMein), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
 	(Menu.MenuItemId(@DinnerA), Menu.FamilyDinnerItemId(@SweetSourPork), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
 	(Menu.MenuItemId(@DinnerA), Menu.FamilyDinnerItemId(@SpecialFriedRice), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
-	(Menu.MenuItemId(@DinnerA), Menu.FamilyDinnerItemId(@BbqPorkChowYuk), Menu.SpicyOptionId(@NotSpicy), 1, 0, 0);
+	(Menu.MenuItemId(@DinnerA), Menu.FamilyDinnerItemId(@BbqPorkChowYuk), Menu.SpicyOptionId(@NotSpicy), 1, 0, 0),
+
+	(Menu.MenuItemId(@DinnerB), Menu.FamilyDinnerItemId(@SesameFlyboy), Menu.SpicyOptionId(@NotSpicy), 0, 1, 0),
+	(Menu.MenuItemId(@DinnerB), Menu.FamilyDinnerItemId(@BbqPork), Menu.SpicyOptionId(@NotSpicy), 0, 1, 0),
+	(Menu.MenuItemId(@DinnerB), Menu.FamilyDinnerItemId(@KungPaoBeef), Menu.SpicyOptionId(@Spicy), 0, 0, 1),
+	(Menu.MenuItemId(@DinnerB), Menu.FamilyDinnerItemId(@PineappleSweetSourChicken), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
+	(Menu.MenuItemId(@DinnerB), Menu.FamilyDinnerItemId(@FriedShrimp), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
+	(Menu.MenuItemId(@DinnerB), Menu.FamilyDinnerItemId(@SpecialFriedRice), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
+	(Menu.MenuItemId(@DinnerB), Menu.FamilyDinnerItemId(@SpecialChowYuk), Menu.SpicyOptionId(@NotSpicy), 1, 0, 0),
+
+	(Menu.MenuItemId(@DinnerC), Menu.FamilyDinnerItemId(@FriedWonTon), Menu.SpicyOptionId(@NotSpicy), 0, 1, 0),
+	(Menu.MenuItemId(@DinnerC), Menu.FamilyDinnerItemId(@BbqPork), Menu.SpicyOptionId(@NotSpicy), 0, 1, 0),
+	(Menu.MenuItemId(@DinnerC), Menu.FamilyDinnerItemId(@CashewNutChicken), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
+	(Menu.MenuItemId(@DinnerC), Menu.FamilyDinnerItemId(@SweetSourPrawns), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
+	(Menu.MenuItemId(@DinnerC), Menu.FamilyDinnerItemId(@BeefBroccoli), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
+	(Menu.MenuItemId(@DinnerC), Menu.FamilyDinnerItemId(@SpecialFriedRice), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
+	(Menu.MenuItemId(@DinnerC), Menu.FamilyDinnerItemId(@AlmondFriedChicken), Menu.SpicyOptionId(@NotSpicy), 1, 0, 0);
+
+
+
+
 
 COMMIT TRANSACTION [MiFdiRecords]
 --SELECT FamilyDinnerItemId, Label FROM Menu.FamilyDinnerItem;
