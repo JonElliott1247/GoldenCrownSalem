@@ -480,24 +480,11 @@ COMMIT TRANSACTION [AddCombinationPlateItemRecords]
 
 BEGIN TRANSACTION [AddMenuItem_ComboItemRecords]
 
-/*
 
+/*
 	INSERT INTO Menu.MenuItem_CombinationPlateItem(MenuItemId, CombinationPlateId)
 	VALUES
-	(Menu.MenuItemId(@Number1), Menu.CombinationPlateId(),
-	(@PorkChowMeinCombo, Menu.SpicyOptionId(@NotSpicy)),
-	(@EggFooYoungCombo, Menu.SpicyOptionId(@NotSpicy)),
-	(@SweetSourChickenCombo, Menu.SpicyOptionId(@NotSpicy)),
-	(@PorkFriedRiceCombo, Menu.SpicyOptionId(@NotSpicy)),
-
-	(@FriedShrimpCombo, Menu.SpicyOptionId(@NotSpicy)),
-	(@SweetSourPorkCombo, Menu.SpicyOptionId(@NotSpicy)),
-	(@BbqPorkCombo, Menu.SpicyOptionId(@NotSpicy)),
-	(@DicedAlmondChickenCombo, Menu.SpicyOptionId(@NotSpicy)),
-
-	(@ParchmentChickenCombo, Menu.SpicyOptionId(@NotSpicy)),
-	(@SweetSourShrimpCombo, Menu.SpicyOptionId(@NotSpicy)),
-	(@BbqPorkChowYukCombo, Menu.SpicyOptionId(@NotSpicy));
+	(Menu.MenuItemId(@Number1), Menu.CombinationPlateId(@EggRollCombo));
 */
 
 COMMIT TRANSACTION [AddMenuItem_ComboItemRecords]

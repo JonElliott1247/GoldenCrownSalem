@@ -29,6 +29,9 @@ BEGIN TRANSACTION [Cleanup]
 	IF OBJECT_ID (N'Menu.MenuItemId', N'FN') IS NOT NULL
 		DROP FUNCTION Menu.MenuItemId;
 
+	IF OBJECT_ID (N'Menu.CombinationPlateId', N'FN') IS NOT NULL
+		DROP FUNCTION Menu.CombinationPlateId;
+
 	DROP SCHEMA IF EXISTS Menu;
 
 COMMIT TRANSACTION [Cleanup]
@@ -183,6 +186,15 @@ RETURNS INT
 AS
 BEGIN
 	RETURN (SELECT MenuItemId FROM Menu.MenuItem WHERE Label = @MenuItemLabel)
+END;
+GO
+
+
+CREATE FUNCTION Menu.CombinationPlateId(@CombinationPlateLabel VARCHAR(100))
+RETURNS INT
+AS
+BEGIN
+	RETURN (SELECT MenuItemId FROM Menu.MenuItem WHERE Label = @CombinationPlateLabel)
 END;
 GO
 
