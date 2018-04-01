@@ -194,7 +194,7 @@ CREATE FUNCTION Menu.CombinationPlateItemId(@CombinationPlateItemLabel VARCHAR(1
 RETURNS INT
 AS
 BEGIN
-	RETURN (SELECT MenuItemId FROM Menu.MenuItem WHERE Label = @CombinationPlateItemLabel)
+	RETURN (SELECT CombinationPlateItemId FROM Menu.CombinationPlateItem WHERE Label = @CombinationPlateItemLabel)
 END;
 GO
 

@@ -484,8 +484,36 @@ BEGIN TRANSACTION [AddMenuItem_ComboItemRecords]
 
 	INSERT INTO Menu.MenuItem_CombinationPlateItem(MenuItemId, CombinationPlateItemId)
 	VALUES
-	(Menu.MenuItemId(@Number1), Menu.CombinationPlateItemId(@EggRollCombo));
+	(Menu.MenuItemId(@Number1), Menu.CombinationPlateItemId(@EggRollCombo)),
+	(Menu.MenuItemId(@Number1), Menu.CombinationPlateItemId(@PorkChowMeinCombo)),
+	(Menu.MenuItemId(@Number1), Menu.CombinationPlateItemId(@EggFooYoungCombo)),
+	
+	(Menu.MenuItemId(@Number2), Menu.CombinationPlateItemId(@SweetSourChickenCombo)),
+	(Menu.MenuItemId(@Number2), Menu.CombinationPlateItemId(@PorkChowMeinCombo)),
+	(Menu.MenuItemId(@Number2), Menu.CombinationPlateItemId(@PorkFriedRiceCombo)),
 
+	(Menu.MenuItemId(@Number3), Menu.CombinationPlateItemId(@FriedShrimpCombo)),
+	(Menu.MenuItemId(@Number3), Menu.CombinationPlateItemId(@SweetSourPork)),
+	(Menu.MenuItemId(@Number3), Menu.CombinationPlateItemId(@PorkChowMeinCombo)),
+
+	
+	(Menu.MenuItemId(@Number4), Menu.CombinationPlateItemId(@BbqPorkCombo)),
+	(Menu.MenuItemId(@Number4), Menu.CombinationPlateItemId(@DicedAlmondChickenCombo)),
+	(Menu.MenuItemId(@Number4), Menu.CombinationPlateItemId(@SweetSourChickenCombo)),
+	(Menu.MenuItemId(@Number4), Menu.CombinationPlateItemId(@PorkFriedRiceCombo)),
+
+	
+	(Menu.MenuItemId(@Number5), Menu.CombinationPlateItemId(@FriedShrimpCombo)),
+	(Menu.MenuItemId(@Number5), Menu.CombinationPlateItemId(@SweetSourPorkCombo)),
+	(Menu.MenuItemId(@Number5), Menu.CombinationPlateItemId(@DicedAlmondChickenCombo)),
+	(Menu.MenuItemId(@Number5), Menu.CombinationPlateItemId(@PorkFriedRiceCombo)),
+
+
+	(Menu.MenuItemId(@Number6), Menu.CombinationPlateItemId(@ParchmentChickenCombo)),
+	(Menu.MenuItemId(@Number6), Menu.CombinationPlateItemId(@SweetSourShrimpCombo)),
+	(Menu.MenuItemId(@Number6), Menu.CombinationPlateItemId(@BbqPorkChowYukCombo)),
+	(Menu.MenuItemId(@Number6), Menu.CombinationPlateItemId(@PorkFriedRiceCombo));
+	
 
 COMMIT TRANSACTION [AddMenuItem_ComboItemRecords]
 --SELECT * FROM Menu.MenuItem_CombinationPlateItem;
