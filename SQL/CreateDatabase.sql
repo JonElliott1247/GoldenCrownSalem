@@ -96,7 +96,8 @@ CREATE UNIQUE INDEX UniqueLabelSubLabelIndex ON Menu.MenuItem(Label, SubLabel);
 CREATE TABLE Menu.FamilyDinnerItem
 (
 	FamilyDinnerItemId			INT IDENTITY(1,1) PRIMARY KEY,
-	Label						VARCHAR(100) UNIQUE NOT NULL
+	Label						VARCHAR(100) UNIQUE NOT NULL,
+	DefaultSpicyOptionId		INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId) NOT NULL,
 );
 
 CREATE TABLE Menu.MenuItem_FamilyDinnerItem
@@ -104,7 +105,6 @@ CREATE TABLE Menu.MenuItem_FamilyDinnerItem
 	MenuItemFamilyDinnerItemId	INT IDENTITY(1,1) PRIMARY KEY,
 	MenuItemId					INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId) NOT NULL,
 	FamilyDinnerItemId			INT FOREIGN KEY REFERENCES Menu.FamilyDinnerItem(FamilyDinnerItemId) NOT NULL,
-	DefaultSpicyOptionId		INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId) NOT NULL,
 	IsSpecial					BIT NOT NULL,
 	IsAppetizer					BIT NOT NULL,
 	IsEntree					BIT NOT NULL,
