@@ -105,7 +105,17 @@ CREATE TABLE Menu.MenuItem_FamilyDinnerItem
 	MenuItemId					INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId) NOT NULL,
 	FamilyDinnerItemId			INT FOREIGN KEY REFERENCES Menu.FamilyDinnerItem(FamilyDinnerItemId) NOT NULL,
 	DefaultSpicyOptionId		INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId) NOT NULL,
-	IsSpecial					BIT NOT NULL
+	IsSpecial					BIT NOT NULL,
+	IsAppetizer					BIT NOT NULL,
+	IsEntree					BIT NOT NULL,
+
+	--Make sure any individual entry is either a special, or appetizer or entree noninclusive.
+	CHECK	(	((IsSpecial = 1) OR (IsAppetizer = 1) OR (IsEntree = 1))
+				AND (NOT (IsSpecial = 1 AND IsAppetizer = 1))
+				AND (NOT (IsSpecial = 1 AND IsEntree = 1))
+				AND (NOT (IsAppetizer = 1 AND IsEntree = 1))
+
+			)
 );
 
 GO

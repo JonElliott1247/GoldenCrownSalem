@@ -372,3 +372,21 @@ SELECT FamilyDinnerItemId, Label FROM Menu.FamilyDinnerItem;
 --*********************************************************************************************************************************
 --</FamilyDinnerItem>
 --*********************************************************************************************************************************
+
+--*********************************************************************************************************************************
+--<MenuItem_FamilyDinnerItem>
+--*********************************************************************************************************************************
+
+BEGIN TRANSACTION [MiFdiRecords]
+
+
+	INSERT INTO Menu.MenuItem_FamilyDinnerItem(MenuItemId, FamilyDinnerItemId, DefaultSpicyOptionId, IsSpecial, IsAppetizer, IsEntree)
+	VALUES
+	(Menu.MenuItemId(@DinnerA), Menu.FamilyDinnerItemId(@EggRoll), Menu.SpicyOptionId(@NotSpicy), 0, 1, 0);
+
+COMMIT TRANSACTION [MiFdiRecords]
+--SELECT FamilyDinnerItemId, Label FROM Menu.FamilyDinnerItem;
+
+--*********************************************************************************************************************************
+--</MenuItem_FamilyDinnerItem>
+--*********************************************************************************************************************************
