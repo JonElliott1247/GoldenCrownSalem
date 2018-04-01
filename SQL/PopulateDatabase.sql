@@ -481,11 +481,11 @@ COMMIT TRANSACTION [AddCombinationPlateItemRecords]
 BEGIN TRANSACTION [AddMenuItem_ComboItemRecords]
 
 
-/*
-	INSERT INTO Menu.MenuItem_CombinationPlateItem(MenuItemId, CombinationPlateId)
+
+	INSERT INTO Menu.MenuItem_CombinationPlateItem(MenuItemId, CombinationPlateItemId)
 	VALUES
-	(Menu.MenuItemId(@Number1), Menu.CombinationPlateId(@EggRollCombo));
-*/
+	(Menu.MenuItemId(@Number1), Menu.CombinationPlateItemId(@EggRollCombo));
+
 
 COMMIT TRANSACTION [AddMenuItem_ComboItemRecords]
 --SELECT * FROM Menu.MenuItem_CombinationPlateItem;

@@ -29,8 +29,8 @@ BEGIN TRANSACTION [Cleanup]
 	IF OBJECT_ID (N'Menu.MenuItemId', N'FN') IS NOT NULL
 		DROP FUNCTION Menu.MenuItemId;
 
-	IF OBJECT_ID (N'Menu.CombinationPlateId', N'FN') IS NOT NULL
-		DROP FUNCTION Menu.CombinationPlateId;
+	IF OBJECT_ID (N'Menu.CombinationPlateItemId', N'FN') IS NOT NULL
+		DROP FUNCTION Menu.CombinationPlateItemId;
 
 	DROP SCHEMA IF EXISTS Menu;
 
@@ -146,7 +146,7 @@ CREATE TABLE Menu.MenuItem_CombinationPlateItem
 (
 	MenuItemFamilyDinnerItem	INT IDENTITY(1,1) PRIMARY KEY,
 	MenuItemId					INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId),
-	CombinationPlateId			INT FOREIGN KEY REFERENCES Menu.CombinationPlateItem(CombinationPlateItemId),
+	CombinationPlateItemId		INT FOREIGN KEY REFERENCES Menu.CombinationPlateItem(CombinationPlateItemId)
 );
 
 
@@ -190,11 +190,11 @@ END;
 GO
 
 
-CREATE FUNCTION Menu.CombinationPlateId(@CombinationPlateLabel VARCHAR(100))
+CREATE FUNCTION Menu.CombinationPlateItemId(@CombinationPlateItemLabel VARCHAR(100))
 RETURNS INT
 AS
 BEGIN
-	RETURN (SELECT MenuItemId FROM Menu.MenuItem WHERE Label = @CombinationPlateLabel)
+	RETURN (SELECT MenuItemId FROM Menu.MenuItem WHERE Label = @CombinationPlateItemLabel)
 END;
 GO
 
