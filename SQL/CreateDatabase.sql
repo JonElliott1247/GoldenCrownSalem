@@ -144,7 +144,7 @@ CREATE TABLE Menu.CombinationPlateItem
 
 CREATE TABLE Menu.MenuItem_CombinationPlateItem
 (
-	MenuItemFamilyDinnerItem	INT IDENTITY(1,1) PRIMARY KEY,
+	MenuItemFamilyDinnerItemId	INT IDENTITY(1,1) PRIMARY KEY,
 	MenuItemId					INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId),
 	CombinationPlateItemId		INT FOREIGN KEY REFERENCES Menu.CombinationPlateItem(CombinationPlateItemId)
 );

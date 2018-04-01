@@ -516,7 +516,7 @@ BEGIN TRANSACTION [AddMenuItem_ComboItemRecords]
 	
 
 COMMIT TRANSACTION [AddMenuItem_ComboItemRecords]
---SELECT * FROM Menu.MenuItem_CombinationPlateItem;
+SELECT * FROM Menu.MenuItem_CombinationPlateItem;
 
 --*********************************************************************************************************************************
 --</MenuItem_CombinationPlateItem>
