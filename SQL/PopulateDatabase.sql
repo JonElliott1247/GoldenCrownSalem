@@ -424,3 +424,48 @@ COMMIT TRANSACTION [MiFdiRecords]
 --*********************************************************************************************************************************
 --</MenuItem_FamilyDinnerItem>
 --*********************************************************************************************************************************
+
+--*********************************************************************************************************************************
+--<CombinationPlateItem>
+--*********************************************************************************************************************************
+
+BEGIN TRANSACTION [AddCombinationPlateItemRecords]
+
+
+	DECLARE @EggRollCombo					AS VARCHAR(100)	= 'Egg Roll', 
+			@PorkChowMeinCombo				AS VARCHAR(100)	= 'Pork Chow Mein', 
+			@EggFooYoungCombo				AS VARCHAR(100) = 'Egg Foo Young',
+			@SweetSourChickenCombo			AS VARCHAR(100) = 'Sweet and Sour Chicken',
+			@PorkFriedRiceCombo				AS VARCHAR(100) = 'Pork Fried Rice',
+			@FriedShrimpCombo				AS VARCHAR(100) = 'Fried Shrimp',
+			@SweetSourPorkCombo				AS VARCHAR(100) = 'Sweet and Sour Pork',
+			@BbqPorkCombo					AS VARCHAR(100) = 'B.B.Q Pork',
+			@DicedAlmondChickenCombo		AS VARCHAR(100) = 'DicedAlmondChickenCombo',
+			@ParchmentChickenCombo			AS VARCHAR(100) = 'ParchmentChicken',
+			@SweetSourShrimpCombo			AS VARCHAR(100) = 'Sweet and Sour Shrimp',
+			@BbqPorkChowYukCombo			AS VARCHAR(100) = 'B.B.Q Pork Chow Yuk';
+
+	INSERT INTO Menu.CombinationPlateItem(Label, DefaultSpicyOptionId)
+	VALUES
+	(@EggRollCombo, Menu.SpicyOptionId(@NotSpicy)),
+	(@PorkChowMeinCombo, Menu.SpicyOptionId(@NotSpicy)),
+	(@EggFooYoungCombo, Menu.SpicyOptionId(@NotSpicy)),
+	(@SweetSourChickenCombo, Menu.SpicyOptionId(@NotSpicy)),
+	(@PorkFriedRiceCombo, Menu.SpicyOptionId(@NotSpicy)),
+
+	(@FriedShrimpCombo, Menu.SpicyOptionId(@NotSpicy)),
+	(@SweetSourPorkCombo, Menu.SpicyOptionId(@NotSpicy)),
+	(@BbqPorkCombo, Menu.SpicyOptionId(@NotSpicy)),
+	(@DicedAlmondChickenCombo, Menu.SpicyOptionId(@NotSpicy)),
+
+	(@ParchmentChickenCombo, Menu.SpicyOptionId(@NotSpicy)),
+	(@SweetSourShrimpCombo, Menu.SpicyOptionId(@NotSpicy)),
+	(@BbqPorkChowYukCombo, Menu.SpicyOptionId(@NotSpicy));
+
+
+COMMIT TRANSACTION [AddCombinationItemPlateRecords]
+--SELECT FamilyDinnerItemId, Label FROM Menu.FamilyDinnerItem;
+
+--*********************************************************************************************************************************
+--</CombinationPlateItem>
+--*********************************************************************************************************************************

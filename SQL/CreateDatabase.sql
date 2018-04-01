@@ -135,13 +135,8 @@ ADD CONSTRAINT OneSpecialPerFamilyDinner CHECK( (IsSpecial = 0) OR	(Menu.NumSpec
 CREATE TABLE Menu.CombinationPlateItem
 (
 	CombinationPlateItemId	INT IDENTITY(1,1) PRIMARY KEY,
-	Label					VARCHAR(100),
-	SubLabel				VARCHAR(100),
-	AlternateId				INT FOREIGN KEY REFERENCES Menu.CombinationPlateItem(CombinationPlateItemId),
-	DefaultSpicyOptionId	INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId),
-	IsSide					BIT NOT NULL,
-
-	CONSTRAINT CombinationPlateItem_UniqueLabel	UNIQUE(Label, SubLabel),
+	Label					VARCHAR(100) UNIQUE NOT NULL,
+	DefaultSpicyOptionId	INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId)
 );
 
 CREATE TABLE Menu.MenuItem_CombinationPlateItem
