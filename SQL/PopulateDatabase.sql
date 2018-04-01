@@ -385,8 +385,8 @@ BEGIN TRANSACTION [MiFdiRecords]
 	(Menu.MenuItemId(@DinnerA), Menu.FamilyDinnerItemId(@BbqPork), Menu.SpicyOptionId(@NotSpicy), 0, 1, 0),
 	(Menu.MenuItemId(@DinnerA), Menu.FamilyDinnerItemId(@ChickenChowMein), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
 	(Menu.MenuItemId(@DinnerA), Menu.FamilyDinnerItemId(@SweetSourPork), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
-	(Menu.MenuItemId(@DinnerA), Menu.FamilyDinnerItemId(@SpecialFriedRice), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1);
-	--(Menu.MenuItemId(@DinnerA), Menu.FamilyDinnerItemId(@BbqPorkChowYuk), Menu.SpicyOptionId(@NotSpicy), 1, 0, 0);
+	(Menu.MenuItemId(@DinnerA), Menu.FamilyDinnerItemId(@SpecialFriedRice), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
+	(Menu.MenuItemId(@DinnerA), Menu.FamilyDinnerItemId(@BbqPorkChowYuk), Menu.SpicyOptionId(@NotSpicy), 1, 0, 0);
 
 COMMIT TRANSACTION [MiFdiRecords]
 --SELECT FamilyDinnerItemId, Label FROM Menu.FamilyDinnerItem;

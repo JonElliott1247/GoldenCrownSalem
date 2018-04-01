@@ -129,7 +129,7 @@ GO
 
 
 ALTER TABLE Menu.MenuItem_FamilyDinnerItem
-ADD CONSTRAINT OneSpecialPerFamilyDinner CHECK( (IsSpecial = 0) OR	(Menu.NumSpecialPerFamilyDinnerFunc(MenuItemId) = 0));
+ADD CONSTRAINT OneSpecialPerFamilyDinner CHECK( (IsSpecial = 0) OR	(Menu.NumSpecialPerFamilyDinnerFunc(MenuItemId) = 1));
 
 
 CREATE TABLE Menu.CombinationPlateItem
