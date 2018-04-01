@@ -353,6 +353,7 @@ BEGIN TRANSACTION [AddFamilyDinnerItemRecords]
 			@PineappleSweetSourChicken	AS VARCHAR(100) = 'Pineapple Sweet and Sour Chicken',
 			@FriedShrimp				AS VARCHAR(100) = 'Fried Shrimp',
 			@SpecialChowYuk				AS VARCHAR(100) = 'Special Chow Yuk',
+			@ParchmentChicken			AS VARCHAR(100) = 'Parchment Chicken',
 			@SteakCantonese				AS VARCHAR(100) = 'Steak Cantonese',
 			@MandarinChicken			AS VARCHAR(100) = 'Mandarin Chicken',
 			@NeptuneSeafoodNest			AS VARCHAR(100) = 'Neptune Seafood Nest';
@@ -365,7 +366,7 @@ BEGIN TRANSACTION [AddFamilyDinnerItemRecords]
 	(@SpecialFriedRice), (@BbqPorkChowYuk), (@FriedWonTon), (@CashewNutChicken),
 	(@SweetSourPrawns), (@BeefBroccoli), (@AlmondFriedChicken), (@SesameFlyboy),
 	(@KungPaoBeef), (@PineappleSweetSourChicken), (@FriedShrimp), (@SpecialChowYuk),
-	(@SteakCantonese), (@MandarinChicken), (@NeptuneSeafoodNest);
+	(@ParchmentChicken), (@SteakCantonese), (@MandarinChicken), (@NeptuneSeafoodNest);
 
 COMMIT TRANSACTION [AddFamilyDinnerItemRecords]
 SELECT FamilyDinnerItemId, Label FROM Menu.FamilyDinnerItem;
@@ -402,7 +403,16 @@ BEGIN TRANSACTION [MiFdiRecords]
 	(Menu.MenuItemId(@DinnerC), Menu.FamilyDinnerItemId(@SweetSourPrawns), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
 	(Menu.MenuItemId(@DinnerC), Menu.FamilyDinnerItemId(@BeefBroccoli), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
 	(Menu.MenuItemId(@DinnerC), Menu.FamilyDinnerItemId(@SpecialFriedRice), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
-	(Menu.MenuItemId(@DinnerC), Menu.FamilyDinnerItemId(@AlmondFriedChicken), Menu.SpicyOptionId(@NotSpicy), 1, 0, 0);
+	(Menu.MenuItemId(@DinnerC), Menu.FamilyDinnerItemId(@AlmondFriedChicken), Menu.SpicyOptionId(@NotSpicy), 1, 0, 0),
+
+	(Menu.MenuItemId(@DinnerD), Menu.FamilyDinnerItemId(@ParchmentChicken), Menu.SpicyOptionId(@NotSpicy), 0, 1, 0),
+	(Menu.MenuItemId(@DinnerD), Menu.FamilyDinnerItemId(@BbqPork), Menu.SpicyOptionId(@NotSpicy), 0, 1, 0),
+	(Menu.MenuItemId(@DinnerD), Menu.FamilyDinnerItemId(@SteakCantonese), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
+	(Menu.MenuItemId(@DinnerD), Menu.FamilyDinnerItemId(@SpecialChowYuk), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
+	(Menu.MenuItemId(@DinnerD), Menu.FamilyDinnerItemId(@MandarinChicken), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
+	(Menu.MenuItemId(@DinnerD), Menu.FamilyDinnerItemId(@SpecialFriedRice), Menu.SpicyOptionId(@NotSpicy), 0, 0, 1),
+	(Menu.MenuItemId(@DinnerD), Menu.FamilyDinnerItemId(@NeptuneSeafoodNest), Menu.SpicyOptionId(@NotSpicy), 1, 0, 0);
+
 
 
 
