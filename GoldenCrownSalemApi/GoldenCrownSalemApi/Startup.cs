@@ -32,6 +32,7 @@ namespace GoldenCrownSalemApi
                                                                                 {
                                                                                     configuration.CreateMap<MenuItem, MenuItemViewModel>().ForMember(view => view.Id, opts => opts.MapFrom(item => item.MenuItemId))
                                                                                                                                           .ForMember(view => view.DefaultSpicyOption, opts => opts.MapFrom(item => item.DefaultSpicyOption.Label))
+                                                                                                                                          .ForMember(view => view.Category, opts => opts.MapFrom(item => item.Category.Label))
                                                                                                                                           .ForMember(view => view.SubLabel, opts => opts.NullSubstitute(string.Empty));
                                                                                     configuration.CreateMap<Category, CategoryViewModel>().ForMember(view => view.Id, opts => opts.MapFrom(item => item.CategoryId))
                                                                                                                                           .ForMember(view => view.SubLabel, opts => opts.NullSubstitute(string.Empty));

@@ -46,11 +46,11 @@ namespace GoldenCrownSalemApi.Controllers
             var list = new List<MenuItemViewModel>();
             using (var context = new GoldenCrownSalemContext())
             {
-                var menuItems = context.MenuItem.Include(item => item.DefaultSpicyOption).Where(item => item.Category.Path.Trim() == path.Trim());
+                var menuItems = context.MenuItem.Include(item => item.DefaultSpicyOption).Include(item => item.Category)
+                                                .Where(item => item.Category.Path.Trim() == path.Trim());
                 foreach(var item in menuItems)
                 {
                     var viewModel = _mapper.Map<MenuItemViewModel>(item);
-                    Console.WriteLine(viewModel.DefaultSpicyOption);
                     list.Add(viewModel);
                 }
 

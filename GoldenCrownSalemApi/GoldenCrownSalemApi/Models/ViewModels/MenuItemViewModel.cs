@@ -12,7 +12,7 @@ namespace GoldenCrownSalemApi.Models
         public string SubLabel { get; set; }
         public decimal Price { get; set; }
         public bool IsAvailable { get; set; }
-        public int CategoryId { get; set; }
+        public string Category { get; set; }
         public string DefaultSpicyOption { get; set; }
     }
 }
