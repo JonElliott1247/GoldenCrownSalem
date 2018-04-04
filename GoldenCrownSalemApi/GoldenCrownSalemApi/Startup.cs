@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
+
 namespace GoldenCrownSalemApi
 {
     public class Startup
@@ -27,11 +28,17 @@ namespace GoldenCrownSalemApi
         {
             var config = new AutoMapper.MapperConfiguration(configuration =>
                                                                             {
-                                                                                configuration.CreateMap<MenuItem, MenuItemViewModel>();
-                                                                                configuration.CreateMap<Category, CategoryViewModel>();
+                                                                                using (var context = new GoldenCrownSalemContext())
+                                                                                {
+                                                                                    configuration.CreateMap<MenuItem, MenuItemViewModel>().ForMember(view => view.Id, opts => opts.MapFrom(item => item.MenuItemId))
+                                                                                                                                          .ForMember(view => view.DefaultSpicyOption, opts => opts.MapFrom(item => item.DefaultSpicyOption.Label));
+                                                                                                                                          //.ForMember(view => view.SubLabel, opts => opts.MapFrom(item => item.SubLabel == null ? "" : item.SubLabel));
+                                                                                    configuration.CreateMap<Category, CategoryViewModel>().ForMember(view => view.Id, opts => opts.MapFrom(item => item.CategoryId));
+                                                                                }
+
                                                                             });
-            var mapper = config.CreateMapper();
-            services.AddAutoMapper(typeof(Startup));
+
+            services.AddSingleton(config);
             services.AddMvc();
         }
 

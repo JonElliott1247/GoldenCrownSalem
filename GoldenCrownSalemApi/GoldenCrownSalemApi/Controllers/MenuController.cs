@@ -7,6 +7,7 @@ using AutoMapper;
 using GoldenCrownSalemApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoldenCrownSalemApi.Controllers
 {
@@ -15,9 +16,9 @@ namespace GoldenCrownSalemApi.Controllers
     public class MenuController : Controller
     {
         private readonly IMapper _mapper;
-        public MenuController(IMapper mapper)
+        public MenuController(MapperConfiguration config)
         {
-            _mapper = mapper;
+            _mapper = config.CreateMapper();
         }
 
         // GET api/menu
@@ -45,10 +46,11 @@ namespace GoldenCrownSalemApi.Controllers
             var list = new List<MenuItemViewModel>();
             using (var context = new GoldenCrownSalemContext())
             {
-                var menuItems = context.MenuItem.Where(item => item.Category.Path.Trim() == path.Trim());
+                var menuItems = context.MenuItem.Include(item => item.DefaultSpicyOption).Where(item => item.Category.Path.Trim() == path.Trim());
                 foreach(var item in menuItems)
                 {
                     var viewModel = _mapper.Map<MenuItemViewModel>(item);
+                    Console.WriteLine(viewModel.DefaultSpicyOption);
                     list.Add(viewModel);
                 }
 
