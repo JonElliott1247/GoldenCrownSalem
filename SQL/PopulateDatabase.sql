@@ -49,15 +49,15 @@ BEGIN TRANSACTION [AddCategoryRecords]
 			@Beverage			AS VARCHAR(100) = 'Beverages',
 			@Dessert			AS VARCHAR(100) = 'Desserts';
 
-	INSERT INTO Menu.Category(Label, Path) VALUES 
-			(@Appetizer, 'appetizers'),	(@Soup, 'soups'), (@CombinationPlate, 'combination-plates'), (@FamilyDinner, 'family-dinners'),	
-			(@Chicken, 'chicken'), (@Pork, 'pork'), (@Beef, 'beef'), (@Seafood, 'seafood'), (@Curries, 'curries'),	
-			(@SizzlingPlate,'sizzling-plates'),	(@Vegetarian, 'vegetarian'), (@ChopSuey, 'chop-suey'), (@Rice, 'rice'),
-			(@NoodleSoup, 'noodle-soups'),	(@American, 'american'), (@HamburgerSandwich,'burgers-sandwiches'), (@Salad, 'salads'),			
-			(@ChildrenMenu, 'children'), (@Beverage, 'beverages'),	(@Dessert, 'dessert');
+	INSERT INTO Menu.Category(Label) VALUES 
+			(@Appetizer),	(@Soup), (@CombinationPlate), (@FamilyDinner),	
+			(@Chicken), (@Pork), (@Beef), (@Seafood), (@Curries),
+			(@SizzlingPlate),	(@Vegetarian), (@ChopSuey), (@Rice),
+			(@NoodleSoup),	(@American), (@HamburgerSandwich), (@Salad),			
+			(@ChildrenMenu), (@Beverage),	(@Dessert);
 
-	INSERT INTO Menu.Category(Label, SubLabel, Path) VALUES
-			(@ChowMein, @ChowMeinSub, 'chow-mein'), (@LoMein, @ChowMeinSub, 'lo-mein');
+	INSERT INTO Menu.Category(Label, SubLabel) VALUES
+			(@ChowMein, @ChowMeinSub), (@LoMein, @ChowMeinSub);
 
 COMMIT TRANSACTION [AddCategoryRecords]
 
@@ -316,12 +316,14 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		('Milk', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
 		('Ice Tea', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
 		('Coffee', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
-		('Hot Tea', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
+		('Hot Tea', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL);
 
+			INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
+		VALUES
 		--Ice Cream
 		('Deep Fried Ice Cream', NULL, 3.25, 1, Menu.CategoryId(@Dessert), NULL),
-		('Deep Fried Ice Cream', 'peppermint', 3.25, 1, Menu.CategoryId(@Dessert), NULL),
-		('Deep Fried Ice Cream', 'vanilla', 3.25, 1, Menu.CategoryId(@Dessert), NULL);
+		('Ice Cream', 'peppermint', 3.25, 1, Menu.CategoryId(@Dessert), NULL),
+		('Ice Cream', 'vanilla', 3.25, 1, Menu.CategoryId(@Dessert), NULL);
 
 
 

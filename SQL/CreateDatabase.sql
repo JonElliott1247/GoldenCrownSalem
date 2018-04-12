@@ -2,7 +2,6 @@ USE GoldenCrownSalem;
 
 BEGIN TRANSACTION [Cleanup]
 
-	DROP TABLE IF EXISTS Menu.Path;
 	DROP TABLE IF EXISTS Menu.MenuItem_CombinationPlateItem;
 	DROP TABLE IF EXISTS Menu.CombinationPlateItem;
 	DROP TABLE IF EXISTS Menu.MenuItem_FamilyDinnerItem;
@@ -41,35 +40,27 @@ GO
 CREATE SCHEMA Menu;
 GO
 
-CREATE FUNCTION Menu.MenuItemLabelAndSubLabelCheckConstraint(@CategoryLabel VARCHAR(100))  
+CREATE FUNCTION Menu.MenuItemLabelAndSubLabelCheckConstraint(@MenuLabel VARCHAR(100))  
 RETURNS BIT   
 AS   
 BEGIN
-	DECLARE @LabelCount INT = (SELECT COUNT(CategoryId) FROM Menu.Category WHERE Label = @CategoryLabel);
+	DECLARE @LabelCount INT = (SELECT COUNT(MenuItemId) FROM Menu.MenuItem WHERE Label = @MenuLabel);
 
 	--1 means if there is a duplicate entry on Label then those entries have SubLabel values that are not null
 	DECLARE @ReturnValue BIT = 1;
 	IF @LabelCount != 1
-		IF (SELECT COUNT(CategoryId) FROM Menu.Category WHERE Label = @CategoryLabel AND SubLabel IS NOT NULL) != @LabelCount
+		IF (SELECT COUNT(MenuItemId) FROM Menu.MenuItem WHERE Label = @MenuLabel AND SubLabel IS NOT NULL) != @LabelCount
 			SET @ReturnValue = 0;
 
 	RETURN @ReturnValue;
-END; 
+END;
 GO
-
-CREATE TABLE Menu.Path
-(
-	PathId		INT IDENTITY(1,1) PRIMARY KEY,
-	Path		VARCHAR(100) UNIQUE NOT NULL
-);
 
 CREATE TABLE Menu.Category
 (
 	CategoryId		INT IDENTITY(1,1) PRIMARY KEY,
 	Label			VARCHAR(100) UNIQUE NOT NULL,
-	SubLabel		VARCHAR(100),
-	Path			VARCHAR(100) UNIQUE NOT NULL,
-
+	SubLabel		VARCHAR(100)
 );
 
 CREATE TABLE Menu.SpicyOption
