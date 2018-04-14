@@ -18,7 +18,7 @@ namespace GoldenCrownSalemApi
 
         public static string Path(this string label, string subLabel)
         {
-            var subPath = subLabel != null ? '?' + subLabel : "";
+            var subPath = subLabel != null ? '/' +subLabel.Path() : "";
             var path = $"{label.Path()}{subPath}";
             return path;
         }
