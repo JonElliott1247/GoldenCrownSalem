@@ -47,7 +47,7 @@ namespace GoldenCrownSalemApi.Controllers
             using (var context = new GoldenCrownSalemContext())
             {
                 var menuItems = context.MenuItem.Include(item => item.DefaultSpicyOption).Include(item => item.Category)
-                                                .Where(item => item.Category.Path.Trim() == path.Trim());
+                                                .Where(item => item.Category.Label.Path() == path.Trim());
                 foreach(var item in menuItems)
                 {
                     var viewModel = _mapper.Map<MenuItemViewModel>(item);

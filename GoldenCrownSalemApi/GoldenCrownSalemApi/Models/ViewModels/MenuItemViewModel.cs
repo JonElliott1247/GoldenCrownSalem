@@ -14,5 +14,6 @@ namespace GoldenCrownSalemApi.Models
         public bool IsAvailable { get; set; }
         public string Category { get; set; }
         public string DefaultSpicyOption { get; set; }
+        public string Path { get; set; }
     }
 }

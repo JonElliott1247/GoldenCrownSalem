@@ -13,7 +13,6 @@ namespace GoldenCrownSalemApi.Models
         public int CategoryId { get; set; }
         public string Label { get; set; }
         public string SubLabel { get; set; }
-        public string Path { get; set; }
 
         public ICollection<MenuItem> MenuItem { get; set; }
     }
