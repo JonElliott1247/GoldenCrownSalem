@@ -18,19 +18,8 @@ namespace GoldenCrownSalemApi
 
         public static string Path(this string label, string subLabel)
         {
-            char[] charArray;
-
-            if (subLabel != null)
-            {
-                charArray = $"{label}-{subLabel}".Trim().ToCharArray();
-            }
-            else
-            {
-                charArray = label.Trim().ToCharArray();
-            }
-
-            charArray = Array.FindAll<char>(charArray, (c => (char.IsLetterOrDigit(c) || c == ' ' || c == '-')));
-            var path = new string(charArray).Replace(' ', '-').ToLower();
+            var subPath = subLabel != null ? '?' + subLabel : "";
+            var path = $"{label.Path()}{subPath}";
             return path;
         }
     }
