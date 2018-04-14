@@ -60,7 +60,7 @@ CREATE TABLE Menu.Category
 (
 	CategoryId		INT IDENTITY(1,1) PRIMARY KEY,
 	Label			VARCHAR(100) UNIQUE NOT NULL,
-	SubLabel		VARCHAR(100)
+	Description		VARCHAR(100)
 );
 
 CREATE TABLE Menu.SpicyOption
@@ -75,6 +75,7 @@ CREATE TABLE Menu.MenuItem
 	MenuItemId				INT IDENTITY(1,1) PRIMARY KEY,
 	Label					VARCHAR(100) NOT NULL,
 	SubLabel				VARCHAR(100),
+	Description				VARCHAR(100),
 	Price					MONEY NOT NULL,
 	IsAvailable				BIT NOT NULL,
 	CategoryId				INT FOREIGN KEY REFERENCES Menu.Category(CategoryId) NOT NULL,
