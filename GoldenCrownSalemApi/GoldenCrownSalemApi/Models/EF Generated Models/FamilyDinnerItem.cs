@@ -12,7 +12,9 @@ namespace GoldenCrownSalemApi.Models
 
         public int FamilyDinnerItemId { get; set; }
         public string Label { get; set; }
+        public int DefaultSpicyOptionId { get; set; }
 
+        public SpicyOption DefaultSpicyOption { get; set; }
         public ICollection<MenuItemFamilyDinnerItem> MenuItemFamilyDinnerItem { get; set; }
     }
 }

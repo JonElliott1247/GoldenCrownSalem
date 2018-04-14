@@ -37,8 +37,8 @@ namespace GoldenCrownSalemApi
                                                                                                                                           .ForMember(view => view.Path, opts => opts.MapFrom(
                                                                                                                                               item => item.Label.Path(item.SubLabel)));
                                                                                     configuration.CreateMap<Category, CategoryViewModel>().ForMember(view => view.Id, opts => opts.MapFrom(item => item.CategoryId))
-                                                                                                                                          .ForMember(view => view.SubLabel, opts => opts.NullSubstitute(string.Empty));
-                                                                                                                                          //.ForMember(view => view.Path, opts => opts.MapFrom(item => item.Label.Path()));
+                                                                                                                                          .ForMember(view => view.SubLabel, opts => opts.NullSubstitute(string.Empty))
+                                                                                                                                          .ForMember(view => view.Path, opts => opts.MapFrom(item => item.Label.Path()));
                                                                                 }
 
                                                                             });

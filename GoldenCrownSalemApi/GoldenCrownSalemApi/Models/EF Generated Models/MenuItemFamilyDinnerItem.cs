@@ -8,10 +8,10 @@ namespace GoldenCrownSalemApi.Models
         public int MenuItemFamilyDinnerItemId { get; set; }
         public int MenuItemId { get; set; }
         public int FamilyDinnerItemId { get; set; }
-        public int DefaultSpicyOptionId { get; set; }
         public bool IsSpecial { get; set; }
+        public bool IsAppetizer { get; set; }
+        public bool IsEntree { get; set; }
 
-        public SpicyOption DefaultSpicyOption { get; set; }
         public FamilyDinnerItem FamilyDinnerItem { get; set; }
         public MenuItem MenuItem { get; set; }
     }
