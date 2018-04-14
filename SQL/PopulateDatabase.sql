@@ -36,9 +36,9 @@ BEGIN TRANSACTION [AddCategoryRecords]
 			@SizzlingPlate		AS VARCHAR(100)	= 'Sizzling Plates',
 			@Vegetarian			AS VARCHAR(100)	= 'Vegetarian',
 			@ChowMein			AS VARCHAR(100)	= 'Chow Mein',
-			@ChowMeinSub		AS VARCHAR(100)	= 'crispy noodles',
+			@ChowMeinDes		AS VARCHAR(100)	= 'crispy noodles',
 			@LoMein				AS VARCHAR(100)	= 'Lo Mein',
-			@LoMeinSub			AS VARCHAR(100) = 'soft noodles',
+			@LoMeinDes			AS VARCHAR(100) = 'soft noodles',
 			@ChopSuey			AS VARCHAR(100) = 'Chop Suey',
 			@Rice				AS VARCHAR(100) = 'Rice',
 			@NoodleSoup			AS VARCHAR(100) = 'Noodle Soups',
@@ -49,15 +49,15 @@ BEGIN TRANSACTION [AddCategoryRecords]
 			@Beverage			AS VARCHAR(100) = 'Beverages',
 			@Dessert			AS VARCHAR(100) = 'Desserts';
 
-	INSERT INTO Menu.Category(Label, Path) VALUES 
-			(@Appetizer, 'appetizers'),	(@Soup, 'soups'), (@CombinationPlate, 'combination-plates'), (@FamilyDinner, 'family-dinners'),	
-			(@Chicken, 'chicken'), (@Pork, 'pork'), (@Beef, 'beef'), (@Seafood, 'seafood'), (@Curries, 'curries'),	
-			(@SizzlingPlate,'sizzling-plates'),	(@Vegetarian, 'vegetarian'), (@ChopSuey, 'chop-suey'), (@Rice, 'rice'),
-			(@NoodleSoup, 'noodle-soups'),	(@American, 'american'), (@HamburgerSandwich,'burgers-sandwiches'), (@Salad, 'salads'),			
-			(@ChildrenMenu, 'children'), (@Beverage, 'beverages'),	(@Dessert, 'dessert');
+	INSERT INTO Menu.Category(Label) VALUES 
+			(@Appetizer),	(@Soup), (@CombinationPlate), (@FamilyDinner),	
+			(@Chicken), (@Pork), (@Beef), (@Seafood), (@Curries),
+			(@SizzlingPlate),	(@Vegetarian), (@ChopSuey), (@Rice),
+			(@NoodleSoup),	(@American), (@HamburgerSandwich), (@Salad),			
+			(@ChildrenMenu), (@Beverage),	(@Dessert);
 
-	INSERT INTO Menu.Category(Label, SubLabel, Path) VALUES
-			(@ChowMein, @ChowMeinSub, 'chow-mein'), (@LoMein, @ChowMeinSub, 'lo-mein');
+	INSERT INTO Menu.Category(Label, Description) VALUES
+			(@ChowMein, @ChowMeinDes), (@LoMein, @ChowMeinDes);
 
 COMMIT TRANSACTION [AddCategoryRecords]
 
@@ -91,31 +91,31 @@ COMMIT TRANSACTION [AddSpicyOptionRecords]
 --*********************************************************************************************************************************
 BEGIN TRANSACTION [AddMenuItemRecords]
 
-	INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
+	INSERT INTO Menu.MenuItem(Label, SubLabel, Description, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
 		VALUES
 		--Appetizers
-		('Golden Crown Appetizer', 'parchment chicken, BBQ pork, fried wonton, fried shrimp, shrimp egg roll', 9.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-		('BBQ Pork', NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-		('Sesame Flyboy', '8 total', 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-		('Small Appetizer', 'B.B.Q pork, sesame flyboy, fried wonton', 7.50, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-		('Fried Shrimp', '14 total', 9.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-		('Fried Shrimp', '10 total', 8.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-		('Shrimp Egg Roll', NULL, 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-		('Pot Sticklers', NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-		('Vegetable Spring Roll', '4 total', 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-		('Parchment Chicken', NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-		('Fried Mushrooms', NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-		('Crab Puffs', NULL, 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
-		('Fried Won Ton', NULL, 5.50, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+		('Golden Crown Appetizer', NULL, 'parchment chicken, BBQ pork, fried wonton, fried shrimp, shrimp egg roll', 9.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+		('BBQ Pork', NULL, NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+		('Sesame Flyboy','8 total', NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+		('Small Appetizer', NULL, 'B.B.Q pork, sesame flyboy, fried wonton', 7.50, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+		('Fried Shrimp','14 total', NULL, 9.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+		('Fried Shrimp','10 total', NULL, 8.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+		('Shrimp Egg Roll', NULL, NULL, 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+		('Pot Sticklers', NULL, NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+		('Vegetable Spring Roll', '4 total', NULL, 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+		('Parchment Chicken', NULL, NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+		('Fried Mushrooms', NULL, NULL, 7.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+		('Crab Puffs', NULL, NULL, 6.25, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
+		('Fried Won Ton', NULL, NULL, 5.50, 1, Menu.CategoryId(@Appetizer), Menu.SpicyOptionId(@NotSpicy)),
 
 		--Soups
-		('Egg Flower', 'bowl', 4.25, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
-		('Egg Flower', 'cup', 1.95, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
-		('Won Ton', 'large', 7.25, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
-		('Won Ton', 'small', 6.25, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
-		('Hot and Sour', NULL, 6.95, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@Spicy)),
-		('Wor Won Ton', 'large', 8.50, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
-		('Wor Won Ton', 'small', 7.50, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy));
+		('Egg Flower', 'bowl', NULL, 4.25, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
+		('Egg Flower', 'cup', NULL, 1.95, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
+		('Won Ton', 'large', NULL, 7.25, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
+		('Won Ton', 'small', NULL, 6.25, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
+		('Hot and Sour', NULL, NULL, 6.95, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@Spicy)),
+		('Wor Won Ton', 'large', NULL, 8.50, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy)),
+		('Wor Won Ton', 'small', NULL, 7.50, 1, Menu.CategoryId(@Soup), Menu.SpicyOptionId(@NotSpicy));
 
 	DECLARE @Number1	AS VARCHAR(100)	= 'Number 1', 
 			@Number2	AS VARCHAR(100)	= 'Number 2', 
@@ -145,126 +145,126 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 		(@DinnerA, NULL, 10.75, 1, Menu.CategoryId(@FamilyDinner), NULL),
 		(@DinnerB, NULL, 12.75, 1, Menu.CategoryId(@FamilyDinner), NULL),
 		(@DinnerC, NULL, 12.75, 1, Menu.CategoryId(@FamilyDinner), NULL),
-		(@DinnerD, NULL, 13.75, 1, Menu.CategoryId(@FamilyDinner), NULL),
+		(@DinnerD, NULL, 13.75, 1, Menu.CategoryId(@FamilyDinner), NULL);
 
+		INSERT INTO Menu.MenuItem(Label, SubLabel, Description, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
+		VALUES
 		--Chicken
-		('Diced Almond Chicken', NULL, 7.75, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
-		('Sesame Chicken', NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
-		('Lemon Chicken', NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
-		('Moo Goo Gai Pan', NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
-		('Sweet & Sour Chicken', NULL, 8.95, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
-		('Almond Fried Chicken', NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
-		('Cashew Nut Chicken', NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
-		('Szechwan Chicken', NULL, 8.95, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy)),
-		('Chicken with Black and Fresh Mushrooms', NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
-		('Green Beans in Garlic Sauce with Chicken', NULL, 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
-		('Pineapple Chicken Chow Yuk.', 'Chicken sautéed w/vegetables in a pineapple sauce', 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
-		('Chicken Chow Yuk', 'Chicken sautéed w/vegetables in a Chinese sauce', 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
-		('Chicken Cantonese', 'Chicken sautéed w/vegetables in a black bean and garlic sauce', 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
-		('Kung Pao Chicken', 'Diced chicken sautéed w/bell peppers, onions, and celery, topped with peanuts', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy)),
-		('Hot and Spiced Chicken', 'Chicken sautéed with vegetables in our Chef’s spicy sauce', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy)),
-		('General Tso’s Chicken', 'Sesame battered chicken with bell peppers tossed in our Chef’s spicy sauce', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy));
+		('Diced Almond Chicken', NULL, NULL, 7.75, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+		('Sesame Chicken', NULL, NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+		('Lemon Chicken', NULL, NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+		('Moo Goo Gai Pan', NULL, NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+		('Sweet & Sour Chicken', NULL, NULL, 8.95, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+		('Almond Fried Chicken', NULL, NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+		('Cashew Nut Chicken', NULL, NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+		('Szechwan Chicken', NULL, NULL, 8.95, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy)),
+		('Chicken with Black and Fresh Mushrooms', NULL, NULL, 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+		('Green Beans in Garlic Sauce with Chicken', NULL, NULL, 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+		('Pineapple Chicken Chow Yuk.', NULL, 'Chicken sautéed w/vegetables in a pineapple sauce', 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+		('Chicken Chow Yuk', NULL, 'Chicken sautéed w/vegetables in a Chinese sauce', 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+		('Chicken Cantonese', NULL, 'Chicken sautéed w/vegetables in a black bean and garlic sauce', 9.25, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@NotSpicy)),
+		('Kung Pao Chicken', NULL, 'Diced chicken sautéed w/bell peppers, onions, and celery, topped with peanuts', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy)),
+		('Hot and Spiced Chicken', NULL, 'Chicken sautéed with vegetables in our Chef’s spicy sauce', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy)),
+		('General Tso’s Chicken', NULL, 'Sesame battered chicken with bell peppers tossed in our Chef’s spicy sauce', 9.50, 1, Menu.CategoryId(@Chicken), Menu.SpicyOptionId(@Spicy));
 
-	INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
+	INSERT INTO Menu.MenuItem(Label, SubLabel, Description, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
 		VALUES
 		--Pork
-		('Sweet & Sour Pork', NULL, 8.95, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
-		('Sweet & Sour Spareribs', NULL, 8.95, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
-		(' B.B.Q Chow Yuk', NULL, 9.25, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
-		('Green Beans in Garlic Sauce with B.B.Q Pork', NULL, 9.50, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
-		('B.B.Q Pork Chow Dun', 'Pork, bean sprouts, snow peas, water chestnuts, and carrots folded into beaten eggs', 9.25, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
-		('Mu-Shu Pork', 'Pork sautéed w/cabbage, scallions, bamboo shoots, and eggs. Served with Mandarin pan cakes', 9.25, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
-		('Mao Pao Tofu', 'Minced pork sautéed w/peas, carrots, water chestnuts, and tofu in a black bean sauce', 9.50, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@Spicy)),
+		('Sweet & Sour Pork', NULL, NULL, 8.95, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
+		('Sweet & Sour Spareribs', NULL, NULL, 8.95, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
+		(' B.B.Q Chow Yuk', NULL, NULL, 9.25, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
+		('Green Beans in Garlic Sauce with B.B.Q Pork', NULL, NULL, 9.50, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
+		('B.B.Q Pork Chow Dun', NULL, 'Pork, bean sprouts, snow peas, water chestnuts, and carrots folded into beaten eggs', 9.25, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
+		('Mu-Shu Pork', NULL, 'Pork sautéed w/cabbage, scallions, bamboo shoots, and eggs. Served with Mandarin pan cakes', 9.25, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@NotSpicy)),
+		('Mao Pao Tofu', NULL, 'Minced pork sautéed w/peas, carrots, water chestnuts, and tofu in a black bean sauce', 9.50, 1, Menu.CategoryId(@Pork), Menu.SpicyOptionId(@Spicy)),
 
 		--Beef
-		('Beef with Oyster Sauce',  NULL, 9.75, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
-		('Beef and Broccoli',  NULL, 9.25, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
-		('Kung Pao Beef',  NULL, 9.50, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@Spicy)),
+		('Beef with Oyster Sauce', NULL,  NULL, 9.75, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
+		('Beef and Broccoli', NULL,  NULL, 9.25, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
+		('Kung Pao Beef', NULL,  NULL, 9.50, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@Spicy)),
 
-		('Beef Tomato Chow Yuk',  'Beef sautéed with vegetables in a tomato sauce', 9.25, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
-		('Green Pepper Steak',  'Beef steak sautéed w/green bell peppers and onions in a black bean sauce', 9.25, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
-		('Steak Cantonese',  'New York steak sautéed w/mushrooms, snow peas, and onions in a Cantonese sauce', 10.95, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
-		('Beef Under the Rainbow',  'Beef sautéed w/vegetables and bean sprouts, topped w/crispy vermicelli noodles', 9.75, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
-		('Ginger Beef',  'Beef sautéed w/ginger, scallions, and onions on a bed of bean sprouts', 9.75, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
-		('Szechwan Beef',  'Sesame battered beef w/shredded carrots, pea pods and onions tossed in our spicy sauce', 9.50, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@Spicy)),
+		('Beef Tomato Chow Yuk', NULL,  'Beef sautéed with vegetables in a tomato sauce', 9.25, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
+		('Green Pepper Steak', NULL,  'Beef steak sautéed w/green bell peppers and onions in a black bean sauce', 9.25, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
+		('Steak Cantonese', NULL,  'New York steak sautéed w/mushrooms, snow peas, and onions in a Cantonese sauce', 10.95, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
+		('Beef Under the Rainbow', NULL,  'Beef sautéed w/vegetables and bean sprouts, topped w/crispy vermicelli noodles', 9.75, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
+		('Ginger Beef', NULL,  'Beef sautéed w/ginger, scallions, and onions on a bed of bean sprouts', 9.75, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@NotSpicy)),
+		('Szechwan Beef', NULL,  'Sesame battered beef w/shredded carrots, pea pods and onions tossed in our spicy sauce', 9.50, 1, Menu.CategoryId(@Beef), Menu.SpicyOptionId(@Spicy)),
 
 		--Seafood
-		('Shrimp Broccoli', NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
-		('Shrimp Chow Dun', NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
-		('Shrimp with Lobster Sauce', NULL, 10.50, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
-		('Squid with Ginger and Onions', NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
-		('Golden Crown Special Chow Yuk', NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
-		('Sweet & Sour Fish', NULL, 10.25, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
-		('Shrimp Chow Yuk', NULL, 10.25, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
-		('Kung Pao Shrimp', NULL, 10.25, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@Spicy)),
-		('Kung Pao Squid', NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@Spicy));
+		('Shrimp Broccoli', NULL, NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
+		('Shrimp Chow Dun', NULL, NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
+		('Shrimp with Lobster Sauce', NULL, NULL, 10.50, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
+		('Squid with Ginger and Onions', NULL, NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
+		('Golden Crown Special Chow Yuk', NULL, NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
+		('Sweet & Sour Fish', NULL, NULL, 10.25, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
+		('Shrimp Chow Yuk', NULL, NULL, 10.25, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@NotSpicy)),
+		('Kung Pao Shrimp', NULL, NULL, 10.25, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@Spicy)),
+		('Kung Pao Squid', NULL, NULL, 9.75, 1, Menu.CategoryId(@Seafood), Menu.SpicyOptionId(@Spicy));
 
-	INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
+	INSERT INTO Menu.MenuItem(Label, SubLabel, Description, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
 		VALUES
 		--Curries
-		('Chicken', NULL, 9.25, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy));
-		INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
-		VALUES
-		('Shrimp', NULL, 10.25, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
-		('Squid', NULL, 9.75, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
+		('Chicken', NULL, NULL, 9.25, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
+		('Shrimp', NULL, NULL, 10.25, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
+		('Squid', NULL, NULL, 9.75, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
 
-		('Beef', NULL, 9.25, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
-		('Seafood', NULL, 10.75, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
-		('Vegetable', NULL, 8.75, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
+		('Beef', NULL, NULL, 9.25, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
+		('Seafood', NULL, NULL, 10.75, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
+		('Vegetable', NULL, NULL, 8.75, 1, Menu.CategoryId(@Curries), Menu.SpicyOptionId(@Spicy)),
 
 		--Sizzling Plates
-		('Sizzling Beef', 'Beef sautéed w/onions, carrots, peas, and mushrooms in our special sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy)),
-		('Sizzling Chicken', 'Chicken sautéed w/pea pods, mushrooms, and onions in our traditional sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy)),
-		('Sizzling Shrimp', 'Shrimp sauteed w/onions, mushrooms, scallions, peas, and carrots in our special sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy)),
-		('Sizzling Seafood', 'Shrimp, scallops, squid, imitation crab sauteed w/wegetables in our traditional Chinese sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy)),
+		('Sizzling Beef', NULL, 'Beef sautéed w/onions, carrots, peas, and mushrooms in our special sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy)),
+		('Sizzling Chicken', NULL, 'Chicken sautéed w/pea pods, mushrooms, and onions in our traditional sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy)),
+		('Sizzling Shrimp', NULL, 'Shrimp sauteed w/onions, mushrooms, scallions, peas, and carrots in our special sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy)),
+		('Sizzling Seafood', NULL, 'Shrimp, scallops, squid, imitation crab sauteed w/wegetables in our traditional Chinese sauce', 10.95, 1, Menu.CategoryId(@SizzlingPlate), Menu.SpicyOptionId(@NotSpicy)),
 
 		--Vegetarian
-		('Egg Foo Young', NULL, 7.50, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@NotSpicy)),
-		('Chinese Vegetable Deluxe', NULL, 8.75, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@NotSpicy)),
-		('Sweet & Sour Tofu', 'Battered tofu served with sweet & sour sauce, bell peppers, carrots and onions', 8.95, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@NotSpicy)),
-		('Tofu with Oyster Sauce', 'Tofu stir fry with black mushrooms, fresh mushrooms and onions in a black bean sauce', 8.95, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@NotSpicy)),
-		('Kung Pao Tofu', 'Tofu stir fry with bell peppers and a variety of vegetables', 8.95, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@Spicy)),
-		('Vegetable Supreme', NULL, 8.75, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@NotSpicy)),
-		('Tofu with Oyster SauceKung Pao Vegetables', NULL, 8.95, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@Spicy));
+		('Egg Foo Young', NULL, NULL, 7.50, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@NotSpicy)),
+		('Chinese Vegetable Deluxe', NULL, NULL, 8.75, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@NotSpicy)),
+		('Sweet & Sour Tofu', NULL, 'Battered tofu served with sweet & sour sauce, bell peppers, carrots and onions', 8.95, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@NotSpicy)),
+		('Tofu with Oyster Sauce', NULL, 'Tofu stir fry with black mushrooms, fresh mushrooms and onions in a black bean sauce', 8.95, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@NotSpicy)),
+		('Kung Pao Tofu', NULL, 'Tofu stir fry with bell peppers and a variety of vegetables', 8.95, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@Spicy)),
+		('Vegetable Supreme', NULL, NULL, 8.75, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@NotSpicy)),
+		('Tofu with Oyster SauceKung Pao Vegetables', NULL, NULL, 8.95, 1, Menu.CategoryId(@Vegetarian), Menu.SpicyOptionId(@Spicy));
 
-	INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
+	INSERT INTO Menu.MenuItem(Label, SubLabel, Description, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
 		VALUES
 		--Chow Mein
-		('B.B.Q Pork Chow Mein', NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
-		('Beef Chow Mein', NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
-		('Shrimp Chow Mein', NULL, 8.75, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
-		('Diced Almond Chicken Chow Mein', NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
-		('Chicken Chow Mein', NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
-		('Vegetable Chow Mein', NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
-		('Beef Tomato Chow Mein', NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
+		('B.B.Q Pork Chow Mein', NULL, NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Beef Chow Mein', NULL, NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Shrimp Chow Mein', NULL, NULL, 8.75, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Diced Almond Chicken Chow Mein', NULL, NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Chicken Chow Mein', NULL, NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Vegetable Chow Mein', NULL, NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Beef Tomato Chow Mein', NULL, NULL, 7.95, 1, Menu.CategoryId(@ChowMein), Menu.SpicyOptionId(@NotSpicy)),
 
 		--Lo Mein
-		('B.B.Q Pork Lo Mein', NULL, 8.75, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
-		('Beef Lo Mein', NULL, 8.75, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
-		('Chicken Lo Mein', NULL, 8.75, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
-		('Vegetable Lo Mein', NULL, 8.75, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
-		('Golden Crown Special Mein', NULL, 8.75, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
-		('Maylan Chow Mein', NULL, 8.75, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@Spicy)),
-		('Pan Fried Noodle', 'large', 4.25, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
-		('Pan Fried Noodle', 'small', 2.95, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
+		('B.B.Q Pork Lo Mein', NULL, NULL, 8.75, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Beef Lo Mein', NULL, NULL, 8.75, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Chicken Lo Mein', NULL, NULL, 8.75, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Vegetable Lo Mein', NULL, NULL, 8.75, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Golden Crown Special Mein', NULL, NULL, 8.75, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Maylan Chow Mein', NULL, NULL, 8.75, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@Spicy)),
+		('Pan Fried Noodle', 'large', NULL, 4.25, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
+		('Pan Fried Noodle', 'small', NULL, 2.95, 1, Menu.CategoryId(@LoMein), Menu.SpicyOptionId(@NotSpicy)),
 
 		--Chop Suey
-		('Shrimp Chop Suey', NULL, 8.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy)),
-		('B.B.Q Pork Chop Suey', NULL, 7.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy)),
-		('Chicken Chop Suey', NULL, 7.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy)),
-		('Beef Chop Suey', NULL, 7.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy)),
+		('Shrimp Chop Suey', NULL, NULL, 8.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy)),
+		('B.B.Q Pork Chop Suey', NULL, NULL, 7.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy)),
+		('Chicken Chop Suey', NULL, NULL, 7.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy)),
+		('Beef Chop Suey', NULL, NULL, 7.95, 1, Menu.CategoryId(@ChopSuey), Menu.SpicyOptionId(@NotSpicy)),
 
 		--Rice
-		('Vegetable Fried Rice', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
-		('B.B.Q Pork Fried Rice', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
-		('Shrimp Fried Rice', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
-		('Steam Rice', 'cup', 1.00, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+		('Vegetable Fried Rice', NULL, NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+		('B.B.Q Pork Fried Rice', NULL, NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+		('Shrimp Fried Rice', NULL, NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+		('Steam Rice', 'cup', NULL, 1.00, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
 
-		('Fried Rice', 'cup', 1.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
-		('B.B.Q Pork Fried Rice with Bean Sprout', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
-		('Chicken, Ham, or Beef Fried Rice', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
-		('Chicken or Beef Rice Casserole', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
-		('Golden Crown Special Fried Rice', NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy));
+		('Fried Rice', 'cup', NULL, 1.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+		('B.B.Q Pork Fried Rice with Bean Sprout', NULL, NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+		('Chicken, Ham, or Beef Fried Rice', NULL, NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+		('Chicken or Beef Rice Casserole', NULL, NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy)),
+		('Golden Crown Special Fried Rice', NULL, NULL, 7.25, 1, Menu.CategoryId(@Rice), Menu.SpicyOptionId(@NotSpicy));
 
 	INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
 		VALUES
@@ -296,32 +296,39 @@ BEGIN TRANSACTION [AddMenuItemRecords]
 
 		--Salads
 		('Mixed Green Salad', NULL, 2.95, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy)),
-		('Shrimp Salad', NULL, 8.75, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy)),
-		('Seafood Salad', 'imitation crab and  bay shrimp' , 7.50, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy)),
-		('Chef’s Salad', NULL, 7.50, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy)),
-		('Chicken Salad', 'Cantonese dressing', 7.25, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy)),
-		('Crab Salad', 'imitation', 6.75, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy));
+		('Shrimp Salad', NULL, 8.75, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy));
+
+	INSERT INTO Menu.MenuItem(Label, SubLabel, Description, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
+		VALUES
+		('Seafood Salad', NULL, 'imitation crab and  bay shrimp' , 7.50, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy)),
+		('Chef’s Salad', NULL, NULL, 7.50, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy)),
+		('Chicken Salad', NULL, 'Cantonese dressing', 7.25, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy)),
+		('Crab Salad', NULL, 'imitation crab', 6.75, 1, Menu.CategoryId(@Salad), Menu.SpicyOptionId(@NotSpicy));
+
+	INSERT INTO Menu.MenuItem(Label, SubLabel, Description, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
+		VALUES
+		--Children's Menu
+		('Chicken Drumsticks', NULL, 'served with vegetables and french fries', 6.95, 1, Menu.CategoryId(@ChildrenMenu), NULL),
+		('Ground Beef Steak', NULL, 'served with vegetables and french fries', 6.95, 1, Menu.CategoryId(@ChildrenMenu), NULL),
+		('Sweet & Sour Chicken and Port Fried Rice', NULL, 'served with egg flower soup', 6.95, 1, Menu.CategoryId(@ChildrenMenu), NULL),
+		('Fried Shrimp and Port Fried Rice', NULL, 'served with egg flower soup', 7.50, 1, Menu.CategoryId(@ChildrenMenu), NULL);
+
+	INSERT INTO Menu.MenuItem(Label, SubLabel, Description, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
+		VALUES
+		--Beverages
+		('Soft Drink', NULL, 'Pepsi Products', 2.00, 1, Menu.CategoryId(@Beverage), NULL),
+		('Juice', NULL, NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
+		('Milk', NULL, NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
+		('Ice Tea', NULL, NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
+		('Coffee', NULL, NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
+		('Hot Tea', NULL, NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL);
 
 	INSERT INTO Menu.MenuItem(Label, SubLabel, Price, IsAvailable, CategoryId, DefaultSpicyOptionId)
 		VALUES
-		--Children's Menu
-		('Chicken Drumsticks', 'served with vegetables and french fries', 6.95, 1, Menu.CategoryId(@ChildrenMenu), NULL),
-		('Ground Beef Steak', 'served with vegetables and french fries', 6.95, 1, Menu.CategoryId(@ChildrenMenu), NULL),
-		('Sweet & Sour Chicken and Port Fried Rice', 'served with egg flower soup', 6.95, 1, Menu.CategoryId(@ChildrenMenu), NULL),
-		('Fried Shrimp and Port Fried Rice', 'served with egg flower soup', 7.50, 1, Menu.CategoryId(@ChildrenMenu), NULL),
-
-		--Beverages
-		('Soft Drink', 'Pepsi Products', 2.00, 1, Menu.CategoryId(@Beverage), NULL),
-		('Juice', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
-		('Milk', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
-		('Ice Tea', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
-		('Coffee', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
-		('Hot Tea', NULL, 2.00, 1, Menu.CategoryId(@Beverage), NULL),
-
 		--Ice Cream
 		('Deep Fried Ice Cream', NULL, 3.25, 1, Menu.CategoryId(@Dessert), NULL),
-		('Deep Fried Ice Cream', 'peppermint', 3.25, 1, Menu.CategoryId(@Dessert), NULL),
-		('Deep Fried Ice Cream', 'vanilla', 3.25, 1, Menu.CategoryId(@Dessert), NULL);
+		('Ice Cream', 'peppermint', 3.25, 1, Menu.CategoryId(@Dessert), NULL),
+		('Ice Cream', 'vanilla', 3.25, 1, Menu.CategoryId(@Dessert), NULL);
 
 
 
