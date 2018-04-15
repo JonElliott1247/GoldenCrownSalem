@@ -30,24 +30,15 @@ namespace GoldenCrownSalemApi.Models
                 entity.ToTable("Category", "Menu");
 
                 entity.HasIndex(e => e.Label)
-                    .HasName("UQ__Category__EDBE0C584FD74A8C")
+                    .HasName("UQ__Category__EDBE0C588A5D0BD6")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Path)
-                    .HasName("UQ__Category__A15FA6CB3B5C1F02")
-                    .IsUnique();
+                entity.Property(e => e.Description)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Label)
                     .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Path)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.SubLabel)
                     .HasMaxLength(100)
                     .IsUnicode(false);
             });
@@ -56,27 +47,19 @@ namespace GoldenCrownSalemApi.Models
             {
                 entity.ToTable("CombinationPlateItem", "Menu");
 
-                entity.HasIndex(e => new { e.Label, e.SubLabel })
-                    .HasName("CombinationPlateItem_UniqueLabel")
+                entity.HasIndex(e => e.Label)
+                    .HasName("UQ__Combinat__EDBE0C580A23FE6E")
                     .IsUnique();
 
                 entity.Property(e => e.Label)
+                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
-
-                entity.Property(e => e.SubLabel)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.Alternate)
-                    .WithMany(p => p.InverseAlternate)
-                    .HasForeignKey(d => d.AlternateId)
-                    .HasConstraintName("FK__Combinati__Alter__2CBDA3B5");
 
                 entity.HasOne(d => d.DefaultSpicyOption)
                     .WithMany(p => p.CombinationPlateItem)
                     .HasForeignKey(d => d.DefaultSpicyOptionId)
-                    .HasConstraintName("FK__Combinati__Defau__2DB1C7EE");
+                    .HasConstraintName("FK__Combinati__Defau__26F0871D");
             });
 
             modelBuilder.Entity<FamilyDinnerItem>(entity =>
@@ -84,13 +67,19 @@ namespace GoldenCrownSalemApi.Models
                 entity.ToTable("FamilyDinnerItem", "Menu");
 
                 entity.HasIndex(e => e.Label)
-                    .HasName("UQ__FamilyDi__EDBE0C5827467CEE")
+                    .HasName("UQ__FamilyDi__EDBE0C58BC550255")
                     .IsUnique();
 
                 entity.Property(e => e.Label)
                     .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.DefaultSpicyOption)
+                    .WithMany(p => p.FamilyDinnerItem)
+                    .HasForeignKey(d => d.DefaultSpicyOptionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__FamilyDin__Defau__1C72F8AA");
             });
 
             modelBuilder.Entity<MenuItem>(entity =>
@@ -105,6 +94,10 @@ namespace GoldenCrownSalemApi.Models
                 entity.HasIndex(e => new { e.Label, e.SubLabel })
                     .HasName("UniqueLabelSubLabelIndex")
                     .IsUnique();
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Label)
                     .IsRequired()
@@ -121,52 +114,46 @@ namespace GoldenCrownSalemApi.Models
                     .WithMany(p => p.MenuItem)
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__MenuItem__Catego__1E6F845E");
+                    .HasConstraintName("FK__MenuItem__Catego__16BA1F54");
 
                 entity.HasOne(d => d.DefaultSpicyOption)
                     .WithMany(p => p.MenuItem)
                     .HasForeignKey(d => d.DefaultSpicyOptionId)
-                    .HasConstraintName("FK__MenuItem__Defaul__1F63A897");
+                    .HasConstraintName("FK__MenuItem__Defaul__17AE438D");
             });
 
             modelBuilder.Entity<MenuItemCombinationPlateItem>(entity =>
             {
-                entity.HasKey(e => e.MenuItemFamilyDinnerItem);
+                entity.HasKey(e => e.MenuItemFamilyDinnerItemId);
 
                 entity.ToTable("MenuItem_CombinationPlateItem", "Menu");
 
-                entity.HasOne(d => d.CombinationPlate)
+                entity.HasOne(d => d.CombinationPlateItem)
                     .WithMany(p => p.MenuItemCombinationPlateItem)
-                    .HasForeignKey(d => d.CombinationPlateId)
-                    .HasConstraintName("FK__MenuItem___Combi__318258D2");
+                    .HasForeignKey(d => d.CombinationPlateItemId)
+                    .HasConstraintName("FK__MenuItem___Combi__2AC11801");
 
                 entity.HasOne(d => d.MenuItem)
                     .WithMany(p => p.MenuItemCombinationPlateItem)
                     .HasForeignKey(d => d.MenuItemId)
-                    .HasConstraintName("FK__MenuItem___MenuI__308E3499");
+                    .HasConstraintName("FK__MenuItem___MenuI__29CCF3C8");
             });
 
             modelBuilder.Entity<MenuItemFamilyDinnerItem>(entity =>
             {
                 entity.ToTable("MenuItem_FamilyDinnerItem", "Menu");
 
-                entity.HasOne(d => d.DefaultSpicyOption)
-                    .WithMany(p => p.MenuItemFamilyDinnerItem)
-                    .HasForeignKey(d => d.DefaultSpicyOptionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__MenuItem___Defau__2704CA5F");
-
                 entity.HasOne(d => d.FamilyDinnerItem)
                     .WithMany(p => p.MenuItemFamilyDinnerItem)
                     .HasForeignKey(d => d.FamilyDinnerItemId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__MenuItem___Famil__2610A626");
+                    .HasConstraintName("FK__MenuItem___Famil__2043898E");
 
                 entity.HasOne(d => d.MenuItem)
                     .WithMany(p => p.MenuItemFamilyDinnerItem)
                     .HasForeignKey(d => d.MenuItemId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__MenuItem___MenuI__251C81ED");
+                    .HasConstraintName("FK__MenuItem___MenuI__1F4F6555");
             });
 
             modelBuilder.Entity<SpicyOption>(entity =>
@@ -174,7 +161,7 @@ namespace GoldenCrownSalemApi.Models
                 entity.ToTable("SpicyOption", "Menu");
 
                 entity.HasIndex(e => e.Label)
-                    .HasName("UQ__SpicyOpt__EDBE0C58E7837A37")
+                    .HasName("UQ__SpicyOpt__EDBE0C58CDE3098C")
                     .IsUnique();
 
                 entity.Property(e => e.Label)

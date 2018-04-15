@@ -10,6 +10,9 @@ BEGIN TRANSACTION [Cleanup]
 	DROP TABLE IF EXISTS Menu.SpicyOption;
 	DROP TABLE IF EXISTS Menu.Category;
 
+	IF OBJECT_ID (N'Menu.MenuItemLabelAndSubLabelCheckConstraint', N'FN') IS NOT NULL  
+		DROP FUNCTION Menu.MenuItemLabelAndSubLabelCheckConstraint;
+
 	IF OBJECT_ID (N'Menu.CategoryId', N'FN') IS NOT NULL  
 		DROP FUNCTION Menu.CategoryId;
 
@@ -18,6 +21,15 @@ BEGIN TRANSACTION [Cleanup]
 
 	IF OBJECT_ID (N'Menu.NumSpecialPerFamilyDinnerFunc', N'FN') IS NOT NULL  
 		DROP FUNCTION Menu.NumSpecialPerFamilyDinnerFunc;
+
+	IF OBJECT_ID (N'Menu.FamilyDinnerItemId', N'FN') IS NOT NULL
+		DROP FUNCTION Menu.FamilyDInnerItemId;
+
+	IF OBJECT_ID (N'Menu.MenuItemId', N'FN') IS NOT NULL
+		DROP FUNCTION Menu.MenuItemId;
+
+	IF OBJECT_ID (N'Menu.CombinationPlateItemId', N'FN') IS NOT NULL
+		DROP FUNCTION Menu.CombinationPlateItemId;
 
 	DROP SCHEMA IF EXISTS Menu;
 
@@ -28,12 +40,27 @@ GO
 CREATE SCHEMA Menu;
 GO
 
+CREATE FUNCTION Menu.MenuItemLabelAndSubLabelCheckConstraint(@MenuLabel VARCHAR(100))  
+RETURNS BIT   
+AS   
+BEGIN
+	DECLARE @LabelCount INT = (SELECT COUNT(MenuItemId) FROM Menu.MenuItem WHERE Label = @MenuLabel);
+
+	--1 means if there is a duplicate entry on Label then those entries have SubLabel values that are not null
+	DECLARE @ReturnValue BIT = 1;
+	IF @LabelCount != 1
+		IF (SELECT COUNT(MenuItemId) FROM Menu.MenuItem WHERE Label = @MenuLabel AND SubLabel IS NOT NULL) != @LabelCount
+			SET @ReturnValue = 0;
+
+	RETURN @ReturnValue;
+END;
+GO
+
 CREATE TABLE Menu.Category
 (
 	CategoryId		INT IDENTITY(1,1) PRIMARY KEY,
 	Label			VARCHAR(100) UNIQUE NOT NULL,
-	SubLabel		VARCHAR(100),
-	Path			VARCHAR(100) UNIQUE NOT NULL 
+	Description		VARCHAR(100)
 );
 
 CREATE TABLE Menu.SpicyOption
@@ -48,11 +75,14 @@ CREATE TABLE Menu.MenuItem
 	MenuItemId				INT IDENTITY(1,1) PRIMARY KEY,
 	Label					VARCHAR(100) NOT NULL,
 	SubLabel				VARCHAR(100),
+	Description				VARCHAR(100),
 	Price					MONEY NOT NULL,
 	IsAvailable				BIT NOT NULL,
 	CategoryId				INT FOREIGN KEY REFERENCES Menu.Category(CategoryId) NOT NULL,
 	DefaultSpicyOptionId	INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId),
 
+	--Supplements the two indexes below
+	CHECK (Menu.MenuItemLabelAndSubLabelCheckConstraint(Label) = 1)
 );
 --Guarantee a unique label or unique (label, sublabel) while allowing sublabel to be null
 CREATE UNIQUE INDEX UniqueLabelIndex ON Menu.MenuItem(Label) WHERE SubLabel IS NULL;
@@ -61,7 +91,8 @@ CREATE UNIQUE INDEX UniqueLabelSubLabelIndex ON Menu.MenuItem(Label, SubLabel);
 CREATE TABLE Menu.FamilyDinnerItem
 (
 	FamilyDinnerItemId			INT IDENTITY(1,1) PRIMARY KEY,
-	Label						VARCHAR(100) UNIQUE NOT NULL
+	Label						VARCHAR(100) UNIQUE NOT NULL,
+	DefaultSpicyOptionId		INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId) NOT NULL,
 );
 
 CREATE TABLE Menu.MenuItem_FamilyDinnerItem
@@ -69,8 +100,17 @@ CREATE TABLE Menu.MenuItem_FamilyDinnerItem
 	MenuItemFamilyDinnerItemId	INT IDENTITY(1,1) PRIMARY KEY,
 	MenuItemId					INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId) NOT NULL,
 	FamilyDinnerItemId			INT FOREIGN KEY REFERENCES Menu.FamilyDinnerItem(FamilyDinnerItemId) NOT NULL,
-	DefaultSpicyOptionId		INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId) NOT NULL,
-	IsSpecial					BIT NOT NULL
+	IsSpecial					BIT NOT NULL,
+	IsAppetizer					BIT NOT NULL,
+	IsEntree					BIT NOT NULL,
+
+	--Make sure any individual entry is either a special, or appetizer or entree noninclusive.
+	CHECK	(	((IsSpecial = 1) OR (IsAppetizer = 1) OR (IsEntree = 1))
+				AND (NOT (IsSpecial = 1 AND IsAppetizer = 1))
+				AND (NOT (IsSpecial = 1 AND IsEntree = 1))
+				AND (NOT (IsAppetizer = 1 AND IsEntree = 1))
+
+			)
 );
 
 GO
@@ -84,32 +124,29 @@ GO
 
 
 ALTER TABLE Menu.MenuItem_FamilyDinnerItem
-ADD CONSTRAINT OneSpecialPerFamilyDinner CHECK( (IsSpecial = 0) OR	(Menu.NumSpecialPerFamilyDinnerFunc(MenuItemId) = 0));
+ADD CONSTRAINT OneSpecialPerFamilyDinner CHECK( (IsSpecial = 0) OR	(Menu.NumSpecialPerFamilyDinnerFunc(MenuItemId) = 1));
 
 
 CREATE TABLE Menu.CombinationPlateItem
 (
 	CombinationPlateItemId	INT IDENTITY(1,1) PRIMARY KEY,
-	Label					VARCHAR(100),
-	SubLabel				VARCHAR(100),
-	AlternateId				INT FOREIGN KEY REFERENCES Menu.CombinationPlateItem(CombinationPlateItemId),
-	DefaultSpicyOptionId	INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId),
-	IsSide					BIT NOT NULL,
-
-	CONSTRAINT CombinationPlateItem_UniqueLabel	UNIQUE(Label, SubLabel),
+	Label					VARCHAR(100) UNIQUE NOT NULL,
+	DefaultSpicyOptionId	INT FOREIGN KEY REFERENCES Menu.SpicyOption(SpicyOptionId)
 );
 
 CREATE TABLE Menu.MenuItem_CombinationPlateItem
 (
-	MenuItemFamilyDinnerItem	INT IDENTITY(1,1) PRIMARY KEY,
+	MenuItemFamilyDinnerItemId	INT IDENTITY(1,1) PRIMARY KEY,
 	MenuItemId					INT FOREIGN KEY REFERENCES Menu.MenuItem(MenuItemId),
-	CombinationPlateId			INT FOREIGN KEY REFERENCES Menu.CombinationPlateItem(CombinationPlateItemId),
+	CombinationPlateItemId		INT FOREIGN KEY REFERENCES Menu.CombinationPlateItem(CombinationPlateItemId)
 );
 
 
 --*********************************************************************************************************************
 --<PopulateDatabase.sql script helper user defined functions>
 --*********************************************************************************************************************
+
+
 GO
 CREATE FUNCTION Menu.CategoryId(@CategoryLabel VARCHAR(100))  
 RETURNS INT   
@@ -119,13 +156,38 @@ BEGIN
 END; 
 GO
 
-GO
+
 CREATE FUNCTION Menu.SpicyOptionId(@SpicyOptionLabel VARCHAR(100))  
 RETURNS INT   
 AS   
 BEGIN
 	RETURN (SELECT SpicyOptionId FROM Menu.SpicyOption WHERE Label = @SpicyOptionLabel);
 END; 
+GO
+
+CREATE FUNCTION Menu.FamilyDinnerItemId(@FamilyDinnerItemLabel VARCHAR(100))
+RETURNS INT
+AS
+BEGIN
+	RETURN (SELECT FamilyDinnerItemId FROM Menu.FamilyDinnerItem WHERE Label = @FamilyDinnerItemLabel)
+END;
+GO
+
+CREATE FUNCTION Menu.MenuItemId(@MenuItemLabel VARCHAR(100))
+RETURNS INT
+AS
+BEGIN
+	RETURN (SELECT MenuItemId FROM Menu.MenuItem WHERE Label = @MenuItemLabel)
+END;
+GO
+
+
+CREATE FUNCTION Menu.CombinationPlateItemId(@CombinationPlateItemLabel VARCHAR(100))
+RETURNS INT
+AS
+BEGIN
+	RETURN (SELECT CombinationPlateItemId FROM Menu.CombinationPlateItem WHERE Label = @CombinationPlateItemLabel)
+END;
 GO
 
 --*********************************************************************************************************************

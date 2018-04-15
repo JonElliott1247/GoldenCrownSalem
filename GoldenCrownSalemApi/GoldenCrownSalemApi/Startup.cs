@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
+
 namespace GoldenCrownSalemApi
 {
     public class Startup
@@ -27,11 +28,24 @@ namespace GoldenCrownSalemApi
         {
             var config = new AutoMapper.MapperConfiguration(configuration =>
                                                                             {
-                                                                                configuration.CreateMap<MenuItem, MenuItemViewModel>();
-                                                                                configuration.CreateMap<Category, CategoryViewModel>();
+                                                                                using (var context = new GoldenCrownSalemContext())
+                                                                                {
+                                                                                    configuration.CreateMap<MenuItem, MenuItemViewModel>().ForMember(view => view.Id, opts => opts.MapFrom(item => item.MenuItemId))
+                                                                                                                                          .ForMember(view => view.DefaultSpicyOption, opts => opts.MapFrom(item => item.DefaultSpicyOption.Label))
+                                                                                                                                          .ForMember(view => view.Category, opts => opts.MapFrom(item => item.Category.Label))
+                                                                                                                                          .ForMember(view => view.SubLabel, opts => opts.NullSubstitute(string.Empty))
+                                                                                                                                          .ForMember(view => view.Description, opts => opts.NullSubstitute(string.Empty))
+                                                                                                                                          .ForMember(view => view.DefaultSpicyOption, opts => opts.NullSubstitute(string.Empty))
+                                                                                                                                          .ForMember(view => view.Path, opts => opts.MapFrom(item => "/menu/" + item.Category.Label.Path() +'/' + item.Label.Path(item.SubLabel)));
+
+                                                                                    configuration.CreateMap<Category, CategoryViewModel>().ForMember(view => view.Id, opts => opts.MapFrom(item => item.CategoryId))
+                                                                                                                                          .ForMember(view => view.Description, opts => opts.NullSubstitute(string.Empty))
+                                                                                                                                          .ForMember(view => view.Path, opts => opts.MapFrom(item => "/menu/" +item.Label.Path()));
+                                                                                }
+
                                                                             });
-            var mapper = config.CreateMapper();
-            services.AddAutoMapper(typeof(Startup));
+
+            services.AddSingleton(config);
             services.AddMvc();
         }
 

@@ -7,9 +7,9 @@ namespace GoldenCrownSalemApi.Models
 {
     public class CategoryViewModel
     {
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
         public string Label { get; set; }
-        public string SubLabel { get; set; }
+        public string Description { get; set; }
         public string Path { get; set; }
     }
 }
