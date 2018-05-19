@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GoldenCrownSalemApi.Models
+namespace GoldenCrownSalemApi.Models.EF_Generated_Models
 {
     public partial class MenuItem
     {
@@ -9,6 +9,7 @@ namespace GoldenCrownSalemApi.Models
         {
             MenuItemCombinationPlateItem = new HashSet<MenuItemCombinationPlateItem>();
             MenuItemFamilyDinnerItem = new HashSet<MenuItemFamilyDinnerItem>();
+            OrderItem = new HashSet<OrderItem>();
         }
 
         public int MenuItemId { get; set; }
@@ -24,5 +25,6 @@ namespace GoldenCrownSalemApi.Models
         public SpicyOption DefaultSpicyOption { get; set; }
         public ICollection<MenuItemCombinationPlateItem> MenuItemCombinationPlateItem { get; set; }
         public ICollection<MenuItemFamilyDinnerItem> MenuItemFamilyDinnerItem { get; set; }
+        public ICollection<OrderItem> OrderItem { get; set; }
     }
 }

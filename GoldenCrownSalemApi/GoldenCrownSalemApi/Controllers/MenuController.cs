@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using GoldenCrownSalemApi.Models;
+using GoldenCrownSalemApi.Models.EF_Generated_Models;
+using GoldenCrownSalemApi.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,9 +17,9 @@ namespace GoldenCrownSalemApi.Controllers
     public class MenuController : Controller
     {
         private readonly IMapper _mapper;
-        public MenuController(MapperConfiguration config)
+        public MenuController(MapperConfiguration mapperConfig)
         {
-            _mapper = config.CreateMapper();
+            _mapper = mapperConfig.CreateMapper();
         }
 
         // GET api/menu
@@ -57,6 +58,7 @@ namespace GoldenCrownSalemApi.Controllers
             }
             return list;
         }
+
 
     }
 }

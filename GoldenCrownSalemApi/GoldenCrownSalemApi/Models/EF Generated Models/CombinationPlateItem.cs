@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GoldenCrownSalemApi.Models
+namespace GoldenCrownSalemApi.Models.EF_Generated_Models
 {
     public partial class CombinationPlateItem
     {
