@@ -6,6 +6,8 @@ using GoldenCrownSalemApi.Models.ViewModels;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using GoldenCrownSalemApi.Models.EF_Generated_Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Tests
 {
@@ -13,14 +15,23 @@ namespace Tests
     public class ApiShould
     {
         //Run GoldenCrownSalemApi project first and change this out with the port number ISS Express choses.
-        private static readonly int _portNumber = 51075;
-        private static readonly HttpClient client = new HttpClient();
+        private static readonly int _portNumber = 51074;
+        private static readonly GoldenCrownSalemContext _context = new GoldenCrownSalemContext();
+        private static readonly HttpClient _client = new HttpClient();
 
         private List<CategoryViewModel> GetCategoryViewModels()
         {
             string requestUrl = $"http://localhost:{_portNumber}/api/menu";
-            string menuCategoriesResponse = client.GetStringAsync(requestUrl).Result;
+            string menuCategoriesResponse = _client.GetStringAsync(requestUrl).Result;
             return JsonConvert.DeserializeObject<List<CategoryViewModel>>(menuCategoriesResponse);
+        }
+
+        private List<Category> GetSubSetCategoriesWithMenuItems()
+        {
+            int oneFifthCategoryCount = _context.Category.Count() / 5;
+            int randomNumber = new Random().Next(0, oneFifthCategoryCount);
+            return _context.Category.Where(item => item.CategoryId % oneFifthCategoryCount == randomNumber)
+                                             .Include(item => item.MenuItem).ToList();
         }
 
         /********************************************************************************************
@@ -35,12 +46,23 @@ namespace Tests
         }
 
         [Test]
-        public void ContainsValidMenuCategories()
+        public void ContainValidMenuCategories()
         {
             var menuCategories = GetCategoryViewModels();
-            var sampleCategories = new List<string> { "Appetizers", "Soups", "Beef" };
-            Assert.That(menuCategories.Where(item => sampleCategories.Contains(item.Label)).Count() == 3);
+            var categoryNames = _context.Category.Select(cat => cat.Label).ToList();
+            Assert.That(menuCategories.Where(item => categoryNames.Contains(item.Label)).Count() == categoryNames.Count);
         }
+
+        /*
+        [Test]
+        public void ContainValidMenuItems()
+        {
+            var MenuItems = GetSubSetCategoriesWithMenuItems();
+            var 
+
+        }
+        */
+
         
     }
 }
