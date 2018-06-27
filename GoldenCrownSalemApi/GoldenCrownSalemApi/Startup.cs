@@ -46,7 +46,7 @@ namespace GoldenCrownSalemApi
                 }
 
             });
-
+            services.AddCors();
             services.AddSingleton(mapperConfiguration);
             services.AddMvc();
         }
@@ -59,6 +59,8 @@ namespace GoldenCrownSalemApi
                 app.UseDeveloperExceptionPage();
             }
 
+
+            app.UseCors(builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader());
             app.UseMvc();
         }
     }
