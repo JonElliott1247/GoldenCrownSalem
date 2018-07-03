@@ -11,22 +11,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Tests
 {
-    [TestFixture]
-    public class ApiShould
+    public static class TestHelper
     {
-        //Run GoldenCrownSalemApi project first and change this out with the port number ISS Express choses.
-        private static readonly int _portNumber = 51074;
+        private static readonly string _url = "http://localhost:51099";
         private static readonly GoldenCrownSalemContext _context = new GoldenCrownSalemContext();
         private static readonly HttpClient _client = new HttpClient();
 
-        private List<CategoryViewModel> GetCategoryViewModels()
+        public static IList<CategoryViewModel> GetCategoryViewModelsFromApi()
         {
-            string requestUrl = $"http://localhost:{_portNumber}/api/menu";
+            string requestUrl = _url+"/api/menu";
             string menuCategoriesResponse = _client.GetStringAsync(requestUrl).Result;
             return JsonConvert.DeserializeObject<List<CategoryViewModel>>(menuCategoriesResponse);
         }
 
-        private List<Category> GetSubSetCategoriesWithMenuItems()
+        public static IList<Category> GetSubSetCategoriesWithMenuItemsUsingContext()
         {
             int oneFifthCategoryCount = _context.Category.Count() / 5;
             int randomNumber = new Random().Next(0, oneFifthCategoryCount);
@@ -34,22 +32,32 @@ namespace Tests
                                              .Include(item => item.MenuItem).ToList();
         }
 
-        /********************************************************************************************
-         * All tests will fail if GoldenCrownSalemApi is not running and _portNumber is not the     *
-         * correct port number ISS Express choses to run your project on.                           *
-         *******************************************************************************************/
+        public static GoldenCrownSalemContext Context() { return _context; }
+
+
+
+    }
+
+
+
+    [TestFixture]
+    public class ApiShould
+    {
+
         [Test]
         public void PopulateMenuCategories()
         {
-            var menuCategories = GetCategoryViewModels();
+            var menuCategories = TestHelper.GetCategoryViewModelsFromApi();
             Assert.That(menuCategories.Count > 1);
         }
+
+
 
         [Test]
         public void ContainValidMenuCategories()
         {
-            var menuCategories = GetCategoryViewModels();
-            var categoryNames = _context.Category.Select(cat => cat.Label).ToList();
+            var menuCategories = TestHelper.GetCategoryViewModelsFromApi();
+            var categoryNames = TestHelper.Context().Category.Select(cat => cat.Label).ToList();
             Assert.That(menuCategories.Where(item => categoryNames.Contains(item.Label)).Count() == categoryNames.Count);
         }
 
