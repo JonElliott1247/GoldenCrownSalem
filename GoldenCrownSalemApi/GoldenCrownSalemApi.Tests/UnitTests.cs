@@ -88,7 +88,20 @@ namespace Tests
             var menuItems = Helper.GetMenuItemsFromApi(_searchMenuUrl + searchTerm);
             Assert.That(menuItems.Count() > 1);
         }
-        
+
+        [Test]
+        public void CompletelyPopulateMenuItemSearch()
+        {
+            string searchTerm = "chicken";
+            var menuItems = Helper.GetMenuItemsFromApi(_searchMenuUrl + searchTerm).Select(item => item.Label);
+            var subset = Helper.GetMenuItemsFromApi(_menuUrl).Where(item => item.Label.Contains(searchTerm)).Select(item => item.Label);
+            
+            foreach(var item in subset)
+            {
+                System.Diagnostics.Debug.WriteLine(item);
+                Assert.That(menuItems.Contains(item));
+            }
+        }
 
 
         /*
