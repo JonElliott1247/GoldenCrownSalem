@@ -85,8 +85,9 @@ namespace Tests
         public void PopulateMenuItemSearch()
         {
             string searchTerm = Helper.GetValidSearchTerm();
+            //TestContext.Out.WriteLine("searchTerm : " + searchTerm);
             var menuItems = Helper.GetMenuItemsFromApi(_searchMenuUrl + searchTerm);
-            Assert.That(menuItems.Count() > 1);
+            Assert.That(menuItems.Count() > 0);
         }
 
         [Test]
