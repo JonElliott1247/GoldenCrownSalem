@@ -19,6 +19,26 @@ namespace Tests
         string GetValidSearchTerm();
     }
 
+    public static class ExtensionMethods
+    {
+        public static IList<T> Shuffle<T>(this IList<T> list)
+        {
+            int n = list.Count;
+            Random rnd = new Random();
+            while (n > 1)
+            {
+                int k = (rnd.Next(0, n) % n);
+                n--;
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+
+            return list;
+    }
+}  
+    
+
     public class TestHelper : ITestHelper
     {
         private readonly string _url = "http://localhost:51099";
@@ -27,15 +47,16 @@ namespace Tests
 
         public IList<MenuItemViewModel> GetMenuItemsFromApi(string requestUrl)
         {
-            string menuItems = _client.GetStringAsync(requestUrl).Result;
-            return JsonConvert.DeserializeObject<List<MenuItemViewModel>>(menuItems);
+            string menuItemsJson = _client.GetStringAsync(requestUrl).Result;
+            var menuItems = JsonConvert.DeserializeObject<IList<MenuItemViewModel>>(menuItemsJson);
+            return menuItems;
         }
 
         public IList<MenuItem> GetSubSetMenuItemsUsingContext()
         {
-            int oneFifthCount = _context.MenuItem.Count() / 5;
-            int randomNumber = new Random().Next(0, oneFifthCount);
-            return _context.MenuItem.Where(item => item.MenuItemId % oneFifthCount == randomNumber).ToList();
+            var list = _context.MenuItem.ToList().Shuffle();
+            int oneFith = list.Count() / 5;
+            return list.Take(oneFith).ToList();
         }
 
         public MenuItem GetRandomMenuItemFromContext()
