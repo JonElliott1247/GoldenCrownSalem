@@ -34,7 +34,7 @@ namespace GoldenCrownSalemApi.Models.EF_Generated_Models
 
                 entity.Property(e => e.Hash).HasColumnType("binary(36)");
 
-                entity.Property(e => e.Name)
+                entity.Property(e => e.UserName)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
