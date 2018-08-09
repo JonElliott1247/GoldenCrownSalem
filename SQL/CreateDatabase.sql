@@ -212,7 +212,7 @@ GO
 CREATE TABLE Sales.Account
 (
 	AccountId	INT IDENTITY(1,1) PRIMARY KEY,
-	Name		VARCHAR(50),
+	UserName	VARCHAR(50),
 	Salt		BINARY(16),
 	Hash		BINARY(36)
 );
