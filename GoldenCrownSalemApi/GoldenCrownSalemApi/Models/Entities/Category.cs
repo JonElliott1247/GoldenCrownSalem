@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GoldenCrownSalemApi.Models.EF_Generated_Models
+namespace GoldenCrownSalemApi.Models.Entities
 {
     public partial class Category
     {

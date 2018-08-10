@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using GoldenCrownSalemApi.Models.EF_Generated_Models;
+using GoldenCrownSalemApi.Models.Entities;
 using GoldenCrownSalemApi.Models.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

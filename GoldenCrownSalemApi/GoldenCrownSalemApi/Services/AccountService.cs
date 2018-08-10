@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GoldenCrownSalemApi.Models.EF_Generated_Models;
+using GoldenCrownSalemApi.Models.Entities;
 
 //This service was heavily inspired/loosely basically a direct copy of the UserService.cs file 
 //located here https://github.com/cornflourblue/aspnet-core-registration-login-api/blob/master/Services/UserService.cs

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace GoldenCrownSalemApi.Models.EF_Generated_Models
+namespace GoldenCrownSalemApi.Models.Entities
 {
     public partial class GoldenCrownSalemContext : DbContext
     {
