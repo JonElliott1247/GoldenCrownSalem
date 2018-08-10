@@ -38,6 +38,10 @@ namespace GoldenCrownSalemApi.Models.EF_Generated_Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.FirstName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Salt).HasColumnType("binary(16)");
             });
 

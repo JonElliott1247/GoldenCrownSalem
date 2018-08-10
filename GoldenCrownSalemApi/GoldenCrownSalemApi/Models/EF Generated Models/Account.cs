@@ -12,6 +12,8 @@ namespace GoldenCrownSalemApi.Models.EF_Generated_Models
 
         public int AccountId { get; set; }
         public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public byte[] Salt { get; set; }
         public byte[] Hash { get; set; }
 

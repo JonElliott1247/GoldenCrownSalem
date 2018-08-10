@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GoldenCrownSalemApi.Models.ViewModels
+namespace GoldenCrownSalemApi.Models.Dtos
 {
     public class CategoryViewModel
     {
