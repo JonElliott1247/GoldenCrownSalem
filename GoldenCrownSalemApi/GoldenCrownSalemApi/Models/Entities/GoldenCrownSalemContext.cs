@@ -32,7 +32,8 @@ namespace GoldenCrownSalemApi.Models.Entities
             {
                 entity.ToTable("Account", "Sales");
 
-                entity.Property(e => e.Hash).HasColumnType("binary(36)");
+  
+                entity.Property(e => e.Hash).HasColumnType("binary(64)");
 
                 entity.Property(e => e.UserName)
                     .HasMaxLength(50)
@@ -42,7 +43,7 @@ namespace GoldenCrownSalemApi.Models.Entities
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Salt).HasColumnType("binary(16)");
+                entity.Property(e => e.Salt).HasColumnType("binary(128)");
             });
 
             modelBuilder.Entity<Category>(entity =>

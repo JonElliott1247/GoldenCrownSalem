@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
+using GoldenCrownSalemApi.Services;
+
 namespace GoldenCrownSalemApi.Controllers
 {
     [Produces("application/json")]
@@ -20,58 +22,54 @@ namespace GoldenCrownSalemApi.Controllers
     public class AuthenticateController : Controller
     {
         /*
+        private readonly GoldenCrownSalemContext _context;
 
-        [AllowAnonymous]
-        [HttpPost]
-        public IActionResult RequestToken([FromBody] string userName, string password)
+        public AuthenticateController(GoldenCrownSalemContext context)
         {
-            using (var context = new GoldenCrownSalemContext())
-            {
-                var user = context.Account.FirstOrDefault(account => account.Name == userName);
-                if(user == null)
-                {
-                    return BadRequest("Could not verify username and password");
-                }
-
-                var hash = new Rfc2898DeriveBytes(password, user.Salt, 10000).GetBytes(36);
-                bool validCredentials = true;
-                for(int i = 0; i < user.Hash.Length; i++)
-                {
-                    if(hash[i] != user.Hash[i])
-                    {
-                        validCredentials = false;
-                    }
-                }
-
-                if(validCredentials)
-                {
-                    var claims = new Claim[] { new Claim(ClaimTypes.Name, user.Name) };
-                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["SecurityKey"]));
-
-                }
-            }
-            
-
-            if (userName == "Jon" && password == "Again, not for production use, DEMO ONLY!")
-            {
-                var claims = new Claim[] { new Claim(ClaimTypes.Name, userName) };
-
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["SecurityKey"]));
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-                var token = new JwtSecurityToken(
-                    issuer: "yourdomain.com",
-                    audience: "yourdomain.com",
-                    claims: claims,
-                    expires: DateTime.Now.AddMinutes(30),
-                    signingCredentials: creds);
-
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(token)
-                });
-            }
+            _context = context;
         }
         */
+
+        /*
+        [HttpGet]
+        public List<Account> GetAccounts()
+        {
+            var accounts = new List<Account>(); 
+            using (var context = new GoldenCrownSalemContext())
+            {
+                accounts = context.Account.ToList();
+            }
+            return accounts;
+        }
+        */
+
+        [HttpGet]
+        public Account Create(string username, string password)
+        {
+            var account = new Account() { UserName = username };
+            AccountService accountService;
+            using (var context = new GoldenCrownSalemContext())
+            {
+                try
+                {
+                    accountService = new AccountService(context);
+                    account = accountService.Create(account, password);
+                }
+
+                catch(Exception)
+                {
+                    return null;
+                }
+            }
+
+            if(account.Salt == null)
+            {
+                return null;
+            }
+
+            return account;
+            
+
+        }
     }
 }
