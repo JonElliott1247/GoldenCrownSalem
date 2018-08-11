@@ -47,12 +47,10 @@ namespace GoldenCrownSalemApi.Services
             }
 
             //does account already exist?
-            /*
             if (_context.Account.Any(x => x.UserName == account.UserName))
             {
                 throw new Exception("Username already exists.");
             }
-            */
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
