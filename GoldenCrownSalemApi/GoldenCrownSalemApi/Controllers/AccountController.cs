@@ -14,21 +14,29 @@ using Microsoft.IdentityModel;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using GoldenCrownSalemApi.Services;
+using AutoMapper;
+using Microsoft.Extensions.Options;
 
 namespace GoldenCrownSalemApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/auth")]
-    public class AuthenticateController : Controller
+    public class AccountController : Controller
     {
-        /*
-        private readonly GoldenCrownSalemContext _context;
+        
+        //private readonly GoldenCrownSalemContext _context;
+        private IAccountService _userService;
+        private IMapper _mapper;
+        private readonly AppSettings _appSettings;
 
-        public AuthenticateController(GoldenCrownSalemContext context)
+        //GoldenCrownSalemContext context, 
+        public AccountController(MapperConfiguration mapperConfig, IOptions<AppSettings> appSettings)
         {
-            _context = context;
+            //_context = context;
+            _mapper = mapperConfig.CreateMapper();
+            _appSettings = appSettings.Value;
         }
-        */
+        
 
         /*
         [HttpGet]
@@ -56,7 +64,7 @@ namespace GoldenCrownSalemApi.Controllers
                     account = accountService.Create(account, password);
                 }
 
-                catch(Exception)
+                catch(Exception ex)
                 {
                     return null;
                 }
