@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using Newtonsoft.Json;
-using GoldenCrownSalemApi.Models.EF_Generated_Models;
-using GoldenCrownSalemApi.Models.ViewModels;
+using GoldenCrownSalemApi.Models.Entities;
+using GoldenCrownSalemApi.Models.Dtos;
 
 
 namespace Tests
@@ -13,7 +13,7 @@ namespace Tests
 
     public interface ITestHelper
     {
-        IList<MenuItemViewModel> GetMenuItemsFromApi(string requestUrl);
+        IList<MenuItemDto> GetMenuItemsFromApi(string requestUrl);
         IList<MenuItem> GetSubSetMenuItemsUsingContext();
         MenuItem GetRandomMenuItemFromContext();
         string GetValidSearchTerm();
@@ -25,23 +25,23 @@ namespace Tests
         private readonly GoldenCrownSalemContext _context = new GoldenCrownSalemContext();
         private readonly HttpClient _client = new HttpClient();
 
-        public IList<MenuItemViewModel> GetMenuItemsFromApi(string requestUrl)
+        public IList<MenuItemDto> GetMenuItemsFromApi(string requestUrl)
         {
             string menuItemsJson = _client.GetStringAsync(requestUrl).Result;
-            var menuItems = JsonConvert.DeserializeObject<IList<MenuItemViewModel>>(menuItemsJson);
+            var menuItems = JsonConvert.DeserializeObject<IList<MenuItemDto>>(menuItemsJson);
             return menuItems;
         }
 
         public IList<MenuItem> GetSubSetMenuItemsUsingContext()
         {
-            var list = _context.MenuItem.ToList().Shuffle(DateTime.Now.Millisecond);
+            var list = _context.MenuItems.ToList().Shuffle(DateTime.Now.Millisecond);
             int oneFifth = list.Count() / 5;
             return list.Take(oneFifth).ToList();
         }
 
         public MenuItem GetRandomMenuItemFromContext()
         {
-            var items = _context.MenuItem.ToList().Shuffle(DateTime.Now.Millisecond);
+            var items = _context.MenuItems.ToList().Shuffle(DateTime.Now.Millisecond);
             return items.First();
         }
 

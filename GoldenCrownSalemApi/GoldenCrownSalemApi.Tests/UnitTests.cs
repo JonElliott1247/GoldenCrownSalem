@@ -1,5 +1,9 @@
+using GoldenCrownSalemApi.Models.Entities;
+using Moq;
 using NUnit.Framework;
 using System.Linq;
+using System.Collections.Generic;
+using System;
 
 namespace Tests
 {
@@ -68,6 +72,37 @@ namespace Tests
             var searchResults = Helper.GetMenuItemsFromApi(_searchMenuUrl + searchTerm);
             Assert.That(searchResults.Count() == 0);
         }
+
+        /*
+        [Test]
+        public void CanCreateNewAccount(Account account)
+        {
+            var mockedDbContext = new Mock<GoldenCrownSalemContext>();
+            List<string> passwords = new List<string> { "password1", "password2", "password3" };
+
+            List<(byte[], byte[])> saltsAndHashes = new List<(byte[], byte[])>();
+            foreach(var password in passwords)
+            {
+                byte[] passwordSalt, passwordHash;
+                using (var hmac = new System.Security.Cryptography.HMACSHA512())
+                {
+                    passwordSalt = hmac.Key;
+                    passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                }
+                saltsAndHashes.Add((passwordSalt, passwordHash));
+            }
+
+            var accounts = new List<Account>();
+            int count = 1;
+            foreach(var saltAndHash in saltsAndHashes)
+            {
+                accounts.Add(new Account { AccountId = count++, FirstName = 'Joe', LastName = 'Frank',
+                                           Salt = saltAndHash.Item1, Hash = saltAndHash.Item2, UserName =" });
+            }
+
+            mockedDbContext.Setup(x => x.Account = accounts.AsQueryable<Account>);
+        }
+        */
         
     }
 }

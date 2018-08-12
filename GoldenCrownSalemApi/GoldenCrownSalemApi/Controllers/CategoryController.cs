@@ -23,15 +23,15 @@ namespace GoldenCrownSalemApi.Controllers
         // GET api/menu
         // Returns ALL menu items
         [HttpGet]
-        public List<CategoryViewModel> Get()
+        public List<CategoryDto> Get()
         {
-            var list = new List<CategoryViewModel>();
+            var list = new List<CategoryDto>();
             using (var context = new GoldenCrownSalemContext())
             {
                 var categories = context.Categories;
                 foreach (var category in categories)
                 {
-                    var viewModel = _mapper.Map<CategoryViewModel>(category);
+                    var viewModel = _mapper.Map<CategoryDto>(category);
                     list.Add(viewModel);
                 }
             }

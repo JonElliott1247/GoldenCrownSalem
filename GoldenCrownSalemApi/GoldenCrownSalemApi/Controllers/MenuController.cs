@@ -25,16 +25,16 @@ namespace GoldenCrownSalemApi.Controllers
         // GET api/menu
         // Returns ALL menu items
         [HttpGet]
-        public List<MenuItemViewModel> Get()
+        public List<MenuItemDto> Get()
         {
-            var list = new List<MenuItemViewModel>();
+            var list = new List<MenuItemDto>();
             using (var context = new GoldenCrownSalemContext())
             {
                 var menuItems = context.MenuItems.Include(item => item.DefaultSpicyOption)
                                                 .Include(item => item.Category).ToList();
                 foreach(var menuItem in menuItems)
                 {
-                    var viewModel = _mapper.Map<MenuItemViewModel>(menuItem);
+                    var viewModel = _mapper.Map<MenuItemDto>(menuItem);
                     list.Add(viewModel);
                 }
             }
@@ -73,10 +73,10 @@ namespace GoldenCrownSalemApi.Controllers
 
         // api/menu/search=noodles
         [HttpGet("search={searchTerm}")]
-        public List<MenuItemViewModel> GetSearch(string searchTerm)
+        public List<MenuItemDto> GetSearch(string searchTerm)
         {
 
-            var list = new List<MenuItemViewModel>();
+            var list = new List<MenuItemDto>();
             using (var context = new GoldenCrownSalemContext())
             {
 
@@ -86,7 +86,7 @@ namespace GoldenCrownSalemApi.Controllers
 
                 foreach (var item in menuItems)
                 {
-                    var viewModel = _mapper.Map<MenuItemViewModel>(item);
+                    var viewModel = _mapper.Map<MenuItemDto>(item);
                     list.Add(viewModel);
                 }
 
@@ -96,16 +96,16 @@ namespace GoldenCrownSalemApi.Controllers
 
         // GET api/menu/chow-mein
         [HttpGet("{path}")]
-        public List<MenuItemViewModel> Get(string path)
+        public List<MenuItemDto> Get(string path)
         {
-            var list = new List<MenuItemViewModel>();
+            var list = new List<MenuItemDto>();
             using (var context = new GoldenCrownSalemContext())
             {
                 var menuItems = context.MenuItems.Include(item => item.DefaultSpicyOption).Include(item => item.Category)
                                                 .Where(item => item.Category.Label.Path() == path.Trim());
                 foreach(var item in menuItems)
                 {
-                    var viewModel = _mapper.Map<MenuItemViewModel>(item);
+                    var viewModel = _mapper.Map<MenuItemDto>(item);
                     list.Add(viewModel);
                 }
 

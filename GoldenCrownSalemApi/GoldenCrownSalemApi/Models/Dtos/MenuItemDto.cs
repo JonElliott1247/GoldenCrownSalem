@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GoldenCrownSalemApi.Models.Dtos
 {
-    public class MenuItemViewModel
+    public class MenuItemDto
     {
         public int Id { get; set; }
         public string Label { get; set; }
