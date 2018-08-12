@@ -30,7 +30,7 @@ namespace GoldenCrownSalemApi.Services
 
         public Account GetById(int id)
         {
-            return _context.Account.Find(id);
+            return _context.Accounts.Find(id);
         }
 
         public Account Create(Account account, string password)
@@ -47,7 +47,7 @@ namespace GoldenCrownSalemApi.Services
             }
 
             //does account already exist?
-            if (_context.Account.Any(x => x.UserName == account.UserName))
+            if (_context.Accounts.Any(x => x.UserName == account.UserName))
             {
                 throw new Exception("Username already exists.");
             }
@@ -58,7 +58,7 @@ namespace GoldenCrownSalemApi.Services
             account.Hash = passwordHash;
             account.Salt = passwordSalt;
 
-            _context.Account.Add(account);
+            _context.Accounts.Add(account);
             _context.SaveChanges();
 
             return account;
@@ -72,7 +72,7 @@ namespace GoldenCrownSalemApi.Services
                 throw new ArgumentNullException("updatedAccountInformation");
             }
 
-            var account = _context.Account.Find(updatedAccountInformation.AccountId);
+            var account = _context.Accounts.Find(updatedAccountInformation.AccountId);
 
             //check if account exists
             if(account == null)
@@ -83,7 +83,7 @@ namespace GoldenCrownSalemApi.Services
             //update user name
             if(account.UserName != updatedAccountInformation.UserName)
             {
-                if(_context.Account.Any(x => x.UserName == updatedAccountInformation.UserName))
+                if(_context.Accounts.Any(x => x.UserName == updatedAccountInformation.UserName))
                 {
                     throw new Exception("Username already exists.");
                 }
@@ -105,7 +105,7 @@ namespace GoldenCrownSalemApi.Services
 
             }
 
-            _context.Account.Add(account);
+            _context.Accounts.Add(account);
             _context.SaveChanges();
 
             return account;
@@ -122,7 +122,7 @@ namespace GoldenCrownSalemApi.Services
                 return null;
             }
 
-            var account = _context.Account.SingleOrDefault(x => x.UserName == username);
+            var account = _context.Accounts.SingleOrDefault(x => x.UserName == username);
 
             //check if username exists
             if(username == null)
@@ -142,7 +142,7 @@ namespace GoldenCrownSalemApi.Services
 
         public IEnumerable<Account> GetAll()
         {
-            return _context.Account;
+            return _context.Accounts;
         }
         
         //private helper methods
@@ -208,10 +208,10 @@ namespace GoldenCrownSalemApi.Services
 
         public void Delete(int id)
         {
-            var account = _context.Account.Find(id);
+            var account = _context.Accounts.Find(id);
             if(account != null)
             {
-                _context.Account.Remove(account);
+                _context.Accounts.Remove(account);
                 _context.SaveChanges();
             }
             throw new NotImplementedException();

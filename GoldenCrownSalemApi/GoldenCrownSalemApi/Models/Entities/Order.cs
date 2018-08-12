@@ -7,7 +7,7 @@ namespace GoldenCrownSalemApi.Models.Entities
     {
         public Order()
         {
-            OrderItem = new HashSet<OrderItem>();
+            OrderItems = new HashSet<OrderItem>();
         }
 
         public int OrderId { get; set; }
@@ -16,6 +16,6 @@ namespace GoldenCrownSalemApi.Models.Entities
         public decimal Tip { get; set; }
 
         public Account Account { get; set; }
-        public ICollection<OrderItem> OrderItem { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; }
     }
 }

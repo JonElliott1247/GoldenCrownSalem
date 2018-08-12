@@ -46,7 +46,7 @@ namespace GoldenCrownSalemApi.Controllers
         [HttpGet]
         public Account Create(string username, string password)
         {
-            var account = new Account() { UserName = username };
+            var account = new Account() { UserName = username, FirstName="jon", LastName = "elliott" };
             AccountService accountService;
             using (var context = new GoldenCrownSalemContext())
             {
@@ -62,14 +62,7 @@ namespace GoldenCrownSalemApi.Controllers
                 }
             }
 
-            if(account.Salt == null)
-            {
-                return null;
-            }
-
             return account;
-            
-
         }
     }
 }

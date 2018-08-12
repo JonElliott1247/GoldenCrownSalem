@@ -30,7 +30,7 @@ namespace GoldenCrownSalemApi.Controllers
             var list = new List<MenuItemViewModel>();
             using (var context = new GoldenCrownSalemContext())
             {
-                var menuItems = context.MenuItem.Include(item => item.DefaultSpicyOption)
+                var menuItems = context.MenuItems.Include(item => item.DefaultSpicyOption)
                                                 .Include(item => item.Category).ToList();
                 foreach(var menuItem in menuItems)
                 {
@@ -80,7 +80,7 @@ namespace GoldenCrownSalemApi.Controllers
             using (var context = new GoldenCrownSalemContext())
             {
 
-                var menuItems = context.MenuItem.Include(item => item.DefaultSpicyOption).Include(item => item.Category)
+                var menuItems = context.MenuItems.Include(item => item.DefaultSpicyOption).Include(item => item.Category)
                                                 .Where(item => StringContainsOneOrMore(item.Label.ToLower(), Pluralize(searchTerm)))
                                                 .ToList();
 
@@ -101,7 +101,7 @@ namespace GoldenCrownSalemApi.Controllers
             var list = new List<MenuItemViewModel>();
             using (var context = new GoldenCrownSalemContext())
             {
-                var menuItems = context.MenuItem.Include(item => item.DefaultSpicyOption).Include(item => item.Category)
+                var menuItems = context.MenuItems.Include(item => item.DefaultSpicyOption).Include(item => item.Category)
                                                 .Where(item => item.Category.Label.Path() == path.Trim());
                 foreach(var item in menuItems)
                 {

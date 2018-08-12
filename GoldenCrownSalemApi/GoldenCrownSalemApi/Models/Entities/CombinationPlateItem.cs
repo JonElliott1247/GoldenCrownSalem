@@ -7,7 +7,7 @@ namespace GoldenCrownSalemApi.Models.Entities
     {
         public CombinationPlateItem()
         {
-            MenuItemCombinationPlateItem = new HashSet<MenuItemCombinationPlateItem>();
+            MenuItemCombinationPlateItems = new HashSet<MenuItemCombinationPlateItem>();
         }
 
         public int CombinationPlateItemId { get; set; }
@@ -15,6 +15,6 @@ namespace GoldenCrownSalemApi.Models.Entities
         public int? DefaultSpicyOptionId { get; set; }
 
         public SpicyOption DefaultSpicyOption { get; set; }
-        public ICollection<MenuItemCombinationPlateItem> MenuItemCombinationPlateItem { get; set; }
+        public ICollection<MenuItemCombinationPlateItem> MenuItemCombinationPlateItems { get; set; }
     }
 }

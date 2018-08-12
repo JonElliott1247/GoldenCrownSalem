@@ -7,7 +7,7 @@ namespace GoldenCrownSalemApi.Models.Entities
     {
         public FamilyDinnerItem()
         {
-            MenuItemFamilyDinnerItem = new HashSet<MenuItemFamilyDinnerItem>();
+            MenuItemFamilyDinnerItems = new HashSet<MenuItemFamilyDinnerItem>();
         }
 
         public int FamilyDinnerItemId { get; set; }
@@ -15,6 +15,6 @@ namespace GoldenCrownSalemApi.Models.Entities
         public int DefaultSpicyOptionId { get; set; }
 
         public SpicyOption DefaultSpicyOption { get; set; }
-        public ICollection<MenuItemFamilyDinnerItem> MenuItemFamilyDinnerItem { get; set; }
+        public ICollection<MenuItemFamilyDinnerItem> MenuItemFamilyDinnerItems { get; set; }
     }
 }

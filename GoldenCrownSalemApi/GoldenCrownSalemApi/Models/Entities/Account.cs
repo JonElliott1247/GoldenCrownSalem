@@ -7,7 +7,7 @@ namespace GoldenCrownSalemApi.Models.Entities
     {
         public Account()
         {
-            Order = new HashSet<Order>();
+            Orders = new HashSet<Order>();
         }
 
         public int AccountId { get; set; }
@@ -17,6 +17,6 @@ namespace GoldenCrownSalemApi.Models.Entities
         public byte[] Salt { get; set; }
         public byte[] Hash { get; set; }
 
-        public ICollection<Order> Order { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }

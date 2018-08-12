@@ -28,7 +28,7 @@ namespace GoldenCrownSalemApi.Controllers
             var list = new List<CategoryViewModel>();
             using (var context = new GoldenCrownSalemContext())
             {
-                var categories = context.Category;
+                var categories = context.Categories;
                 foreach (var category in categories)
                 {
                     var viewModel = _mapper.Map<CategoryViewModel>(category);

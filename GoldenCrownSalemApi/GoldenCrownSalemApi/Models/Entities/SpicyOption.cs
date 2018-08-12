@@ -7,16 +7,16 @@ namespace GoldenCrownSalemApi.Models.Entities
     {
         public SpicyOption()
         {
-            CombinationPlateItem = new HashSet<CombinationPlateItem>();
-            FamilyDinnerItem = new HashSet<FamilyDinnerItem>();
-            MenuItem = new HashSet<MenuItem>();
+            CombinationPlateItems = new HashSet<CombinationPlateItem>();
+            FamilyDinnerItems = new HashSet<FamilyDinnerItem>();
+            MenuItems = new HashSet<MenuItem>();
         }
 
         public int SpicyOptionId { get; set; }
         public string Label { get; set; }
 
-        public ICollection<CombinationPlateItem> CombinationPlateItem { get; set; }
-        public ICollection<FamilyDinnerItem> FamilyDinnerItem { get; set; }
-        public ICollection<MenuItem> MenuItem { get; set; }
+        public ICollection<CombinationPlateItem> CombinationPlateItems { get; set; }
+        public ICollection<FamilyDinnerItem> FamilyDinnerItems { get; set; }
+        public ICollection<MenuItem> MenuItems { get; set; }
     }
 }
