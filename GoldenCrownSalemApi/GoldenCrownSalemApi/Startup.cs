@@ -31,32 +31,8 @@ namespace GoldenCrownSalemApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var mapperConfiguration = new AutoMapper.MapperConfiguration(config =>
-            {
-                using (var context = new GoldenCrownSalemContext())
-                {
-                    config.CreateMap<MenuItem, MenuItemDto>().ForMember(view => view.Id, opts => opts.MapFrom(item => item.MenuItemId))
-                                                                            .ForMember(view => view.DefaultSpicyOption, opts => opts.MapFrom(item => item.DefaultSpicyOption.Label))
-                                                                            .ForMember(view => view.Category, opts => opts.MapFrom(item => item.Category.Label))
-                                                                            .ForMember(view => view.SubLabel, opts => opts.NullSubstitute(string.Empty))
-                                                                            .ForMember(view => view.Description, opts => opts.NullSubstitute(string.Empty))
-                                                                            .ForMember(view => view.DefaultSpicyOption, opts => opts.NullSubstitute(string.Empty))
-                                                                            .ForMember(view => view.Path, opts => opts.MapFrom(item => "/menu/" + item.Category.Label.Path() +'/' + item.Label.Path(item.SubLabel)));
-
-                    config.CreateMap<Category, CategoryDto>().ForMember(view => view.Id, opts => opts.MapFrom(item => item.CategoryId))
-                                                                            .ForMember(view => view.Description, opts => opts.NullSubstitute(string.Empty))
-                                                                            .ForMember(view => view.Path, opts => opts.MapFrom(item => "/menu/" +item.Label.Path()));
-                }
-
-            });
-            services.AddCors();
-            services.AddSingleton(mapperConfiguration);
-            services.AddMvc();
-            services.AddScoped<IAccountService, AccountService>();
-
-
             // configure strongly typed settings objects
-            
+
             var appSettingsSection = _configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
@@ -81,8 +57,8 @@ namespace GoldenCrownSalemApi
                         var account = accountService.GetById(accountId);
                         if (account == null)
                         {
-                                        // return unauthorized if user no longer exists
-                                        context.Fail("Unauthorized");
+                            // return unauthorized if user no longer exists
+                            context.Fail("Unauthorized");
                         }
                         return Task.CompletedTask;
                     }
@@ -97,7 +73,14 @@ namespace GoldenCrownSalemApi
                     ValidateAudience = false
                 };
             });
-            
+
+
+
+
+            services.AddCors();
+            services.AddAutoMapper();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

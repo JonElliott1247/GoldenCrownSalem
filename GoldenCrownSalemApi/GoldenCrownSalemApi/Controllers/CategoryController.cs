@@ -15,9 +15,9 @@ namespace GoldenCrownSalemApi.Controllers
     public class CategoryController : Controller
     {
         private readonly IMapper _mapper;
-        public CategoryController(MapperConfiguration mapperConfig)
+        public CategoryController(IMapper mapper)
         {
-            _mapper = mapperConfig.CreateMapper();
+            _mapper = mapper;
         }
 
         // GET api/menu

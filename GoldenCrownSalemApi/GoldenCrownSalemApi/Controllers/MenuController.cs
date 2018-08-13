@@ -17,9 +17,9 @@ namespace GoldenCrownSalemApi.Controllers
     public class MenuController : Controller
     {
         private readonly IMapper _mapper;
-        public MenuController(MapperConfiguration mapperConfig)
+        public MenuController(IMapper mapper)
         {
-            _mapper = mapperConfig.CreateMapper();
+            _mapper = mapper;
         }
 
         // GET api/menu
