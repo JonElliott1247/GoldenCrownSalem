@@ -26,8 +26,8 @@ namespace GoldenCrownSalemApi.Controllers
     {
         
         //private readonly GoldenCrownSalemContext _context;
-        private IAccountService _accountService;
-        private IMapper _mapper;
+        private readonly IAccountService _accountService;
+        private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
 
         //GoldenCrownSalemContext context, 
@@ -42,29 +42,31 @@ namespace GoldenCrownSalemApi.Controllers
 
 
         [HttpPost]
-        public Account Create(AccountPostDto newAccount)
+        public IActionResult Create(AccountPostDto newAccount)
         {
             var account = _mapper.Map<Account>(newAccount);
             var password = newAccount.Password;
-            account = _accountService.Create(account, password);
-            return account;
-        }
+            try
+            {
+                account = _accountService.Create(account, password);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
 
-                
+        }
 
         /*
         [HttpGet]
-        public List<Account> GetAccounts()
+        public IList<Account> GetAccounts()
         {
-            var accounts = new List<Account>(); 
-            using (var context = new GoldenCrownSalemContext())
-            {
-                accounts = context.Account.ToList();
-            }
-            return accounts;
+            var accounts = _accountService.GetAll();
+
+            return _mapper.Map<List<AccountGetDto>>(accounts);
         }
         */
-
 
     }
 }
