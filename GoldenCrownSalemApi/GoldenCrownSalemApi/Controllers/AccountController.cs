@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using GoldenCrownSalemApi.Services;
 using AutoMapper;
 using Microsoft.Extensions.Options;
+using GoldenCrownSalemApi.Models.Dtos;
 
 namespace GoldenCrownSalemApi.Controllers
 {
@@ -38,7 +39,18 @@ namespace GoldenCrownSalemApi.Controllers
             _appSettings = appSettings.Value;
 
         }
-        
+
+
+        [HttpPost]
+        public Account Create(AccountPostDto newAccount)
+        {
+            var account = _mapper.Map<Account>(newAccount);
+            var password = newAccount.Password;
+            account = _accountService.Create(account, password);
+            return account;
+        }
+
+                
 
         /*
         [HttpGet]
@@ -52,14 +64,6 @@ namespace GoldenCrownSalemApi.Controllers
             return accounts;
         }
         */
-
-        [HttpGet]
-        public Account Create(string username, string password)
-        {
-            var account = new Account() { UserName = username, FirstName="jon", LastName = "elliott" };
-            account = _accountService.Create(account, password);
-            return account;
-        }
 
 
     }

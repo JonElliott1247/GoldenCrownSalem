@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GoldenCrownSalemApi.Models.Dtos;
 using GoldenCrownSalemApi.Models.Entities;
+using GoldenCrownSalemApi.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace GoldenCrownSalemApi.Helpers
             CreateMap<Category, CategoryDto>().ForMember(view => view.Id, opts => opts.MapFrom(item => item.CategoryId))
                                                                             .ForMember(view => view.Description, opts => opts.NullSubstitute(string.Empty))
                                                                             .ForMember(view => view.Path, opts => opts.MapFrom(item => "/menu/" + item.Label.Path()));
+
+            CreateMap<Account, AccountPostDto>().ReverseMap();
         }
     }
 }
