@@ -25,16 +25,18 @@ namespace GoldenCrownSalemApi.Controllers
     {
         
         //private readonly GoldenCrownSalemContext _context;
-        private IAccountService _userService;
+        private IAccountService _accountService;
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
 
         //GoldenCrownSalemContext context, 
-        public AccountController(MapperConfiguration mapperConfig, IOptions<AppSettings> appSettings)
+        public AccountController(IMapper mapper, IAccountService accountService, IOptions<AppSettings> appSettings)
         {
             //_context = context;
-            _mapper = mapperConfig.CreateMapper();
+            _mapper = mapper;
+            _accountService = accountService;
             _appSettings = appSettings.Value;
+
         }
         
 
@@ -55,22 +57,10 @@ namespace GoldenCrownSalemApi.Controllers
         public Account Create(string username, string password)
         {
             var account = new Account() { UserName = username, FirstName="jon", LastName = "elliott" };
-            AccountService accountService;
-            using (var context = new GoldenCrownSalemContext())
-            {
-                try
-                {
-                    accountService = new AccountService(context);
-                    account = accountService.Create(account, password);
-                }
-
-                catch(Exception ex)
-                {
-                    return null;
-                }
-            }
-
+            account = _accountService.Create(account, password);
             return account;
         }
+
+
     }
 }

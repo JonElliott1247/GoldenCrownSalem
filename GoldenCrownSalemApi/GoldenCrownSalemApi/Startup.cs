@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using GoldenCrownSalemApi.Services;
 
+
 namespace GoldenCrownSalemApi
 {
     public class Startup
@@ -79,7 +80,7 @@ namespace GoldenCrownSalemApi
 
             services.AddCors();
             services.AddAutoMapper();
-            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IAccountService>(s => new AccountService(new GoldenCrownSalemContext()));
             services.AddMvc();
         }
 
