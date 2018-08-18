@@ -13,6 +13,7 @@ namespace GoldenCrownSalemApi.Helpers
     {
         public MappingProfile()
         { 
+
             CreateMap<MenuItem, MenuItemDto>().ForMember(view => view.Id, opts => opts.MapFrom(item => item.MenuItemId))
                 .ForMember(view => view.DefaultSpicyOption, opts => opts.MapFrom(item => item.DefaultSpicyOption.Label))
                 .ForMember(view => view.Category, opts => opts.MapFrom(item => item.Category.Label))
@@ -26,6 +27,7 @@ namespace GoldenCrownSalemApi.Helpers
                                                                             .ForMember(view => view.Path, opts => opts.MapFrom(item => "/menu/" + item.Label.Path()));
 
             CreateMap<Account, AccountPostDto>().ReverseMap();
+            CreateMap<Account, AccountGetDto>().ForMember(x => x.AccountId, opt => opt.Ignore());
             CreateMap<AccountGetDto, AccountPostDto>().ReverseMap();
         }
     }

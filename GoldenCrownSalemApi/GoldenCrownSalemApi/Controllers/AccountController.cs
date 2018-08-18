@@ -48,25 +48,32 @@ namespace GoldenCrownSalemApi.Controllers
             var password = newAccount.Password;
             try
             {
-                account = _accountService.Create(account, password);
-                return Ok();
+                _accountService.Create(account, password);
+                
             }
             catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
 
+            var viewModel = _mapper.Map<AccountGetDto>(account);
+            return Ok(viewModel);
         }
 
-        /*
+        
         [HttpGet]
-        public IList<Account> GetAccounts()
+        public IActionResult GetAccounts()
         {
-            var accounts = _accountService.GetAll();
+            var accounts = _accountService.GetAll().ToList();
+            var viewModel = new List<AccountGetDto>();
+            foreach(var account in accounts)
+            {
+                viewModel.Add(_mapper.Map<AccountGetDto>(account));
+            }
 
-            return _mapper.Map<List<AccountGetDto>>(accounts);
+            return Ok(viewModel);
         }
-        */
+        
 
     }
 }
