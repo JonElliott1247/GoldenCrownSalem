@@ -44,19 +44,21 @@ namespace GoldenCrownSalemApi.Controllers
         [HttpPost("create")]
         public IActionResult Create(AccountPostDto newAccount)
         {
-            var account = _mapper.Map<Account>(newAccount);
-            var password = newAccount.Password;
+            Account account;
+            AccountGetDto viewModel;
             try
             {
+                account = _mapper.Map<Account>(newAccount);
+                var password = newAccount.Password;
                 _accountService.Create(account, password);
-                
+   
+                viewModel = _mapper.Map<AccountGetDto>(account); 
             }
             catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
 
-            var viewModel = _mapper.Map<AccountGetDto>(account);
             return Ok(viewModel);
         }
 
@@ -68,7 +70,7 @@ namespace GoldenCrownSalemApi.Controllers
 
             if (account == null)
             {
-                return BadRequest(new { message = "Username or password is incorrect" });
+                return BadRequest(new { message = "Could not authenticate.  Are you sure the username and/or password are correct?" });
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -86,7 +88,7 @@ namespace GoldenCrownSalemApi.Controllers
             var tokenString = tokenHandler.WriteToken(token);
 
             // return user information without password and token
-            var viewModel = _mapper.Map<AccountGetDto>(establishedAccount);
+            var viewModel = _mapper.Map<AccountGetDto>(account);
             viewModel.Token = tokenString;
 
             return Ok(viewModel);
