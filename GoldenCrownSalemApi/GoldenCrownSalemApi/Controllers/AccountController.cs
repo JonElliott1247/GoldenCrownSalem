@@ -60,18 +60,53 @@ namespace GoldenCrownSalemApi.Controllers
             return Ok(viewModel);
         }
 
-        
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate(AccountPostDto establishedAccount)
+        {
+            var account = _accountService.Authenticate(establishedAccount.UserName, establishedAccount.Password);
+
+            if (account == null)
+            {
+                return BadRequest(new { message = "Username or password is incorrect" });
+            }
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, account.AccountId.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            // return user information without password and token
+            var viewModel = _mapper.Map<AccountGetDto>(establishedAccount);
+            viewModel.Token = tokenString;
+
+            return Ok(viewModel);
+        }
+
+
         [HttpGet]
         public IActionResult GetAccounts()
         {
             var accounts = _accountService.GetAll().ToList();
             var viewModel = new List<AccountGetDto>();
+            /*
             foreach(var account in accounts)
             {
                 viewModel.Add(_mapper.Map<AccountGetDto>(account));
             }
 
             return Ok(viewModel);
+            */
+            return Ok(accounts);
         }
         
 
