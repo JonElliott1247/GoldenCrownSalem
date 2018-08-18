@@ -27,7 +27,7 @@ namespace GoldenCrownSalemApi.Helpers
                                                                             .ForMember(view => view.Path, opts => opts.MapFrom(item => "/menu/" + item.Label.Path()));
 
             CreateMap<Account, AccountPostDto>().ReverseMap();
-            CreateMap<Account, AccountGetDto>().ForMember(x => x.AccountId, opt => opt.Ignore());
+            CreateMap<Account, AccountGetDto>();
             CreateMap<AccountGetDto, AccountPostDto>().ReverseMap();
         }
     }

@@ -41,7 +41,7 @@ namespace GoldenCrownSalemApi.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("create")]
         public IActionResult Create(AccountPostDto newAccount)
         {
             var account = _mapper.Map<Account>(newAccount);
