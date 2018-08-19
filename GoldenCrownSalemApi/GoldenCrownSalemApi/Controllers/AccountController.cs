@@ -19,6 +19,7 @@ namespace GoldenCrownSalemApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/auth")]
+    [Authorize]
     public class AccountController : Controller
     {
         
@@ -37,8 +38,9 @@ namespace GoldenCrownSalemApi.Controllers
 
         }
 
-
+        
         [HttpPost("create")]
+        [AllowAnonymous]
         public IActionResult Create(AccountPostDto newAccount)
         {
             Account account;
@@ -47,7 +49,7 @@ namespace GoldenCrownSalemApi.Controllers
             {
                 account = _mapper.Map<Account>(newAccount);
                 var password = newAccount.Password;
-                _accountService.Create(account, password);
+                account = _accountService.Create(account, password);
    
                 viewModel = _mapper.Map<AccountGetDto>(account);
                 viewModel.Token = _accountService.IssueToken(account.AccountId, _appSettings.Secret);

@@ -42,6 +42,13 @@ namespace GoldenCrownSalemApi
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
 
+
+
+            services.AddCors();
+            services.AddAutoMapper();
+            services.AddScoped<IAccountService>(s => new AccountService(new GoldenCrownSalemContext()));
+            services.AddMvc();
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -58,8 +65,8 @@ namespace GoldenCrownSalemApi
                         var account = accountService.GetById(accountId);
                         if (account == null)
                         {
-                            // return unauthorized if user no longer exists
-                            context.Fail("Unauthorized");
+                                        // return unauthorized if user no longer exists
+                                        context.Fail("Unauthorized");
                         }
                         return Task.CompletedTask;
                     }
@@ -75,13 +82,6 @@ namespace GoldenCrownSalemApi
                 };
             });
 
-
-
-
-            services.AddCors();
-            services.AddAutoMapper();
-            services.AddScoped<IAccountService>(s => new AccountService(new GoldenCrownSalemContext()));
-            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,6 +94,7 @@ namespace GoldenCrownSalemApi
 
 
             app.UseCors(builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader());
+            app.UseAuthentication();
             app.UseMvc();
         }
     }
