@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using GoldenCrownSalemApi.Models.Entities;
+using Microsoft.IdentityModel.Tokens;
 
-//This service was heavily inspired/loosely basically a direct copy of the UserService.cs file 
+//This service was heavily stemmed from the UserService.cs file
 //located here https://github.com/cornflourblue/aspnet-core-registration-login-api/blob/master/Services/UserService.cs
 namespace GoldenCrownSalemApi.Services
 {
     public interface IAccountService
     {
         Account Authenticate(string username, string password);
+        string IssueToken(int accountId, string secret);
         IEnumerable<Account> GetAll();
         Account GetById(int id);
         Account Create(Account user, string password);
         Account Update(Account user, string password = null);
         void Delete(int id);
-
     }
 
     public class AccountService : IAccountService
@@ -215,6 +219,34 @@ namespace GoldenCrownSalemApi.Services
                 _context.SaveChanges();
             }
             throw new NotImplementedException();
+        }
+
+        public string IssueToken(int accountId, string secret)
+        {
+
+            if(_context.Accounts.Any(account => account.AccountId == accountId))
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes(secret);
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                    new Claim(ClaimTypes.Name, accountId.ToString())
+                    }),
+                    Expires = DateTime.UtcNow.AddDays(7),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                var tokenString = tokenHandler.WriteToken(token);
+
+                return tokenString;
+            }
+
+            else
+            {
+                throw new Exception("Account does not exist.");
+            }
         }
     }
 

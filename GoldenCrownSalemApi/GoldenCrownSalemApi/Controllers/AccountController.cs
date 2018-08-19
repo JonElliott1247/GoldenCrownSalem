@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using GoldenCrownSalemApi.Models.Entities;
@@ -52,7 +49,8 @@ namespace GoldenCrownSalemApi.Controllers
                 var password = newAccount.Password;
                 _accountService.Create(account, password);
    
-                viewModel = _mapper.Map<AccountGetDto>(account); 
+                viewModel = _mapper.Map<AccountGetDto>(account);
+                viewModel.Token = _accountService.IssueToken(account.AccountId, _appSettings.Secret);
             }
             catch (Exception ex)
             {
@@ -66,30 +64,18 @@ namespace GoldenCrownSalemApi.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authenticate(AccountPostDto establishedAccount)
         {
-            var account = _accountService.Authenticate(establishedAccount.UserName, establishedAccount.Password);
-
-            if (account == null)
+            Account account;
+            AccountGetDto viewModel;
+            try
             {
-                return BadRequest(new { message = "Could not authenticate.  Are you sure the username and/or password are correct?" });
+                account = _accountService.Authenticate(establishedAccount.UserName, establishedAccount.Password);
+                viewModel = _mapper.Map<AccountGetDto>(account);
+                viewModel.Token = _accountService.IssueToken(account.AccountId, _appSettings.Secret);
             }
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            catch(Exception ex)
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, account.AccountId.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
-
-            // return user information without password and token
-            var viewModel = _mapper.Map<AccountGetDto>(account);
-            viewModel.Token = tokenString;
+                return BadRequest(new { message = ex.Message });
+            }
 
             return Ok(viewModel);
         }
@@ -100,15 +86,13 @@ namespace GoldenCrownSalemApi.Controllers
         {
             var accounts = _accountService.GetAll().ToList();
             var viewModel = new List<AccountGetDto>();
-            /*
+
             foreach(var account in accounts)
             {
                 viewModel.Add(_mapper.Map<AccountGetDto>(account));
             }
 
             return Ok(viewModel);
-            */
-            return Ok(accounts);
         }
         
 
