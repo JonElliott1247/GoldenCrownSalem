@@ -21,7 +21,7 @@ namespace Tests
 
     public class TestHelper : ITestHelper
     {
-        private readonly string _url = "http://localhost:51099";
+        private const string _url = "http://localhost:51099";
         private readonly GoldenCrownSalemContext _context = new GoldenCrownSalemContext();
         private readonly HttpClient _client = new HttpClient();
 

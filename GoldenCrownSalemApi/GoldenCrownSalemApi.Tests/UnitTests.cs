@@ -11,12 +11,10 @@ namespace Tests
     [TestFixture]
     public class ApiShould
     {
-        private static readonly string _url = "http://localhost:51099";
-        private static readonly string _menuUrl = _url + "/api/menu";
-        private static readonly string _searchMenuUrl = _menuUrl + "/search=";
-
-        private static TestHelper _helper = new TestHelper();
-        static ITestHelper Helper => _helper;
+        private const string _url = "http://localhost:51099";
+        private const string _menuUrl = _url + "/api/menu";
+        private const string _searchMenuUrl = _menuUrl + "/search=";
+        private readonly ITestHelper Helper = new TestHelper();
 
         [Test]
         public void PopulateMenuItems()
